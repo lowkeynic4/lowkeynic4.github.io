@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python,爬虫," />
 
 
 
@@ -91,16 +91,20 @@
 
 
 
-<meta name="description" content="喜欢就买,不行就分,多喝热水,重启试试">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tenshine&#39;s Blog">
-<meta property="og:url" content="http://www.tenshine.party/archives/index.html">
+<meta name="description" content="首先来张图 此网站的url为http://www.sec-wiki.com/news/index如图所示，首页上是资讯列表，点击标题后会跳到详情页，然后详情页也有一个和首页相同的标题，这个标题中包含着真正的文章地址，所以我们要做的就是先获取第一页中的标题链接，根据这个链接进入到详情页面，然后从详情页获取到标题的名称，连接，和时间即可。 　 但是还有一个问题，和电影天堂一样，在首页中可以看到，我们的">
+<meta name="keywords" content="python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用正则和bs4爬取sec-wiki.com(单线程)">
+<meta property="og:url" content="http://www.tenshine.party/2015/07/sec-wiki-singlethread/index.html">
 <meta property="og:site_name" content="Tenshine&#39;s Blog">
-<meta property="og:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta property="og:description" content="首先来张图 此网站的url为http://www.sec-wiki.com/news/index如图所示，首页上是资讯列表，点击标题后会跳到详情页，然后详情页也有一个和首页相同的标题，这个标题中包含着真正的文章地址，所以我们要做的就是先获取第一页中的标题链接，根据这个链接进入到详情页面，然后从详情页获取到标题的名称，连接，和时间即可。 　 但是还有一个问题，和电影天堂一样，在首页中可以看到，我们的">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xljat.com1.z0.glb.clouddn.com/1.jpg">
+<meta property="og:updated_time" content="2017-10-24T08:56:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tenshine&#39;s Blog">
-<meta name="twitter:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta name="twitter:title" content="利用正则和bs4爬取sec-wiki.com(单线程)">
+<meta name="twitter:description" content="首先来张图 此网站的url为http://www.sec-wiki.com/news/index如图所示，首页上是资讯列表，点击标题后会跳到详情页，然后详情页也有一个和首页相同的标题，这个标题中包含着真正的文章地址，所以我们要做的就是先获取第一页中的标题链接，根据这个链接进入到详情页面，然后从详情页获取到标题的名称，连接，和时间即可。 　 但是还有一个问题，和电影天堂一样，在首页中可以看到，我们的">
+<meta name="twitter:image" content="http://7xljat.com1.z0.glb.clouddn.com/1.jpg">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://www.tenshine.party/archives/"/>
+  <link rel="canonical" href="http://www.tenshine.party/2015/07/sec-wiki-singlethread/"/>
 
 
 
 
 
-  <title>归档 | Tenshine's Blog</title>
+  <title>利用正则和bs4爬取sec-wiki.com(单线程) | Tenshine's Blog</title>
   
 
 
@@ -155,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,416 +297,196 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.tenshine.party/2015/07/sec-wiki-singlethread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tenshine">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tenshine's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">利用正则和bs4爬取sec-wiki.com(单线程)</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-16T16:18:01+08:00">
+                2015-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 16 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/sql-cheat-sheet/" itemprop="url">
-              
-                <span itemprop="name">sql速查表</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-01T17:23:26+08:00"
-              content="2016-03-01" >
-          03-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/assembly-python/" itemprop="url">
-              
-                <span itemprop="name">assembly-python</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-01T17:21:16+08:00"
-              content="2016-01-01" >
-          01-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2015">2015</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/11/markdown/" itemprop="url">
-              
-                <span itemprop="name">markdown语法</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-11-01T17:19:17+08:00"
-              content="2015-11-01" >
-          11-01
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/10/pipinstall/" itemprop="url">
-              
-                <span itemprop="name">使用pip安装python包</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-10-15T17:17:20+08:00"
-              content="2015-10-15" >
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/virtualenv-virtualenvwrapper/" itemprop="url">
-              
-                <span itemprop="name">Virtualenv-Virtualenvwrapper使</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-30T17:13:53+08:00"
-              content="2015-09-30" >
-          09-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>首先来张图<br><img src="http://7xljat.com1.z0.glb.clouddn.com/1.jpg" alt=""></p>
+<h4 id="此网站的url为http-www-sec-wiki-com-news-index"><a href="#此网站的url为http-www-sec-wiki-com-news-index" class="headerlink" title="此网站的url为http://www.sec-wiki.com/news/index"></a>此网站的url为<a href="http://www.sec-wiki.com/news/index" target="_blank" rel="external">http://www.sec-wiki.com/news/index</a></h4><p>如图所示，首页上是资讯列表，点击标题后会跳到详情页，然后详情页也有一个和首页相同的标题，这个标题中包含着真正的文章地址，所以我们要做的就是先获取第一页中的标题链接，根据这个链接进入到详情页面，然后从详情页获取到标题的名称，连接，和时间即可。
+　</p>
+<p>但是还有一个问题，和电影天堂一样，在首页中可以看到，我们的电影或者资讯文章有很多，首页没有完全列出来，而是分页了，根据观察可以看出翻页的url很有规律：<code>http://www.sec-wiki.com/news/index?News_page=</code>，等号后面填写相应的页面数就可以跳转到对应页，但是这个页面不可能没有尽头，因为文章数是有限的，这件事情有两种解决方法，如下</p>
+<ul>
+<li>页面数一直增长，等到某一个页面我们没有获取到需要的东西时，说明已经到终点了，抛出异常</li>
+<li>找到这个最终的页面数，然后根据这个数字进行循环</li>
+</ul>
+<p>我们在这用的是第二种方法，因为在页面中查看&lt;末页&gt;的html代码可以看到这里边写的就是最终的页面数，我们用一个正则将这个数字匹配出来，正则表达式是这样的：<code>&lt;li class=&quot;last&quot;&gt;&lt;a href=&quot;/news/index\?News_page=(.*?)</code>所以我们只需要根据这个提取出来的数字利用for循环就可以了，主函数代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    newsPage = &quot;http://www.sec-wiki.com/news/index&quot;</div><div class="line">    homeCode = getOnePage(newsPage,0)</div><div class="line">    pattern = re.compile(r&apos;&lt;li class=&quot;last&quot;&gt;&lt;a href=&quot;/news/index\?News_page=(.*?)&quot;&gt;&apos;,re.S)</div><div class="line">    pageSum = re.findall(pattern,homeCode)</div><div class="line">    print pageSum #这就是打印出最终页的数字</div><div class="line">    for i in range(int(pageSum[0])):#i从0开始，需要+1</div><div class="line">        childCode = getOnePage(&apos;http://www.sec-wiki.com/news/index?News_page=&apos;,i+1)</div><div class="line">        infos = getUrl(childCode)</div><div class="line">        for info in infos:</div><div class="line">            print info[&apos;time&apos;]+&apos;%-100s&apos;%(info[&apos;title&apos;])+&apos;%-100s&apos;%(info[&apos;url&apos;])</div></pre></td></tr></table></figure>
+<p>我们知道你要爬取任何信息的必要步骤都是要将目标url的代码先获取回来，所以将这个功能封装成一个函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">def getOnePage(url,index=0):</div><div class="line">    try:</div><div class="line">        user_agent = &apos;Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)&apos;</div><div class="line">        headers = &#123; &apos;User-Agent&apos; : user_agent &#125;</div><div class="line">        if index==0:</div><div class="line">            pass</div><div class="line">        else:</div><div class="line">            url = url+str(index)</div><div class="line">        request = urllib2.Request(url,headers = headers)</div><div class="line">        response = urllib2.urlopen(request)</div><div class="line">        pageCode = response.read().decode(&apos;utf-8&apos;)</div><div class="line">        return pageCode</div><div class="line">    except urllib2.URLError,e:</div><div class="line">        if hasattr(e,&quot;reason&quot;):</div><div class="line">            print u&quot;错误&quot;,e.reason</div><div class="line">            return None</div></pre></td></tr></table></figure>
+<p>这里getOnePage有两个参数，一个是url，另一个是页面数，如果你要获取每一个页面的代码时第二个参数是有用的，但是如果我想根据咨询列表中获得的url进入详情页时，我只需传入一个详情页的url即可，这就用到了默认参数，将这个值设定为0,然后在函数中，判断这个值是否为0，如果为0则是想获得详情页代码，直接请求传入的url即可；如果不为0，则要将url和页面数拼凑成最终的页面url，然后再请求这个url。</p>
+<p>现在铺垫都已经做完了，接下来完成主要的事情，就是提取信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">def getUrl(childCode):</div><div class="line">    try:</div><div class="line">        infoList = []</div><div class="line">        soup = bs4.BeautifulSoup(childCode)</div><div class="line">        table = soup.find(&apos;table&apos;,attrs=&#123;&apos;class&apos;:&apos;items table&apos;&#125;)</div><div class="line">        trs = table.findAll(&apos;tr&apos;)</div><div class="line"></div><div class="line">        pattern = re.compile(r&apos;&lt;td&gt;.*?&lt;/td&gt;&lt;td&gt;&lt;a href=&quot;(.*?)&quot; target=&quot;_blank&quot;&gt;.*?&lt;/a&gt;&lt;/td&gt;&apos;,re.S)</div><div class="line">        for tr in trs:</div><div class="line">            infoDic = &#123;&#125;</div><div class="line">            urls = re.findall(pattern,str(tr))</div><div class="line">            for url in urls:</div><div class="line">                childUrl =&apos;http://www.sec-wiki.com&apos;+url</div><div class="line">                sonCode = getOnePage(childUrl)</div><div class="line">                childPattern=re.compile(&apos;&lt;strong&gt;(.*?)&lt;/strong&gt;.*?&lt;a href=&quot;(.*?)&quot;&gt;(.*?)&lt;/a&gt;&apos;,re.S)</div><div class="line">                items = re.findall(childPattern,sonCode)</div><div class="line">                for item in items:</div><div class="line">                    infoDic[&apos;time&apos;] = item[0]</div><div class="line">                    infoDic[&apos;url&apos;] = item[1]</div><div class="line">                    infoDic[&apos;title&apos;] = item[2]</div><div class="line">                    infoList.append(infoDic)</div><div class="line">        return infoList</div><div class="line">    finally:</div><div class="line">        pass</div></pre></td></tr></table></figure>
+<p>我们首先需要先从页面的代码中提取出来详情页的url，根据观察页面代码可以知道，所有的详情页的url都是在<tr>标签中，所以我们先用bs4将页面中所有的</tr><tr>标签获取出来，然后循环这个</tr><tr>列表，利用正则从每一个</tr><tr>标签中将详情页的url提取出来。<br>　<br>经过观察每一个详情页的url，发现详情页的url只有路径，没有域名，所以这一步还需要将详情页路径和域名拼凑起来，就有了这一句代码<code>childUrl =&#39;http://www.sec-wiki.com&#39;+url</code>。</tr></p>
+<p>有了详情页的url后，我们只需利用getOnePage()这个函数去获取每一个详情页的代码，然后提取最终需要的信息。
+　</p>
+<p>这里也是用了一个正则表达式<code>&lt;strong&gt;(.*?)&lt;/strong&gt;.*?&lt;a href=&quot;(.*?)&quot;&gt;(.*?)&lt;/a&gt;</code><br>解释一下<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&gt;懒惰模式，后边多一个？表示，必须跟在*或者+后边用。</div><div class="line"></div><div class="line">&gt; 如要匹配的字符串为：`&lt;img src=&quot;test.jpg&quot; width=&quot;60px&quot; height=&quot;80px&quot;/&gt;`</div><div class="line">如果用正则匹配src中内容非懒惰模式匹配src=&quot;.*&quot;</div><div class="line"></div><div class="line">&gt; 匹配结果是：src=&quot;test.jpg&quot; width=&quot;60px&quot; height=&quot;80px&quot;</div><div class="line">意思是从=&quot;往后匹配，直到最后一个&quot;匹配结束</div><div class="line"></div><div class="line">&gt;懒惰模式正则：</div><div class="line">src=&quot;.*?&quot;</div><div class="line">结果：src=&quot;test.jpg&quot;</div><div class="line">因为匹配到第一个&quot;就结束了一次匹配。不会继续向后匹配。因为他懒惰嘛。</div><div class="line"></div><div class="line"></div><div class="line">我写出这个正则表达式其实就是从页面中将包含我要的信息的源码先拷贝到编辑器中，然后观察哪些东西在不同页面中是变的，哪些是不变的，将会改变的东西就用`.*?`代替，它的含义就是遇到`?`后面的字符马上就停下来。那为什么要给他们加上括号呢，这样`(.*?)`是设置分组，当你用`item=re.findall`后，你就可以用item[下标]来访问第几个括号中的内容，下标从0开始。于是就有了这样的代码</div></pre></td></tr></table></figure></p>
+<p> childPattern=re.compile(‘<strong>(.<em>?)</em></strong>.?<a href="(.*?)">(.*?)</a>‘,re.S)<br>items = re.findall(childPattern,sonCode)<br>                for item in items:<br>                    infoDic[‘time’] = item[0]<br>                    infoDic[‘url’] = item[1]<br>                    infoDic[‘title’] = item[2]<br>```</p>
+<p>上面三个<code>(.*?)</code>分别是文章时间、文章url、文章标题。于是对应着item[0]、item[1]、item[2]。<br>这样我们需要的信息就提取出来了，将每一个信息的字典添加到一个列表中返回给主函数就大功告成了。</p>
+<p>此文件的github地址：<a href="https://github.com/lowkeynic4/crawl/blob/master/secwiki/secwiki.py" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/blob/master/secwiki/secwiki.py</a></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/avoid-ban/" itemprop="url">
-              
-                <span itemprop="name">avoid-ban</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-03T17:12:17+08:00"
-              content="2015-09-03" >
-          09-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/08/pycharm-debug/" itemprop="url">
-              
-                <span itemprop="name">pycharm调试scrapy</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-08-25T17:00:40+08:00"
-              content="2015-08-25" >
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-mysql/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存mysql)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-24T16:39:23+08:00"
-              content="2015-07-24" >
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-json/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存json)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-22T16:32:20+08:00"
-              content="2015-07-22" >
-          07-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取csdn博客文章</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-20T16:28:55+08:00"
-              content="2015-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/crawl-dytt8/" rel="next" title="利用bs4爬取电影天堂电影下载地址">
+                <i class="fa fa-chevron-left"></i> 利用bs4爬取电影天堂电影下载地址
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/sec-wiki-mutiplethread/" rel="prev" title="利用正则和bs4爬取sec-wiki(多线程)">
+                利用正则和bs4爬取sec-wiki(多线程) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -710,6 +494,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -730,8 +518,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -793,6 +590,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#此网站的url为http-www-sec-wiki-com-news-index"><span class="nav-number">1.</span> <span class="nav-text">此网站的url为http://www.sec-wiki.com/news/index</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -951,6 +764,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 

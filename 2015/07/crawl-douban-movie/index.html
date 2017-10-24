@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,爬虫," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在正式爬虫之前还有一些入门需要了解的知识点，以下是我入门时看的一点东西：  Python爬虫入门一之综述 Python爬虫入门二之爬虫基础了解 Python爬虫入门三之Urllib库的基本使用 Python爬虫入门四之Urllib库的高级用法 Python爬虫入门五之URLError异常处理 Python爬虫入门六之Cookie的使用 Python爬虫入门七之正则表达式 Python爬虫入门八之B">
+<meta name="keywords" content="python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用urllib2和bs4爬取豆瓣北京热播电影">
+<meta property="og:url" content="http://www.tenshine.party/2015/07/crawl-douban-movie/index.html">
+<meta property="og:site_name" content="Tenshine&#39;s Blog">
+<meta property="og:description" content="在正式爬虫之前还有一些入门需要了解的知识点，以下是我入门时看的一点东西：  Python爬虫入门一之综述 Python爬虫入门二之爬虫基础了解 Python爬虫入门三之Urllib库的基本使用 Python爬虫入门四之Urllib库的高级用法 Python爬虫入门五之URLError异常处理 Python爬虫入门六之Cookie的使用 Python爬虫入门七之正则表达式 Python爬虫入门八之B">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xljat.com1.z0.glb.clouddn.com/图片1.png">
+<meta property="og:image" content="http://7xljat.com1.z0.glb.clouddn.com/图片2.png">
+<meta property="og:image" content="http://7xljat.com1.z0.glb.clouddn.com/图片3.png">
+<meta property="og:updated_time" content="2017-10-24T08:05:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用urllib2和bs4爬取豆瓣北京热播电影">
+<meta name="twitter:description" content="在正式爬虫之前还有一些入门需要了解的知识点，以下是我入门时看的一点东西：  Python爬虫入门一之综述 Python爬虫入门二之爬虫基础了解 Python爬虫入门三之Urllib库的基本使用 Python爬虫入门四之Urllib库的高级用法 Python爬虫入门五之URLError异常处理 Python爬虫入门六之Cookie的使用 Python爬虫入门七之正则表达式 Python爬虫入门八之B">
+<meta name="twitter:image" content="http://7xljat.com1.z0.glb.clouddn.com/图片1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.tenshine.party/2015/07/crawl-douban-movie/"/>
+
+
+
+
+
+  <title>利用urllib2和bs4爬取豆瓣北京热播电影 | Tenshine's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tenshine's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.tenshine.party/2015/07/crawl-douban-movie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tenshine">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tenshine's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用urllib2和bs4爬取豆瓣北京热播电影</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-10T15:02:28+08:00">
+                2015-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在正式爬虫之前还有一些入门需要了解的知识点，以下是我入门时看的一点东西：</p>
+<ol>
+<li>Python爬虫入门一之综述</li>
+<li>Python爬虫入门二之爬虫基础了解</li>
+<li>Python爬虫入门三之Urllib库的基本使用</li>
+<li>Python爬虫入门四之Urllib库的高级用法</li>
+<li>Python爬虫入门五之URLError异常处理</li>
+<li>Python爬虫入门六之Cookie的使用</li>
+<li>Python爬虫入门七之正则表达式</li>
+<li>Python爬虫入门八之Beautiful Soup的用法</li>
+</ol>
+<p>（转载自：<a href="http://cuiqingcai.com/1052.html）" target="_blank" rel="external">http://cuiqingcai.com/1052.html）</a></p>
+<p>首先来张图：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/图片1.png" alt=""><br>​</p>
+<p>这是最简单的爬虫了，就是给一个网址，然后从他的内容中利用正则或者bs4找出它的规律，最终将需要的东西提取出来。找需要的内容和内容所在位置的规律这就是自己需要根据网页源码来总结的了。</p>
+<p>虽然在一个页面中就有自己需要的所有内容了，但是这样也有差别：</p>
+<ul>
+<li>一种是向服务器直接提交一个网址后，服务器将所有要显示的内容一次性都给发过来；</li>
+<li>另一种就是利用ajax技术，并不是一次将所有内容都给用户返回而是在页面中有一个加载更多的按钮，如果用户想要看到更多的内容的话，通过点击按钮然后浏览器在发送新的内容的url请求。利用这种技术：可以在不重新加载整个页面的情况下，为页面的某部分更新，更多ajax内容请自行搜索，我们这个网址也有这么一个按钮，如下</li>
+</ul>
+<p><img src="http://7xljat.com1.z0.glb.clouddn.com/图片2.png" alt=""></p>
+<p>但是此爬虫不是利用了ajax技术，只是利用了JavaScript技术，将一部分内容隐藏了起来，你点击显示全部影片的按钮后，会将隐藏起来的内容在给你显示出来而已，上边这张图片最后一个电影是《三城记》，而从下面可以看“显示全部影片”按钮的上面还有很多影片，所以这就证实了我上面所说的没有利用ajax技术，只是隐藏起来了而已。<br><img src="http://7xljat.com1.z0.glb.clouddn.com/图片3.png" alt=""></p>
+<p>下面开始正式爬虫：<br>这个爬虫总共分三个步骤</p>
+<ul>
+<li>根据url取页面内容</li>
+<li>Bs4根据自己发现的规则来提取具体内容</li>
+<li>根据电影的星级排序</li>
+</ul>
+<p>首先获取网页内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def get_films_sorted(url):</div><div class="line">    #urllib2.urlopen()函数不支持验证、cookie或者其它HTTP高级功能。要支持这些功能，必须使用build_opener()函数创建自定义Opener对象</div><div class="line">    headers = (&apos;User-Agent&apos;, &apos;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36&apos;)</div><div class="line">    opener = urllib2.build_opener()  # create an OpenerDirector object</div><div class="line">    opener.addheaders = [headers]    # 设置http头</div><div class="line">    content = opener.open(url).read()  #请求url然后获取response回来的内容</div><div class="line">    #以上几步和urlopen()函数的功能相同</div><div class="line">    encoding = chardet.detect(content)[&apos;encoding&apos;]  #取得网页编码</div><div class="line">    content = content.decode(encoding, &apos;ignore&apos;)    #python内部编码为unicode,此处需要用decode将字符串转换为unicode，ignore为忽略非法字符，还有replace会用？代替非法字符</div></pre></td></tr></table></figure>
+<p>接下来用bs4来提取内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">soup = bs4.BeautifulSoup(content)</div><div class="line">   div_now_playing=soup.find(&apos;div&apos;, id=&apos;nowplaying&apos;)   # 返回第一个指定属性的div标签的所有内容</div><div class="line">   list_li_films = div_now_playing.findAll(&apos;li&apos;, class_=&quot;list-item&quot;)    # 返回一个包含所有li标签,class属性为&quot;list-item&quot;的列表</div></pre></td></tr></table></figure>
+<p>这样所有class为list-item的li标签就都存储到list_li_films中了，因为这样的li标签不止一个，所以需要用一个for循环进去依次提取需要的信息，下面是一个li标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">&lt;li</div><div class="line">    id=&quot;24719063&quot;</div><div class="line">    class=&quot;list-item&quot;</div><div class="line">    data-title=&quot;烈日灼心&quot;</div><div class="line">    data-score=&quot;7.9&quot;</div><div class="line">    data-star=&quot;40&quot;</div><div class="line">    data-release=&quot;2015&quot;</div><div class="line">    data-duration=&quot;139分钟&quot;</div><div class="line">    data-region=&quot;中国大陆&quot;</div><div class="line">    data-director=&quot;曹保平&quot;</div><div class="line">    data-actors=&quot;邓超 / 段奕宏 / 郭涛&quot;</div><div class="line">    data-category=&quot;nowplaying&quot;</div><div class="line">    data-enough=&quot;True&quot;</div><div class="line">    data-showed=&quot;True&quot;</div><div class="line">    data-votecount=&quot;63345&quot;</div><div class="line">    data-subject=&quot;24719063&quot;</div><div class="line">&gt;</div><div class="line">    &lt;ul class=&quot;&quot;&gt;</div><div class="line">        &lt;li class=&quot;poster&quot;&gt;</div><div class="line">            &lt;a href=&quot;http://movie.douban.com/subject/24719063/?from=playing_poster&quot; class=ticket-btn target=&quot;_blank&quot; data-psource=&quot;poster&quot;&gt;</div><div class="line">                &lt;img src=&quot;http://img4.douban.com/view/movie_poster_cover/mpst/public/p2262236348.jpg&quot; alt=&quot;烈日灼心&quot; rel=&quot;nofollow&quot; class=&quot;&quot; /&gt;</div><div class="line">            &lt;/a&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li class=&quot;stitle&quot;&gt;</div><div class="line">            &lt;a href=&quot;http://movie.douban.com/subject/24719063/?from=playing_poster&quot;</div><div class="line">                class=&quot;ticket-btn&quot;</div><div class="line">                target=&quot;_blank&quot;</div><div class="line">                title=&quot;烈日灼心&quot;</div><div class="line">                data-psource=&quot;title&quot;&gt;</div><div class="line">                烈日灼心</div><div class="line">            &lt;/a&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li class=&quot;srating&quot;&gt;</div><div class="line">                    &lt;span class=&quot;rating-star allstar40&quot;&gt;&lt;/span&gt;</div><div class="line">                    &lt;span class=&quot;subject-rate&quot;&gt;7.9&lt;/span&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li class=&quot;sbtn&quot;&gt;</div><div class="line">            &lt;a href=&quot;http://movie.douban.com/subject/24719063/cinema/beijing/?from=playing_btn&quot;</div><div class="line">                target=&quot;_self&quot;</div><div class="line">                data-subject=&quot;24719063&quot;</div><div class="line">                data-psource=&quot;btn&quot;</div><div class="line">                data-title=&quot;烈日灼心&quot;</div><div class="line">                class=&quot;ticket-btn&quot;&gt;</div><div class="line">                    选座购票</div><div class="line">            &lt;/a&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/li&gt;</div></pre></td></tr></table></figure>
+<p>其实我们需要获取的信息在li的属性里就都能拿到但是为了多介绍点bs4的用法，其中的两项：评分和星级就不从li中获取了，而是从下面包含其他部分中获取出来，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"># 遍历每个电影</div><div class="line">    for li_film in list_li_films:</div><div class="line">        # 字典</div><div class="line">        film_dic = &#123;&#125;</div><div class="line">        if (li_film.ul.li[&apos;class&apos;] == [&apos;poster&apos;]):</div><div class="line">            # 提取相应信息</div><div class="line">            film_dic[&apos;film_name&apos;] = li_film.ul.li.img[&apos;alt&apos;]</div><div class="line">            film_dic[&apos;film_release&apos;] = li_film[&apos;data-release&apos;]</div><div class="line">            film_dic[&apos;film_actors&apos;] = li_film[&apos;data-actors&apos;]</div><div class="line">            film_dic[&apos;film_director&apos;] = li_film[&apos;data-director&apos;]</div><div class="line">            # 属性也可以用字典定义</div><div class="line">            if li_film.find(&apos;span&apos;, attrs=&#123;&apos;class&apos;: &apos;subject-rate&apos;&#125;):</div><div class="line">                # 如果有评分</div><div class="line">                film_dic[&apos;film_points&apos;] = li_film.find(&apos;span&apos;, &#123;&apos;class&apos;,&apos;subject-rate&apos;&#125;).string.strip()</div><div class="line">                film_dic[&apos;points&apos;] = float(film_dic[&apos;film_points&apos;])</div><div class="line">            else:</div><div class="line">                # 如果没评分</div><div class="line">                film_dic[&apos;film_points&apos;] = u&apos;暂无评分&apos;</div><div class="line">                film_dic[&apos;points&apos;] = 0</div><div class="line"></div><div class="line">            # stars为class属性的内容</div><div class="line">            stars = li_film.find(&apos;li&apos;, attrs=&#123;&apos;class&apos;: &apos;srating&apos;&#125;).span[&apos;class&apos;]</div><div class="line">            if stars[0] != &apos;rating-star&apos;:</div><div class="line">                # 没有评星</div><div class="line">                film_dic[&apos;film_stars&apos;] = u&apos;评价人数不足&apos;</div><div class="line">            else:</div><div class="line">                # 有评星</div><div class="line">                str_stars=stars[1]  #stars[1] = allstar25</div><div class="line">                #将allstar后面的数字转换出来</div><div class="line">                match = re.match(r&apos;^(\D+)(\d&#123;2&#125;)$&apos;, str_stars) #\D非数字 ^以什么开头 \d为数字 &#123;2&#125;为匹配前边两次 $以什么结尾</div><div class="line">                #match.groups()为全部上面括号里的内容，一个是allstar,另一个是25,序数从1开始,match.groups(2)就是25</div><div class="line">                film_dic[&apos;film_stars&apos;] = str(int(match.group(2)) / 10).decode(&apos;utf-8&apos;) + u&apos;颗星&apos;</div><div class="line">        films_list.append(film_dic)</div></pre></td></tr></table></figure>
+<p>我们定义了一个空的字典film_dic来追加存储获得的信息。可以看出获取评分和星级不是从li标签的属性中获取的，但也是利用bs4的find函数，而方式不同了。</p>
+<p>正则和bs4是写python爬虫的必备知识。</p>
+<p>通过字典的append，已经把页面中的所有信息都获取完了，现在还缺少最后一步就是按照评分排序一下，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">films_list_sorted = sorted(films_list, key=lambda x:x[&apos;points&apos;], reverse = True)</div></pre></td></tr></table></figure>
+<p>这些功能都是些在一个函数中，现在只需在main中调用即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    url=&quot;http://movie.douban.com/nowplaying/beijing/&quot;</div><div class="line">    for film_dic in get_films_sorted(url):</div><div class="line">        print &quot;%-20s&quot;%(film_dic[&apos;film_name&apos;])+&quot;%-10s&quot;%str(film_dic[&apos;points&apos;])+&quot;%-10s&quot;%(film_dic[&apos;film_stars&apos;])</div></pre></td></tr></table></figure>
+<p>pycharm的输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">西游记之大圣归来            8.4       4颗星</div><div class="line">猛龙过江                8.2       4颗星</div><div class="line">烈日灼心                7.9       4颗星</div><div class="line">滚蛋吧！肿瘤君             7.7       4颗星</div><div class="line">亚马逊萌猴奇遇记            7.6       4颗星</div><div class="line">这里的黎明静悄悄            7.6       4颗星</div><div class="line">刺客聂隐娘               7.5       4颗星</div><div class="line">捉妖记                 7.2       3颗星</div><div class="line">终结者：创世纪             6.9       3颗星</div><div class="line">煎饼侠                 6.8       3颗星</div><div class="line">华丽上班族               6.4       3颗星</div><div class="line">落跑吧爱情               6.2       3颗星</div><div class="line">三城记                 6.1       3颗星</div><div class="line">情敌蜜月                5.4       3颗星</div><div class="line">黑猫警长之翡翠之星           5.3       3颗星</div><div class="line">桂宝之爆笑闯宇宙            5.0       2颗星</div><div class="line">洛克王国4：出发！巨人谷        4.5       2颗星</div><div class="line">天际浩劫                4.4       2颗星</div><div class="line">新娘大作战               4.0       2颗星</div><div class="line">百团大战                3.9       2颗星</div><div class="line">双生灵                 3.5       2颗星</div><div class="line">男神时代                3.4       2颗星</div><div class="line">赛尔号大电影5：雷神崛起        3.4       2颗星</div><div class="line">诡劫                  3.2       1颗星</div><div class="line">魔镜奇缘                2.8       1颗星</div><div class="line">枕边诡影                2.8       1颗星</div><div class="line">大变局之梦回甲午            2.8       1颗星</div><div class="line">开罗宣言                2.6       1颗星</div><div class="line">少年杨靖宇               2.5       1颗星</div><div class="line">穷途                  0         评价人数不足</div></pre></td></tr></table></figure>
+<p>这个可以说应该是最基本的爬虫了，代码已上传github。</p>
+<p>地址为：<a href="https://github.com/lowkeynic4/crawl/blob/master/doubandianying.py" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/blob/master/doubandianying.py</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/django-blog/" rel="prev" title="django博客程序">
+                django博客程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tenshine</p>
+              <p class="site-description motion-element" itemprop="description">喜欢就买,不行就分,多喝热水,重启试试</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tenshine</span>
+
+  
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共24.4k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+
+
+</body>
+</html>

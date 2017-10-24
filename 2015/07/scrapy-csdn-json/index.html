@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python,爬虫,scrapy," />
 
 
 
@@ -91,16 +91,20 @@
 
 
 
-<meta name="description" content="喜欢就买,不行就分,多喝热水,重启试试">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tenshine&#39;s Blog">
-<meta property="og:url" content="http://www.tenshine.party/archives/index.html">
+<meta name="description" content="本文为从某人cnblog的文章列表中爬取文章题目，url，摘要。 因为作者本人爬取的就是他自己的博客，所以我这里不做更改，只是为学习和记录另一种scrapy的方法。 1.创建project12345678910tenshine@tenshine:~$ scrapy startproject cnblogs2015-09-08 10:20:43 [scrapy] INFO: Scrapy 1.0.2">
+<meta name="keywords" content="python,爬虫,scrapy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrapy爬取cnblogs博客文章(保存json)">
+<meta property="og:url" content="http://www.tenshine.party/2015/07/scrapy-csdn-json/index.html">
 <meta property="og:site_name" content="Tenshine&#39;s Blog">
-<meta property="og:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta property="og:description" content="本文为从某人cnblog的文章列表中爬取文章题目，url，摘要。 因为作者本人爬取的就是他自己的博客，所以我这里不做更改，只是为学习和记录另一种scrapy的方法。 1.创建project12345678910tenshine@tenshine:~$ scrapy startproject cnblogs2015-09-08 10:20:43 [scrapy] INFO: Scrapy 1.0.2">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150908120916.jpg">
+<meta property="og:updated_time" content="2017-10-24T08:58:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tenshine&#39;s Blog">
-<meta name="twitter:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta name="twitter:title" content="scrapy爬取cnblogs博客文章(保存json)">
+<meta name="twitter:description" content="本文为从某人cnblog的文章列表中爬取文章题目，url，摘要。 因为作者本人爬取的就是他自己的博客，所以我这里不做更改，只是为学习和记录另一种scrapy的方法。 1.创建project12345678910tenshine@tenshine:~$ scrapy startproject cnblogs2015-09-08 10:20:43 [scrapy] INFO: Scrapy 1.0.2">
+<meta name="twitter:image" content="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150908120916.jpg">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://www.tenshine.party/archives/"/>
+  <link rel="canonical" href="http://www.tenshine.party/2015/07/scrapy-csdn-json/"/>
 
 
 
 
 
-  <title>归档 | Tenshine's Blog</title>
+  <title>scrapy爬取cnblogs博客文章(保存json) | Tenshine's Blog</title>
   
 
 
@@ -155,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,416 +297,232 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.tenshine.party/2015/07/scrapy-csdn-json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tenshine">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tenshine's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">scrapy爬取cnblogs博客文章(保存json)</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-22T16:32:20+08:00">
+                2015-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 16 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/sql-cheat-sheet/" itemprop="url">
-              
-                <span itemprop="name">sql速查表</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-01T17:23:26+08:00"
-              content="2016-03-01" >
-          03-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/assembly-python/" itemprop="url">
-              
-                <span itemprop="name">assembly-python</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-01T17:21:16+08:00"
-              content="2016-01-01" >
-          01-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2015">2015</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/11/markdown/" itemprop="url">
-              
-                <span itemprop="name">markdown语法</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-11-01T17:19:17+08:00"
-              content="2015-11-01" >
-          11-01
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/10/pipinstall/" itemprop="url">
-              
-                <span itemprop="name">使用pip安装python包</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-10-15T17:17:20+08:00"
-              content="2015-10-15" >
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/virtualenv-virtualenvwrapper/" itemprop="url">
-              
-                <span itemprop="name">Virtualenv-Virtualenvwrapper使</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-30T17:13:53+08:00"
-              content="2015-09-30" >
-          09-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>本文为从某人cnblog的文章列表中爬取文章题目，url，摘要。</p>
+<p>因为作者本人爬取的就是他自己的博客，所以我这里不做更改，只是为学习和记录另一种scrapy的方法。</p>
+<h4 id="1-创建project"><a href="#1-创建project" class="headerlink" title="1.创建project"></a>1.创建project</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~$ scrapy startproject cnblogs</div><div class="line">2015-09-08 10:20:43 [scrapy] INFO: Scrapy 1.0.2 started (bot: scrapybot)</div><div class="line">2015-09-08 10:20:43 [scrapy] INFO: Optional features available: ssl, http11</div><div class="line">2015-09-08 10:20:43 [scrapy] INFO: Overridden settings: &#123;&#125;</div><div class="line">New Scrapy project &apos;cnblogs&apos; created in:</div><div class="line">    /home/tenshine/cnblogs</div><div class="line"></div><div class="line">You can start your first spider with:</div><div class="line">    cd cnblogs</div><div class="line">    scrapy genspider example example.com</div></pre></td></tr></table></figure>
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">tenshine@tenshine:~$ tree cnblogs/</div><div class="line">cnblogs/</div><div class="line">├── cnblogs</div><div class="line">│   ├── __init__.py</div><div class="line">│   ├── items.py</div><div class="line">│   ├── pipelines.py</div><div class="line">│   ├── settings.py</div><div class="line">│   └── spiders</div><div class="line">│       ├── cnblogs.py</div><div class="line">│       └── __init__.py</div><div class="line">└── scrapy.cfg</div><div class="line">2 directories, 7 files</div></pre></td></tr></table></figure>
+<ul>
+<li>item.py编写</li>
+</ul>
+<p>这里提取文章标题，文章链接，文章摘要</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import scrapy</div><div class="line"></div><div class="line">class CnblogsItem(scrapy.Item):</div><div class="line">    title = scrapy.Field()</div><div class="line">    link = scrapy.Field()</div><div class="line">    desc = scrapy.Field()</div><div class="line">    pass</div></pre></td></tr></table></figure>
+<ul>
+<li>pipelines.py编写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import codecs</div><div class="line">import json</div><div class="line">class CnblogsPipeline(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.file = codecs.open(&apos;cnblogs.json&apos;, &apos;w&apos;, encoding=&apos;utf-8&apos;)</div><div class="line">    def process_item(self, item, spider):</div><div class="line">        line = json.dumps(dict(item), ensure_ascii=False) + &quot;\n&quot;</div><div class="line">        self.file.write(line)</div><div class="line">        return item</div><div class="line">    def spider_closed(self, spider):</div><div class="line">        self.file.close()</div></pre></td></tr></table></figure>
+<ul>
+<li>修改settings.py</li>
+</ul>
+<p>对于setting文件，他作为配置文件，主要是至执行对spider的配置。一些容易被改变的配置参数可以放在spider类的编写中，而几乎在爬虫运行过程中不改变的参数在settings.py中进行配置。<br>将ITEM_PIPELINES的注释去掉，并将其中内容改为：<br><code>&#39;cnblogs.pipelines.CnblogsPipeline&#39;: 300,</code>，这个CnblogsPipeline就是在pipelines.py中定义的。</p>
+<h4 id="2-编写爬虫"><a href="#2-编写爬虫" class="headerlink" title="2.编写爬虫"></a>2.编写爬虫</h4><p>这个爬虫是从文章列表页中爬取每篇文章的标题，url，和摘要，但是列表不止一页，那么我们这就是和爬取csdn博客文章不同的地方了，csdn博客是从指定位置找到下一篇文章的url，然后直接访问就行了，而在这里，scrapy是将每个页面中的所有连接都拿到，然后根据我们自定义的规则（rules）来从所有的url中筛选爬虫接下来要访问哪一个url。</p>
+<p>爬取方式既然变了，那么我们爬虫的基类也要变，变成了<code>from scrapy.spiders import CrawlSpider</code>，并且回调函数就不可以用parse了，而需要自己重新定义并指定。<br>在spider文件夹中创建cnblogs_spider.py文件，文件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">from scrapy.selector import Selector</div><div class="line">try:</div><div class="line">    from scrapy.spiders import Spider</div><div class="line">except:</div><div class="line">    from scrapy.spider import BaseSpider as Spider</div><div class="line">from scrapy.utils.response import get_base_url</div><div class="line">from scrapy.spiders import CrawlSpider, Rule</div><div class="line">from scrapy.linkextractors.sgml import SgmlLinkExtractor as sle</div><div class="line">from cnblogs.items import *</div><div class="line">class CnblogsSpider(CrawlSpider):</div><div class="line">    #定义爬虫的名称</div><div class="line">    name = &quot;cnblogs&quot;</div><div class="line">    #定义允许抓取的域名,如果不是在此列表的域名则放弃抓取</div><div class="line">    allowed_domains = [&quot;cnblogs.com&quot;]</div><div class="line">    #定义抓取的入口urls</div><div class="line">    start_urls = [&quot;http://www.cnblogs.com/rwxwsblog/default.html?page=1&quot;]</div><div class="line">    # 定义爬取URL的规则，并指定回调函数为parse_item</div><div class="line">    rules = [</div><div class="line">        #此处要注意?号的转换，复制过来需要对?号进行转换。</div><div class="line">        Rule(sle(allow=(&quot;/rwxwsblog/default.html\?page=\d&#123;1,&#125;&quot;)),</div><div class="line">			 follow=True,</div><div class="line">			 callback=&apos;parse_item&apos;)</div><div class="line">    ]</div><div class="line"></div><div class="line">    #定义回调函数</div><div class="line">    def parse_item(self, response):</div><div class="line">        items = []</div><div class="line">        sel = Selector(response)</div><div class="line">        #base_url = get_base_url(response)#获取当页来自哪个url</div><div class="line">        #print base_url</div><div class="line">        #div.day=div的class属性是day,然后空格表示下级在找div的class为postTitle的所有元素</div><div class="line">        postTitle = sel.css(&apos;div.day div.postTitle&apos;)</div><div class="line">        postCon = sel.css(&apos;div.postCon div.c_b_p_desc&apos;)</div><div class="line">        for index in range(len(postTitle)):</div><div class="line">            item = CnblogsItem()</div><div class="line">            item[&apos;title&apos;] = postTitle[index].css(&quot;a&quot;).xpath(&apos;text()&apos;).extract()[0]</div><div class="line">            item[&apos;link&apos;] = postTitle[index].css(&apos;a&apos;).xpath(&apos;@href&apos;).extract()[0]</div><div class="line">            item[&apos;desc&apos;] = postCon[index].xpath(&apos;text()&apos;).extract()[0]</div><div class="line">            items.append(item)</div><div class="line">        return items</div></pre></td></tr></table></figure>
+<p>先说下这个爬虫的运行过程，我们将此人的文章列表的第一页作为这个爬虫的start_urls，在这里我们没有明确指定爬虫要进入的下一个url是什么，所以默认爬虫会进入它拿到的所有url，这样对我们来说是没用的，因为我们只想爬虫进入此人的所有文章列表页而已，通过观察cnblogs文章列表的页很有规律<code>http://www.cnblogs.com/rwxwsblog/default.html?page=?</code>，后面？对应的就是每一页的文章列表。所以我们在用正则表达式定义了一个规则：<code>/rwxwsblog/default.html\?page=\d{1,}</code>匹配page的数字是[0-9]1次到无限次。也就是说爬虫会根据这个规则来决定进入哪个url。</p>
+<p>上面做的就是可以将此人的所有文章列表页都可以进入了，下一步就是在每一个文章列表页中爬取我们需要的信息了，在这里是是用的xpath和css选择器协同使用，如不了解请查看<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="external">xpath</a>，<a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank" rel="external">css选择器</a>。</p>
+<h4 id="3-运行"><a href="#3-运行" class="headerlink" title="3.运行"></a>3.运行</h4><p>进入cnblogs工程目录，运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl cnblogs(spider中定义的名称)</div></pre></td></tr></table></figure></p>
+<p>下面是保存在json文件中的运行结果：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150908120916.jpg" alt=""></p>
+<h4 id="4-分析CrawlSpider"><a href="#4-分析CrawlSpider" class="headerlink" title="4.分析CrawlSpider"></a>4.分析CrawlSpider</h4><ul>
+<li><p>概念与作用<br>它是spiders 的派生类，首先在说下spiders ，它是所有爬虫的基类，对于它的设计原则是只爬取start_url列表中的网页，而从爬取的网页中获取link并继续爬取的工作CrawlSpider类更适合。</p>
+</li>
+<li><p>使用<br>它与Spider类的最大不同是多了一个rules参数，其作用是定义提取动作。在rules中包含一个或多个Rule对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def __init__(self, link_extractor, callback=None, cb_kwargs=None,</div><div class="line">             follow=None, process_links=None, process_request=identity):</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其中：</p>
+<ul>
+<li>link_extractor为LinkExtractor，用于定义需要提取的链接。</li>
+<li>callback参数：当link_extractor获取到链接时参数所指定的值作为回调函数。<blockquote>
+<p>callback参数使用注意：<br>当编写爬虫规则时，请避免使用parse作为回调函数。于CrawlSpider使用parse方法来实现其逻辑，如果您覆盖了parse方法，crawlspider将会运行失败。</p>
+</blockquote>
+</li>
+<li>follow：指定了根据该规则从response提取的链接是否需要跟进。当callback为None,默认值为true。</li>
+<li>process_links：主要用来过滤由link_extractor获取到的链接。</li>
+<li>process_request：主要用来过滤在rule中提取到的request。</li>
+</ul>
+<ul>
+<li><p>LinkExtractor<br>顾名思义，链接提取器。它的作用及时从response对象中获取链接，并且该链接会被接下来爬取。<br>可以通过SmglLinkExtractor提取希望获取的链接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">allow=(),deny=(),allow_domains=(),deny_domains=(),deny_extensions=None,restrict_xpaths=(),tags=(&apos;a&apos;,&apos;area&apos;),attrs=(&apos;href&apos;),canonicalize=True,unique=True,process_value=None)</div></pre></td></tr></table></figure>
+<ul>
+<li>allow：满足括号中“正则表达式”的值会被提取，如果为空，则全部匹配。</li>
+<li>deny：与这个正则表达式(或正则表达式列表)不匹配的URL一定不提取。</li>
+<li>allow_domains：会被提取的链接的domains。</li>
+<li>deny_domains：一定不会被提取链接的domains。</li>
+<li>restrict_xpaths：使用xpath表达式，和allow共同作用过滤链接。</li>
+</ul>
+</li>
+</ul>
+<p>此工程的github地址：<a href="https://github.com/lowkeynic4/crawl/tree/master/cnblogs" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/tree/master/cnblogs</a></p>
+<p>本文转自：<a href="http://www.cnblogs.com/rwxwsblog/p/4567052.html" target="_blank" rel="external">http://www.cnblogs.com/rwxwsblog/p/4567052.html</a> 加上本人新增理解和改动</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/avoid-ban/" itemprop="url">
-              
-                <span itemprop="name">avoid-ban</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-03T17:12:17+08:00"
-              content="2015-09-03" >
-          09-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/08/pycharm-debug/" itemprop="url">
-              
-                <span itemprop="name">pycharm调试scrapy</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-08-25T17:00:40+08:00"
-              content="2015-08-25" >
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-mysql/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存mysql)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-24T16:39:23+08:00"
-              content="2015-07-24" >
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-json/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存json)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-22T16:32:20+08:00"
-              content="2015-07-22" >
-          07-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取csdn博客文章</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-20T16:28:55+08:00"
-              content="2015-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+            <a href="/tags/scrapy/" rel="tag"># scrapy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/scrapy-csdn/" rel="next" title="scrapy爬取csdn博客文章">
+                <i class="fa fa-chevron-left"></i> scrapy爬取csdn博客文章
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/scrapy-csdn-mysql/" rel="prev" title="scrapy爬取cnblogs博客文章(保存mysql)">
+                scrapy爬取cnblogs博客文章(保存mysql) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -710,6 +530,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -730,8 +554,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -793,6 +626,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建project"><span class="nav-number">1.</span> <span class="nav-text">1.创建project</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目录结构"><span class="nav-number">2.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-编写爬虫"><span class="nav-number">3.</span> <span class="nav-text">2.编写爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-运行"><span class="nav-number">4.</span> <span class="nav-text">3.运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-分析CrawlSpider"><span class="nav-number">5.</span> <span class="nav-text">4.分析CrawlSpider</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -951,6 +800,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 

@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python,爬虫," />
 
 
 
@@ -91,16 +91,20 @@
 
 
 
-<meta name="description" content="喜欢就买,不行就分,多喝热水,重启试试">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tenshine&#39;s Blog">
-<meta property="og:url" content="http://www.tenshine.party/archives/index.html">
+<meta name="description" content="首先来张图： 将就看吧，我都有点不好意思，但至少表现出来要表达的意思了，我们最终要获得的信息不是在第一个页面中，而是从第一个页面中进入第二个页面，需要的信息在第二个页面中，虽然电影列表有很多页，但是现阶段都不考虑只获取第一页中的所有电影的下载连接。这个爬虫分三步  先从第一页中将所有第二页的url取出来，存到列表中 循环第二页地址的列表，将这个url与网站域名拼凑成真正地址，然后获取第二页的代码">
+<meta name="keywords" content="python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用bs4爬取电影天堂电影下载地址">
+<meta property="og:url" content="http://www.tenshine.party/2015/07/crawl-dytt8/index.html">
 <meta property="og:site_name" content="Tenshine&#39;s Blog">
-<meta property="og:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta property="og:description" content="首先来张图： 将就看吧，我都有点不好意思，但至少表现出来要表达的意思了，我们最终要获得的信息不是在第一个页面中，而是从第一个页面中进入第二个页面，需要的信息在第二个页面中，虽然电影列表有很多页，但是现阶段都不考虑只获取第一页中的所有电影的下载连接。这个爬虫分三步  先从第一页中将所有第二页的url取出来，存到列表中 循环第二页地址的列表，将这个url与网站域名拼凑成真正地址，然后获取第二页的代码">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150906160242.jpg">
+<meta property="og:updated_time" content="2017-10-24T08:19:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tenshine&#39;s Blog">
-<meta name="twitter:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta name="twitter:title" content="利用bs4爬取电影天堂电影下载地址">
+<meta name="twitter:description" content="首先来张图： 将就看吧，我都有点不好意思，但至少表现出来要表达的意思了，我们最终要获得的信息不是在第一个页面中，而是从第一个页面中进入第二个页面，需要的信息在第二个页面中，虽然电影列表有很多页，但是现阶段都不考虑只获取第一页中的所有电影的下载连接。这个爬虫分三步  先从第一页中将所有第二页的url取出来，存到列表中 循环第二页地址的列表，将这个url与网站域名拼凑成真正地址，然后获取第二页的代码">
+<meta name="twitter:image" content="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150906160242.jpg">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://www.tenshine.party/archives/"/>
+  <link rel="canonical" href="http://www.tenshine.party/2015/07/crawl-dytt8/"/>
 
 
 
 
 
-  <title>归档 | Tenshine's Blog</title>
+  <title>利用bs4爬取电影天堂电影下载地址 | Tenshine's Blog</title>
   
 
 
@@ -155,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,416 +297,204 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.tenshine.party/2015/07/crawl-dytt8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tenshine">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tenshine's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">利用bs4爬取电影天堂电影下载地址</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-14T16:15:38+08:00">
+                2015-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 16 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/sql-cheat-sheet/" itemprop="url">
-              
-                <span itemprop="name">sql速查表</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-01T17:23:26+08:00"
-              content="2016-03-01" >
-          03-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/assembly-python/" itemprop="url">
-              
-                <span itemprop="name">assembly-python</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-01T17:21:16+08:00"
-              content="2016-01-01" >
-          01-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2015">2015</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/11/markdown/" itemprop="url">
-              
-                <span itemprop="name">markdown语法</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-11-01T17:19:17+08:00"
-              content="2015-11-01" >
-          11-01
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/10/pipinstall/" itemprop="url">
-              
-                <span itemprop="name">使用pip安装python包</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-10-15T17:17:20+08:00"
-              content="2015-10-15" >
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/virtualenv-virtualenvwrapper/" itemprop="url">
-              
-                <span itemprop="name">Virtualenv-Virtualenvwrapper使</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-30T17:13:53+08:00"
-              content="2015-09-30" >
-          09-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>首先来张图：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20150906160242.jpg" alt=""></p>
+<p>将就看吧，我都有点不好意思，但至少表现出来要表达的意思了，我们最终要获得的信息不是在第一个页面中，而是从第一个页面中进入第二个页面，需要的信息在第二个页面中，虽然电影列表有很多页，但是现阶段都不考虑只获取第一页中的所有电影的下载连接。<br>这个爬虫分三步</p>
+<ul>
+<li>先从第一页中将所有第二页的url取出来，存到列表中</li>
+<li>循环第二页地址的列表，将这个url与网站域名拼凑成真正地址，然后获取第二页的代码</li>
+<li>从第二页代码中获取最终需要的下载地址存储到一个字典中</li>
+</ul>
+<p>首先利用bs4从第一页中获取所有第二页的url，并存储到一个列表中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">film_list = []</div><div class="line">headers = (&apos;User-Agent&apos;, &apos;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36&apos;)</div><div class="line"># 创建OpenerDirector对象并打开网页</div><div class="line">opener = urllib2.build_opener()</div><div class="line">opener.addheaders = [headers]</div><div class="line">content = opener.open(url).read()</div><div class="line">encoding = chardet.detect(content)[&apos;encoding&apos;]</div><div class="line">content = content.decode(encoding, &apos;ignore&apos;)</div><div class="line"></div><div class="line"># 创建网页的BeautifulSoup对象</div><div class="line">soup = bs4.BeautifulSoup(content)</div><div class="line">films_set = soup.findAll(&apos;a&apos;, class_=&apos;ulink&apos;)  #获取所有class为ulink的a标签</div></pre></td></tr></table></figure>
+<p>上面的encoding = chardet.detect(content)[‘encoding’]是探测网页编码比如utf-8，gbk</p>
+<p>因为python的内部编码为unicode，所以需要将获取到的内容转换为unicode，上句话已经获得到了网页的编码，下面这句话就是转换了，content = content.decode(encoding, ‘ignore’)这句代码为什么要加ignore，那我下面就要引用了</p>
+<blockquote>
+<p>比如，若要将某个String对象s从gbk转换为unicode，可以如下操作<br>s.decode(‘gbk’)<br>可是，在实际开发中，我发现，这种办法经常会出现异常：<br>UnicodeDecodeError: ‘gbk’ codec can’t decode bytes in position 30664-30665: illegal multibyte sequence</p>
+<p>这是因为遇到了非法字符——尤其是在某些用C/C++编写的程序中，全角空格往往有多种不同的实现方式，比如\xa3\xa0，或者\xa4\x57，这些 字符，看起来都是全角空格，但它们并不是“合法”的全角空格（真正的全角空格是\xa1\xa1），因此在转码的过程中出现了异常。</p>
+<p>这样的问题很让人头疼，因为只要字符串中出现了一个非法字符，整个字符串——有时候，就是整篇文章——就都无法转码。</p>
+<p>解决办法：s.decode(‘gbk’, ‘ignore’)</p>
+<p>因为decode的函数原型是decode([encoding], [errors=’strict’])，可以用第二个参数控制错误处理的策略，默认的参数就是strict，代表遇到非法字符时抛出异常；<br>如果设置为ignore，则会忽略非法字符；<br>如果设置为replace，则会用?取代非法字符；<br>如果设置为xmlcharrefreplace，则使用XML的字符引用。</p>
+</blockquote>
+<p>经过上面的处理，所有第二页的url就存储到了films_set列表中了，下一步需要循环这个列表将所有的url与域名拼凑起来形成最终的url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for film in films_set:</div><div class="line">       film_dic = &#123;&#125;</div><div class="line">       # 提取地址，并与主域名拼凑</div><div class="line">       film_href = &quot;http://www.dytt8.net&quot; + film[&apos;href&apos;]</div></pre></td></tr></table></figure>
+<p>因为最终第二页的url已经拿到，那么我们接下来就去获取第二页的源码，分析然后拿到电影下载地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># 打开地址，获取第二页代码</div><div class="line">        film_content = urllib2.urlopen(film_href).read()</div><div class="line">        encoding = chardet.detect(film_content)[&apos;encoding&apos;]</div><div class="line">        film_content = film_content.decode(encoding, &apos;ignore&apos;)</div><div class="line">        # 获取HTML文档的BeautifulSoup对象</div><div class="line">        film_soup = bs4.BeautifulSoup(film_content)</div><div class="line">        # 提取电影title及下载地址</div><div class="line">        title_all = film_soup.findAll(&apos;div&apos;, class_=&apos;title_all&apos;)</div><div class="line">        film_dic[&apos;film_title&apos;] = title_all[-1].h1.font.string</div><div class="line">        if film_dic[&apos;film_title&apos;]:</div><div class="line">            film_dic[&apos;download_url&apos;] = film_soup.findAll(&apos;td&apos;, style=&apos;WORD-WRAP: break-word&apos;)[0].a[&apos;href&apos;]</div><div class="line">            film_list.append(film_dic)</div><div class="line">        else:</div><div class="line">            break</div></pre></td></tr></table></figure>
+<p>在这又遇到个问题，就是在浏览器中用f12看到的下载地址的td标签和用代码获取出来的td标签内容不一样，也是经过询问才知道浏览器中看到的代码是经过js处理过的，我们用代码获得的是没有经过处理的，所以这就需要调试技巧了，先在获取存储下载地址的td标签下断点，然后分析这个td标签的内容，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;td bgcolor=&quot;#fdfddf&quot; style=&quot;WORD-WRAP: break-word&quot;&gt;&lt;a href=&quot;ftp://ygdy8:ygdy8@y006.dygod.org:2096/[阳光电影www.ygdy8.com].我是路人甲(修正版).HD.720p.国语中字.rmvb&quot;&gt;ftp://ygdy8:ygdy8@y006.dygod.org:2096/[阳光电影www.ygdy8.com].我是路人甲(修正版).HD.720p.国语中字.rmvb</div></pre></td></tr></table></figure>
+<p>其实我们需要的就是这个href中的内容，拿到后存储到film_dic这个字典中。我们除了拿到下载地址还需要电影的名称，这个名称是没有经过处理的，所以直接去分析源码，然后取出来并存储就行了。</p>
+<p>以上功能都是在一个函数中实现的，下面需要调用这个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">url = &quot;http://www.dytt8.net/html/gndy/dyzz/index.html&quot;</div><div class="line"></div><div class="line">for film_dic in get_films_sorted(url):</div><div class="line">    print film_dic[&apos;film_title&apos;]</div><div class="line">    print film_dic[&apos;download_url&apos;]</div></pre></td></tr></table></figure>
+<p>以下是运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">2015年喜剧《我是路人甲 修正版》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2096/[阳光电影www.ygdy8.com].我是路人甲(修正版).HD.720p.国语中字.rmvb</div><div class="line">2015年范冰冰古装《王朝的女人・杨贵妃》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1382/[阳光电影www.ygdy8.com].王朝的女人・杨贵妃.HD.720p.国语中字.rmvb</div><div class="line">2015年古天乐余文乐任达华动作《谜城/迷城》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1381/[阳光电影www.ygdy8.com].谜城.HD.720p.国语中字.rmvb</div><div class="line">2015年喜剧《男人制造/灵魂的温度》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2095/[阳光电影www.ygdy8.com].男人制造.HD.720p.国语中字.rmvb</div><div class="line">2014年奇幻《故事中的故事》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1380/[阳光电影www.ygdy8.com].故事中的故事.BD.720p.中英双字幕.rmvb</div><div class="line">2015年孙红雷周冬雨《少年班》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2094/[阳光电影www.ygdy8.com].少年班.HD.720p.国语中字.rmvb</div><div class="line">2015年惊悚《7分钟》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2089/[阳光电影www.ygdy8.com].7分钟.BD.720p.中英双字幕.rmvb</div><div class="line">2014年惊悚《陡岸凶杀案》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1374/[阳光电影www.ygdy8.com].陡岸凶杀案.BD.720p.中英双字幕.rmvb</div><div class="line">2015年科幻动作《复仇者联盟2》HD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1371/[阳光电影www.ygdy8.com].复仇者联盟2.HD.720p.中英双字幕.rmvb</div><div class="line">2015年刘青云黄晓明《暴疯语》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1370/[阳光电影www.ygdy8.com].暴疯语.BD.720p.国粤双语中字.mkv</div><div class="line">2015年杨千古天乐《可爱的你》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2086/[阳光电影www.ygdy8.com].可爱的你.BD.720p.国粤双语中字.mkv</div><div class="line">2015年动作《杀破狼2之杀无赦》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1366/[阳光电影www.ygdy8.com].杀破狼2.HD.720p.国语中字.rmvb</div><div class="line">2015年悬疑惊悚《暗黑之地》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2082/[阳光电影www.ygdy8.com].暗黑之地.BD.720p.中英双字幕.rmvb</div><div class="line">2015年动作《疯狂的麦克斯：狂暴之路》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1364/[阳光电影www.ygdy8.com].疯狂的麦克斯：狂暴之路.BD.720p.中英双字幕.rmvb</div><div class="line">2015年悬疑动作《赤道/大峡谷/赤盗》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2080/[阳光电影www.ygdy8.com].赤道.BD.720p.国粤双语中字.mkv</div><div class="line">2015年梁洛施主演剧情《念念》BD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1363/[阳光电影www.ygdy8.com].念念.BD.720p.国语中字.rmvb</div><div class="line">2014年动作《冰峰游戏/总统游戏》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2079/[阳光电影www.ygdy8.com].冰峰游戏.BD.720p.中英双字幕.rmvb</div><div class="line">2015年郑伊健郑中基喜剧《全力扣杀》BD国粤双语中字</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1362/[阳光电影www.ygdy8.com].全力扣杀.BD.720p.国粤双语中字.mkv</div><div class="line">2014年科幻动作《机器人帝国》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1360/[阳光电影www.ygdy8.com].机器人帝国.BD.720p.中英双字幕.rmvb</div><div class="line">2015年科幻恐怖《天魔异种/孤海魔怪》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2077/[阳光电影www.ygdy8.com].天魔异种.BD.720p.中英双字幕.rmvb</div><div class="line">2015年剧情喜剧《小男孩》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2075/[阳光电影www.ygdy8.com].小男孩.BD.720p.中英双字幕.rmvb</div><div class="line">2015年爱情《时光尽头的恋人》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1358/[阳光电影www.ygdy8.com].时光尽头的恋人.BD.720p.中英双字幕.rmvb</div><div class="line">2015年动作喜剧《道士下山》HD国语中字</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2071/[阳光电影www.ygdy8.com].道士下山.HD.720p.国语中字.rmvb</div><div class="line">2015年动作喜剧《别惹得州》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y006.dygod.org:2068/[阳光电影www.ygdy8.com].别惹得州.BD.720p.中英双字幕.rmvb</div><div class="line">2014年惊悚《解除好友/杀讯》BD中英双字幕</div><div class="line">ftp://ygdy8:ygdy8@y201.dygod.org:1352/[阳光电影www.ygdy8.com].解除好友.BD.720p.中英双字幕.rmvb</div></pre></td></tr></table></figure>
+<p>github地址：<a href="https://github.com/lowkeynic4/crawl/blob/master/dianyingtiantang.py" target="_blank" rel="external">https://github.com/lowkeynic4/crawl/blob/master/dianyingtiantang.py</a></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/avoid-ban/" itemprop="url">
-              
-                <span itemprop="name">avoid-ban</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-03T17:12:17+08:00"
-              content="2015-09-03" >
-          09-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/08/pycharm-debug/" itemprop="url">
-              
-                <span itemprop="name">pycharm调试scrapy</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-08-25T17:00:40+08:00"
-              content="2015-08-25" >
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-mysql/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存mysql)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-24T16:39:23+08:00"
-              content="2015-07-24" >
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-json/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存json)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-22T16:32:20+08:00"
-              content="2015-07-22" >
-          07-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取csdn博客文章</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-20T16:28:55+08:00"
-              content="2015-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/django-blog/" rel="next" title="django博客程序">
+                <i class="fa fa-chevron-left"></i> django博客程序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/sec-wiki-singlethread/" rel="prev" title="利用正则和bs4爬取sec-wiki.com(单线程)">
+                利用正则和bs4爬取sec-wiki.com(单线程) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -710,6 +502,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -951,6 +747,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 

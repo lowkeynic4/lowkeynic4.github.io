@@ -80,7 +80,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="pyc,python," />
 
 
 
@@ -91,16 +91,20 @@
 
 
 
-<meta name="description" content="喜欢就买,不行就分,多喝热水,重启试试">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tenshine&#39;s Blog">
-<meta property="og:url" content="http://www.tenshine.party/archives/index.html">
+<meta name="description" content="学习pyc逆向过程的一个总结 python执行过程 Python先把代码（.py文件）编译成字节码，交给字节码虚拟机，然后虚拟机一条一条执行字节码指令，从而完成程序的执行。 字节码在Python虚拟机程序里对应的是PyCodeObject对象。.pyc文件是字节码在磁盘上的表现形式。 PyCodeObject对象的创建时机是模块加载的时候，即import。 Python test.py会对test">
+<meta name="keywords" content="pyc,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="assembly-python">
+<meta property="og:url" content="http://www.tenshine.party/2016/01/assembly-python/index.html">
 <meta property="og:site_name" content="Tenshine&#39;s Blog">
-<meta property="og:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta property="og:description" content="学习pyc逆向过程的一个总结 python执行过程 Python先把代码（.py文件）编译成字节码，交给字节码虚拟机，然后虚拟机一条一条执行字节码指令，从而完成程序的执行。 字节码在Python虚拟机程序里对应的是PyCodeObject对象。.pyc文件是字节码在磁盘上的表现形式。 PyCodeObject对象的创建时机是模块加载的时候，即import。 Python test.py会对test">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20151022165039.jpg">
+<meta property="og:updated_time" content="2017-10-24T09:41:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tenshine&#39;s Blog">
-<meta name="twitter:description" content="喜欢就买,不行就分,多喝热水,重启试试">
+<meta name="twitter:title" content="assembly-python">
+<meta name="twitter:description" content="学习pyc逆向过程的一个总结 python执行过程 Python先把代码（.py文件）编译成字节码，交给字节码虚拟机，然后虚拟机一条一条执行字节码指令，从而完成程序的执行。 字节码在Python虚拟机程序里对应的是PyCodeObject对象。.pyc文件是字节码在磁盘上的表现形式。 PyCodeObject对象的创建时机是模块加载的时候，即import。 Python test.py会对test">
+<meta name="twitter:image" content="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20151022165039.jpg">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://www.tenshine.party/archives/"/>
+  <link rel="canonical" href="http://www.tenshine.party/2016/01/assembly-python/"/>
 
 
 
 
 
-  <title>归档 | Tenshine's Blog</title>
+  <title>assembly-python | Tenshine's Blog</title>
   
 
 
@@ -155,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,416 +297,210 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.tenshine.party/2016/01/assembly-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tenshine">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tenshine's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">assembly-python</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-01T17:21:16+08:00">
+                2016-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 16 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/sql-cheat-sheet/" itemprop="url">
-              
-                <span itemprop="name">sql速查表</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-01T17:23:26+08:00"
-              content="2016-03-01" >
-          03-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/assembly-python/" itemprop="url">
-              
-                <span itemprop="name">assembly-python</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-01T17:21:16+08:00"
-              content="2016-01-01" >
-          01-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2015">2015</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/11/markdown/" itemprop="url">
-              
-                <span itemprop="name">markdown语法</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-11-01T17:19:17+08:00"
-              content="2015-11-01" >
-          11-01
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/10/pipinstall/" itemprop="url">
-              
-                <span itemprop="name">使用pip安装python包</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-10-15T17:17:20+08:00"
-              content="2015-10-15" >
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/virtualenv-virtualenvwrapper/" itemprop="url">
-              
-                <span itemprop="name">Virtualenv-Virtualenvwrapper使</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-30T17:13:53+08:00"
-              content="2015-09-30" >
-          09-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>学习pyc逆向过程的一个总结</p>
+<h4 id="python执行过程"><a href="#python执行过程" class="headerlink" title="python执行过程"></a>python执行过程</h4><ol>
+<li>Python先把代码（.py文件）编译成字节码，交给字节码虚拟机，然后虚拟机一条一条执行字节码指令，从而完成程序的执行。</li>
+<li>字节码在Python虚拟机程序里对应的是PyCodeObject对象。.pyc文件是字节码在磁盘上的表现形式。</li>
+<li>PyCodeObject对象的创建时机是模块加载的时候，即import。</li>
+<li>Python test.py会对test.py进行编译成字节码并解释执行，但是不会生成test.pyc。</li>
+<li>如果test.py加载了其他模块，如import util，Python会对util.py进行编译成字节码，生成util.pyc，然后对字节码解释执行。</li>
+<li>如果想生成test.pyc，我们可以使用Python内置模块py_compile来编译。</li>
+<li>加载模块时，如果同时存在.py和.pyc，Python会尝试使用.pyc，如果.pyc的编译时间早于.py的修改时间，则重新编译.py并更新.pyc。</li>
+</ol>
+<h4 id="具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。"><a href="#具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。" class="headerlink" title="具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。"></a>具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。</h4><h4 id="这只说几种反编译的方法："><a href="#这只说几种反编译的方法：" class="headerlink" title="这只说几种反编译的方法："></a>这只说几种反编译的方法：</h4><h1 id="1-uncompyle2最好用的方法"><a href="#1-uncompyle2最好用的方法" class="headerlink" title="1.uncompyle2最好用的方法"></a>1.uncompyle2最好用的方法</h1><p>新建一个需要反编译的py文件代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">def add(a):</div><div class="line">    b = 1</div><div class="line">    a += b</div><div class="line">    return a</div><div class="line"></div><div class="line">class world:</div><div class="line">    def __init__(self):</div><div class="line">        pass</div><div class="line">    def sayHello(self):</div><div class="line">        print &apos;hello,world&apos;</div><div class="line"></div><div class="line">w = world()</div><div class="line">w.sayHello()</div><div class="line"></div><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    print add(1)</div></pre></td></tr></table></figure>
+<p>利用<code>python -m py_compile fun.py</code>这样就产生了pyc文件了。<br>再新建一个decom.py文件代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#coding:utf8</div><div class="line">import marshal</div><div class="line">import uncompyle2</div><div class="line"></div><div class="line">funfile = open(&apos;fun.pyc&apos;,&apos;rb&apos;)</div><div class="line">funfile.read(8) #先读出前8个字节</div><div class="line">content = funfile.read()</div><div class="line">a = marshal.loads(content)</div><div class="line">decomfile = open(&apos;fun_decom.py&apos;,&apos;w&apos;)</div><div class="line">x = uncompyle2.uncompyle(&apos;2.7&apos;,a,decomfile)</div></pre></td></tr></table></figure>
+<p>这里为什么要先读出前8个字节呢，根据pyc的格式决定的:</p>
+<ul>
+<li>因为pyc文件的最开始4个字节是一个Maigc int, 标识此pyc的版本信息, 不同的版本的 Magic 都在 Python/import.c 内定义</li>
+<li>接下来四个字节还是个int,是pyc产生的时间(1970.01.01到产生pyc时候的秒数)</li>
+<li>接下来是个序列化了的 PyCodeObject(此结构在 Include/code.h 内定义),序列化方法在 Python/marshal.c 内定义</li>
+</ul>
+<p>所以这里我们只需要最后的PyCodeObject的内容，所以就先将前8个字节读出来不要了。</p>
+<p>marshal.loads()的作用是反序列化，因为从py文件生成为pyc文件的时候，python内部会有一个序列化的步骤，所以我们需要在反编译之前先反序列化一下。</p>
+<p>在这里marshal有两个函数可以利用，一个就是上面用到的loads函数，他接收的参数是string，也就是pyc除去前8个字节的string；另一个是load函数，他接收的参数是file，所以上面代码需要改一点如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">funfile = open(&apos;fun.pyc&apos;,&apos;rb&apos;)</div><div class="line">funfile.read(8) #先读出前8个字节</div><div class="line">a = marshal.load(funfile)</div></pre></td></tr></table></figure>
+<p>执行完这个decom.py文件后，就会在当前目中中生成一个fun_decom.py的文件，可以拿这个文件和fun.py文件比较一下，是完全一样的。这样就反编译成功了。  </p>
+<h1 id="2-pycdc"><a href="#2-pycdc" class="headerlink" title="2.pycdc"></a>2.pycdc</h1><p>pycdc是github上的一个c++编写的python反编译开源项目，地址为：<a href="https://github.com/zrax/pycdc，他的介绍里面有编译过程，当编译完成后会产生两个可执行程序pycdas和pycdc" target="_blank" rel="external">https://github.com/zrax/pycdc，他的介绍里面有编译过程，当编译完成后会产生两个可执行程序pycdas和pycdc</a></p>
+<p>pycdc是将pyc文件直接反编译为py文件，使用方法为pycdc fun.pyc 这样反编译好的py文件会直接输出到屏幕上，如果想输出到文件中可以用linux中的重定向符”&gt;”，具体为pycdc fun.pyc &gt; decom.py即可</p>
+<p>pycdas是将pyc文件反编译到字节码，输出也是默认到屏幕上。</p>
+<h1 id="3-Easy-Python-Decompiler"><a href="#3-Easy-Python-Decompiler" class="headerlink" title="3.Easy Python Decompiler"></a>3.Easy Python Decompiler</h1><p>这个工具是windows下的python反编译工具。到处都可以下载到，他的内部其实也是利用了uncompyle2模块，然后在上面封装了一下而已。<br>界面如下：<br><img src="http://7xljat.com1.z0.glb.clouddn.com/QQ截图20151022165039.jpg" alt=""></p>
+<p>这是个windows版的工具，可以反编译单个pyc,pyo 文件，或者选定反编译一个指定文件夹下面的pyc,pyo 文件。<br>反编译的结果的名字为原来的名字+”pyc_dic”, 用文本编辑器打开就可以看到源码</p>
+<h3 id="以下是我在反编译程序时遇到的问题"><a href="#以下是我在反编译程序时遇到的问题" class="headerlink" title="以下是我在反编译程序时遇到的问题"></a>以下是我在反编译程序时遇到的问题</h3><p>我遇到一个文件大小为300k左右，以前也遇到过这么大的pyc文件都是可以反编译的，但是这个pyc利用上面的Easy Python Decompiler会出错什么输出都没有；利用pycdc可以输出，但是只能输出一大部分，然后会报错；利用uncompyle2会没有反应，刚开始我以为是出错了，但是没有任何反应，只能看见内存一直在增长，以为是有内存泄露什么的，所以就给关了。</p>
+<p>最终我抱着试一试的态度，让他一直运行，然后看着内存在疯狂的增长，cpu占用100%，这里说一下我的物理内存是16g，交换分区也是16g，等了差不多两个多小时后，物理内存全部用完，交换分区用了8g左右，然后cpu的占用率就下去了，但是内存没有下去，这样又等了半个小时以后，最终的py文件被完全反编译出来了。</p>
+<p>然后看这个py文件，里面有一个字典，它的条目数是12000左右，所以后来分析反编译的过程，得到我的结论是pyc文件中，所有的变量、函数、类、字典类的是数据结构，字符串等都作为反编译的条目，然后这里就会有个递归的过程，学过c语言的都应该知道，如果是数量级大的递归的话需要消耗非常多的内存。这里就是这样的。所以说反编译还是最好用python的uncompyle2模块。</p>
+<p>下面是一个解析pyc文件到xml的代码，我就是从这里面的stacksize猜测出需要递归的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">import dis, marshal, struct, sys, time, types</div><div class="line"></div><div class="line">def show_file(fname):</div><div class="line">    f = open(fname, &quot;rb&quot;)</div><div class="line">    magic = f.read(4)</div><div class="line">    moddate = f.read(4)</div><div class="line">    modtime = time.asctime(time.localtime(struct.unpack(&apos;&lt;l&apos;, moddate)[0]))</div><div class="line">    print &quot;magic %s&quot; % (magic.encode(&apos;hex&apos;))</div><div class="line">    print &quot;moddate %s (%s)&quot; % (moddate.encode(&apos;hex&apos;), modtime)</div><div class="line">    code = marshal.load(f)</div><div class="line">    show_code(code)</div><div class="line"></div><div class="line">def show_code(code, indent=&apos;&apos;):</div><div class="line">    old_indent = indent</div><div class="line">    print &quot;%s&lt;code&gt;&quot; % indent</div><div class="line">    indent += &apos;   &apos;</div><div class="line">    print &quot;%s&lt;argcount&gt; %d &lt;/argcount&gt;&quot; % (indent, code.co_argcount)</div><div class="line">    print &quot;%s&lt;nlocals&gt; %d&lt;/nlocals&gt;&quot; % (indent, code.co_nlocals)</div><div class="line">    print &quot;%s&lt;stacksize&gt; %d&lt;/stacksize&gt;&quot; % (indent, code.co_stacksize)</div><div class="line">    print &quot;%s&lt;flags&gt; %04x&lt;/flags&gt;&quot; % (indent, code.co_flags)</div><div class="line">    show_hex(&quot;code&quot;, code.co_code, indent=indent)</div><div class="line">    print &quot;%s&lt;dis&gt;&quot; % indent</div><div class="line">    dis.disassemble(code)</div><div class="line">    print &quot;%s&lt;/dis&gt;&quot; % indent</div><div class="line"></div><div class="line">    print &quot;%s&lt;names&gt; %r&lt;/names&gt;&quot; % (indent, code.co_names)</div><div class="line">    print &quot;%s&lt;varnames&gt; %r&lt;/varnames&gt;&quot; % (indent, code.co_varnames)</div><div class="line">    print &quot;%s&lt;freevars&gt; %r&lt;/freevars&gt;&quot; % (indent, code.co_freevars)</div><div class="line">    print &quot;%s&lt;cellvars&gt; %r&lt;/cellvars&gt;&quot; % (indent, code.co_cellvars)</div><div class="line">    print &quot;%s&lt;filename&gt; %r&lt;/filename&gt;&quot; % (indent, code.co_filename)</div><div class="line">    print &quot;%s&lt;name&gt; %r&lt;/name&gt;&quot; % (indent, code.co_name)</div><div class="line">    print &quot;%s&lt;firstlineno&gt; %d&lt;/firstlineno&gt;&quot; % (indent, code.co_firstlineno)</div><div class="line"></div><div class="line">    print &quot;%s&lt;consts&gt;&quot; % indent</div><div class="line">    for const in code.co_consts:</div><div class="line">        if type(const) == types.CodeType:</div><div class="line">            show_code(const, indent+&apos;   &apos;)</div><div class="line">        else:</div><div class="line">            print &quot;   %s%r&quot; % (indent, const)</div><div class="line">    print &quot;%s&lt;/consts&gt;&quot; % indent</div><div class="line"></div><div class="line">    show_hex(&quot;lnotab&quot;, code.co_lnotab, indent=indent)</div><div class="line">    print &quot;%s&lt;/code&gt;&quot; % old_indent</div><div class="line"></div><div class="line">def show_hex(label, h, indent):</div><div class="line">    h = h.encode(&apos;hex&apos;)</div><div class="line">    if len(h) &lt; 60:</div><div class="line">        print &quot;%s&lt;%s&gt; %s&lt;/%s&gt;&quot; % (indent, label, h,label)</div><div class="line">    else:</div><div class="line">        print &quot;%s&lt;%s&gt;&quot; % (indent, label)</div><div class="line">        for i in range(0, len(h), 60):</div><div class="line">            print &quot;%s   %s&quot; % (indent, h[i:i+60])</div><div class="line">        print &quot;%s&lt;/%s&gt;&quot; % (indent, label)</div><div class="line"></div><div class="line">show_file(sys.argv[1])</div></pre></td></tr></table></figure>
+<p>使用方法为<code>python showfile.py fun.pyc &gt; fun.xml</code>，里面可以详细的看出pyc的结构，这方面的只是就需要去深入了解pyc的文件结构了</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/09/avoid-ban/" itemprop="url">
-              
-                <span itemprop="name">avoid-ban</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-09-03T17:12:17+08:00"
-              content="2015-09-03" >
-          09-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/08/pycharm-debug/" itemprop="url">
-              
-                <span itemprop="name">pycharm调试scrapy</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-08-25T17:00:40+08:00"
-              content="2015-08-25" >
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-mysql/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存mysql)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-24T16:39:23+08:00"
-              content="2015-07-24" >
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn-json/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取cnblogs博客文章(保存json)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-22T16:32:20+08:00"
-              content="2015-07-22" >
-          07-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/scrapy-csdn/" itemprop="url">
-              
-                <span itemprop="name">scrapy爬取csdn博客文章</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-07-20T16:28:55+08:00"
-              content="2015-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pyc/" rel="tag"># pyc</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/markdown/" rel="next" title="markdown语法">
+                <i class="fa fa-chevron-left"></i> markdown语法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/sql-cheat-sheet/" rel="prev" title="sql速查表">
+                sql速查表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -710,6 +508,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -730,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -793,6 +604,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#python执行过程"><span class="nav-number">1.</span> <span class="nav-text">python执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。"><span class="nav-number">2.</span> <span class="nav-text">具体的pyc文件结构和PyCodeObject对应格式就不在这说了，我总结的还没网上总结的好呢。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#这只说几种反编译的方法："><span class="nav-number">3.</span> <span class="nav-text">这只说几种反编译的方法：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-uncompyle2最好用的方法"><span class="nav-number"></span> <span class="nav-text">1.uncompyle2最好用的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-pycdc"><span class="nav-number"></span> <span class="nav-text">2.pycdc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Easy-Python-Decompiler"><span class="nav-number"></span> <span class="nav-text">3.Easy Python Decompiler</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以下是我在反编译程序时遇到的问题"><span class="nav-number"></span> <span class="nav-text">以下是我在反编译程序时遇到的问题</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -951,6 +778,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
